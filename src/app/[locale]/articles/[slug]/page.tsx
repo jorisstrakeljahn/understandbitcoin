@@ -8,6 +8,7 @@ import { getContentBySlug, getAllContent, getRelatedContent, getTopicConfig, get
 import { ArticleSidebar } from '@/components/article/ArticleSidebar';
 import { TableOfContents } from '@/components/article/TableOfContents';
 import { MobileNav } from '@/components/article/MobileNav';
+import { ResizableSidebar } from '@/components/article/ResizableSidebar';
 import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
 import { TopicIcon, HelpCircle, ArrowLeft } from '@/components/icons';
 import styles from './article.module.css';
@@ -127,8 +128,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <MobileNav headings={headings} />
       
       <div className={styles.container}>
-        {/* Left Sidebar - Topic Navigation */}
-        <aside className={styles.leftSidebar}>
+        {/* Left Sidebar - Topic Navigation (Resizable) */}
+        <ResizableSidebar 
+          defaultWidth={280} 
+          minWidth={200} 
+          maxWidth={450}
+          storageKey="docs-sidebar-width"
+        >
           <ArticleSidebar 
             currentTopic={frontmatter.topic} 
             currentSlug={slug} 
@@ -136,7 +142,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             topics={topicsForSidebar}
             locale={locale}
           />
-        </aside>
+        </ResizableSidebar>
 
         {/* Main Content */}
         <article className={styles.article}>

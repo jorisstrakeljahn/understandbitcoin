@@ -148,7 +148,7 @@
     "beginner": {
       "label": {
         "en": "Beginner",
-        "de": "Anfänger"
+        "de": "Beginner"
       },
       "color": "var(--color-success)"
     },

@@ -1,0 +1,56 @@
+.sidebar {
+  display: none;
+  flex-shrink: 0;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background-color: var(--color-bg-primary);
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    display: flex;
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.resizer {
+  width: 8px;
+  cursor: col-resize;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+
+.resizer:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.resizerActive {
+  background-color: var(--color-accent);
+  background-color: rgba(var(--color-accent-rgb, 245, 158, 11), 0.2);
+}
+
+.resizerHandle {
+  width: 3px;
+  height: 32px;
+  border-radius: 2px;
+  background-color: var(--color-border-subtle);
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.resizer:hover .resizerHandle,
+.resizerActive .resizerHandle {
+  opacity: 1;
+  background-color: var(--color-accent);
+}
