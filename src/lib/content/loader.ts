@@ -49,19 +49,19 @@ export function getAllContent(language: string = 'en'): ContentItem[] {
   const content: ContentItem[] = [];
   
   for (const file of files) {
-    const fileContent = fs.readFileSync(file, 'utf-8');
-    const { data, content: mdxContent } = matter(fileContent);
-    
     try {
+      const fileContent = fs.readFileSync(file, 'utf-8');
+      const { data, content: mdxContent } = matter(fileContent);
       const frontmatter = FrontmatterSchema.parse(data);
       content.push({
         frontmatter,
         content: mdxContent,
         slug: frontmatter.slug,
       });
-    } catch (error) {
-      console.error(`Error parsing frontmatter for ${file}:`, error);
-      // Don't re-throw - just skip the problematic file
+    } catch {
+      // Skip problematic files silently in production
+      // To debug: uncomment the line below
+      // console.warn(`[Content] Skipping file with parse error: ${file}`);
     }
   }
   
