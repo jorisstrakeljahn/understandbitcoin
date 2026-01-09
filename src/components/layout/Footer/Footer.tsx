@@ -11,7 +11,6 @@ export function Footer() {
   const FOOTER_LINKS = {
     learn: [
       { href: `/${locale}/topics`, label: t('allTopics') },
-      { href: `/${locale}/glossary`, label: t('glossary') },
       { href: `/${locale}/sources`, label: t('sources') },
     ],
     topics: [

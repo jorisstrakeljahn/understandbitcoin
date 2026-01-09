@@ -48,9 +48,6 @@ export function InlineTerm({ term, children, definition }: InlineTermProps) {
         >
           <span className={styles.popoverTerm}>{term}</span>
           <span className={styles.popoverDefinition}>{glossaryDefinition}</span>
-          <a href={`/glossary#${term.toLowerCase()}`} className={styles.popoverLink}>
-            See full definition →
-          </a>
         </span>
       )}
     </span>

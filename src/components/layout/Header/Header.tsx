@@ -23,7 +23,6 @@ export function Header() {
   const NAV_LINKS = [
     { href: `/${locale}/topics`, label: t('topics') },
     { href: `/${locale}/topics/criticism`, label: t('criticism') },
-    { href: `/${locale}/glossary`, label: t('glossary') },
     { href: `/${locale}/sources`, label: t('sources') },
   ];
 

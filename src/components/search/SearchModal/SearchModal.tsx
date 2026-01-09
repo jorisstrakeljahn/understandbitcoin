@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui';
 import { TOPICS, LEVELS } from '@/lib/content/schema';
-import { Search, Bitcoin, HelpCircle, Zap, BookOpen } from '@/components/icons';
+import { Search, Bitcoin, HelpCircle, Zap } from '@/components/icons';
 import styles from './SearchModal.module.css';
 
 interface SearchResult {
@@ -221,12 +221,6 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     <Zap size={16} />
                   </span>
                   Lightning
-                </Link>
-                <Link href="/glossary" className={styles.quickLink} onClick={onClose}>
-                  <span className={styles.quickLinkIcon}>
-                    <BookOpen size={16} />
-                  </span>
-                  Glossary
                 </Link>
               </div>
             </div>

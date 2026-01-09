@@ -6,7 +6,6 @@
   "header": {
     "topics": "Themen",
     "criticism": "Kritik",
-    "glossary": "Glossar",
     "sources": "Quellen",
     "openSearch": "Suche öffnen",
     "openNavigation": "Navigationsmenü öffnen",
@@ -19,7 +18,6 @@
     "mission": "Eine freie, quelloffene Wissensdatenbank, die Menschen hilft Bitcoin zu verstehen — daher Bitcoin.",
     "learn": "Lernen",
     "allTopics": "Alle Themen",
-    "glossary": "Glossar",
     "sources": "Quellen",
     "topics": "Themen",
     "bitcoinBasics": "Bitcoin Grundlagen",
@@ -114,15 +112,6 @@
     "tryDifferent": "Versuche einen anderen Suchbegriff",
     "placeholder": "Suchen...",
     "all": "Alle"
-  },
-  "glossary": {
-    "title": "Glossar",
-    "subtitle": "Bitcoin-Begriffe einfach erklärt",
-    "comingSoon": "Demnächst verfügbar",
-    "description": "Wir erstellen ein umfassendes Glossar der Bitcoin- und Kryptowährungsbegriffe. Jeder Eintrag enthält klare Definitionen, Beispiele und Links zu verwandten Artikeln.",
-    "searchPlaceholder": "Begriffe suchen...",
-    "featuredTerms": "Wichtige Begriffe",
-    "viewAll": "Alle Begriffe anzeigen"
   },
   "sources": {
     "title": "Quellenbibliothek",

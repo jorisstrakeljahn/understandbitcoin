@@ -6,7 +6,6 @@
   "header": {
     "topics": "Topics",
     "criticism": "Criticism",
-    "glossary": "Glossary",
     "sources": "Sources",
     "openSearch": "Open search",
     "openNavigation": "Open navigation menu",
@@ -19,7 +18,6 @@
     "mission": "A free, open-source knowledge base helping people understand Bitcoin — therefore Bitcoin.",
     "learn": "Learn",
     "allTopics": "All Topics",
-    "glossary": "Glossary",
     "sources": "Sources",
     "topics": "Topics",
     "bitcoinBasics": "Bitcoin Basics",
@@ -114,15 +112,6 @@
     "tryDifferent": "Try a different search term",
     "placeholder": "Search...",
     "all": "All"
-  },
-  "glossary": {
-    "title": "Glossary",
-    "subtitle": "Bitcoin terminology explained simply",
-    "comingSoon": "Coming Soon",
-    "description": "We're building a comprehensive glossary of Bitcoin and cryptocurrency terms. Each entry will include clear definitions, examples, and links to related articles.",
-    "searchPlaceholder": "Search terms...",
-    "featuredTerms": "Featured Terms",
-    "viewAll": "View all terms"
   },
   "sources": {
     "title": "Source Library",
