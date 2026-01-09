@@ -1,13 +1,22 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Search } from '@/components/icons';
 import { Button } from '@/components/ui';
-import { AnimatedQuestion } from '../AnimatedQuestion';
 import styles from './HeroSection.module.css';
+
+// Lazy load AnimatedQuestion since it's not immediately visible
+const AnimatedQuestion = dynamic(
+  () => import('../AnimatedQuestion').then(mod => ({ default: mod.AnimatedQuestion })),
+  { 
+    ssr: true,
+    loading: () => <div className={styles.questionPlaceholder} />
+  }
+);
 
 interface Question {
   text: string;
@@ -35,17 +44,79 @@ function formatStat(value: number, showPlus = false, roundTo = 10): string {
   return String(value);
 }
 
-// Floating particles configuration
-const FLOATING_ELEMENTS = [
-  { size: 6, x: '10%', y: '20%', delay: 0, duration: 8 },
-  { size: 4, x: '85%', y: '15%', delay: 1, duration: 10 },
-  { size: 8, x: '75%', y: '70%', delay: 2, duration: 7 },
-  { size: 5, x: '20%', y: '75%', delay: 0.5, duration: 9 },
-  { size: 3, x: '90%', y: '45%', delay: 1.5, duration: 11 },
-  { size: 7, x: '5%', y: '50%', delay: 2.5, duration: 8 },
-  { size: 4, x: '60%', y: '85%', delay: 0.8, duration: 10 },
-  { size: 5, x: '40%', y: '10%', delay: 1.2, duration: 9 },
-];
+// Memoized floating particles to prevent re-renders
+const FloatingParticles = memo(function FloatingParticles() {
+  const FLOATING_ELEMENTS = [
+    { size: 6, x: '10%', y: '20%', delay: 0, duration: 8 },
+    { size: 4, x: '85%', y: '15%', delay: 1, duration: 10 },
+    { size: 8, x: '75%', y: '70%', delay: 2, duration: 7 },
+    { size: 5, x: '20%', y: '75%', delay: 0.5, duration: 9 },
+    { size: 3, x: '90%', y: '45%', delay: 1.5, duration: 11 },
+    { size: 7, x: '5%', y: '50%', delay: 2.5, duration: 8 },
+    { size: 4, x: '60%', y: '85%', delay: 0.8, duration: 10 },
+    { size: 5, x: '40%', y: '10%', delay: 1.2, duration: 9 },
+  ];
+
+  return (
+    <>
+      {FLOATING_ELEMENTS.map((particle, index) => (
+        <motion.div
+          key={index}
+          className={styles.floatingParticle}
+          style={{
+            width: particle.size,
+            height: particle.size,
+            left: particle.x,
+            top: particle.y,
+          }}
+          animate={{
+            y: [-20, 20, -20],
+            x: [-10, 10, -10],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: particle.delay,
+          }}
+        />
+      ))}
+    </>
+  );
+});
+
+// Memoized gradient orbs
+const GradientOrbs = memo(function GradientOrbs() {
+  return (
+    <>
+      <motion.div
+        className={styles.gradientOrb1}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className={styles.gradientOrb2}
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+    </>
+  );
+});
 
 export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProps) {
   const t = useTranslations('home');
@@ -67,55 +138,10 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
       {/* Animated Background */}
       <div className={styles.heroBackground}>
         {/* Gradient Orbs */}
-        <motion.div
-          className={styles.gradientOrb1}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className={styles.gradientOrb2}
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+        <GradientOrbs />
 
         {/* Floating Particles */}
-        {FLOATING_ELEMENTS.map((particle, index) => (
-          <motion.div
-            key={index}
-            className={styles.floatingParticle}
-            style={{
-              width: particle.size,
-              height: particle.size,
-              left: particle.x,
-              top: particle.y,
-            }}
-            animate={{
-              y: [-20, 20, -20],
-              x: [-10, 10, -10],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: particle.delay,
-            }}
-          />
-        ))}
+        <FloatingParticles />
 
         {/* Grid Pattern */}
         <div className={styles.heroPattern} />

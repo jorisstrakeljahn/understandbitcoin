@@ -61,12 +61,42 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Immutable caching for fonts
       {
         source: '/fonts/(.*)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Long-term caching for images
+      {
+        source: '/sources/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache static pages for 1 hour, revalidate in background
+      {
+        source: '/:locale/articles/:slug*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
+        source: '/:locale/topics/:topic*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600, stale-while-revalidate=86400',
           },
         ],
       },

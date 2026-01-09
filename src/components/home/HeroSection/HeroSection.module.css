@@ -118,6 +118,12 @@
   justify-content: center;
 }
 
+/* Placeholder for lazy-loaded question */
+.questionPlaceholder {
+  width: 100%;
+  height: 60px;
+}
+
 /* Subtitle */
 .heroSubtitle {
   font-size: var(--font-size-lg);
