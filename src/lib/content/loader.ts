@@ -61,6 +61,7 @@ export function getAllContent(language: string = 'en'): ContentItem[] {
       });
     } catch (error) {
       console.error(`Error parsing frontmatter for ${file}:`, error);
+      // Don't re-throw - just skip the problematic file
     }
   }
   
