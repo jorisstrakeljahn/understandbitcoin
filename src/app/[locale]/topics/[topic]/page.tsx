@@ -165,9 +165,6 @@ export default async function TopicPage({ params }: TopicPageProps) {
                               {article.frontmatter.summary}
                             </span>
                           </div>
-                          <span className={styles.articleMeta}>
-                            {article.readTime} {t('minRead')}
-                          </span>
                         </Link>
                       </li>
                     ))}
@@ -198,9 +195,6 @@ export default async function TopicPage({ params }: TopicPageProps) {
                               {article.frontmatter.summary}
                             </span>
                           </div>
-                          <span className={styles.articleMeta}>
-                            {article.readTime} {t('minRead')}
-                          </span>
                         </Link>
                       </li>
                     ))}
@@ -231,9 +225,6 @@ export default async function TopicPage({ params }: TopicPageProps) {
                               {article.frontmatter.summary}
                             </span>
                           </div>
-                          <span className={styles.articleMeta}>
-                            {article.readTime} {t('minRead')}
-                          </span>
                         </Link>
                       </li>
                     ))}

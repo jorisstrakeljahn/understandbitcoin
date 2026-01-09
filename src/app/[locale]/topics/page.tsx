@@ -131,9 +131,6 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
                             <span className={styles.articleTitle}>
                               {article.frontmatter.title}
                             </span>
-                            <span className={styles.articleMeta}>
-                              {article.readTime} {t('minRead')}
-                            </span>
                             <ChevronRight size={14} className={styles.articleArrow} />
                           </Link>
                         </li>

@@ -370,11 +370,6 @@
   margin-bottom: var(--space-3);
 }
 
-.readTime {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-}
-
 .popularArticleTitle {
   font-family: var(--font-sans);
   font-size: var(--font-size-lg);

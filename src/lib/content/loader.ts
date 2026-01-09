@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import readingTime from 'reading-time';
 import { FrontmatterSchema, Frontmatter, Topic, ContentType, ContentLevel } from './schema';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
@@ -10,7 +9,6 @@ export interface ContentItem {
   frontmatter: Frontmatter;
   content: string;
   slug: string;
-  readTime: number;
 }
 
 export interface ContentIndex {
@@ -22,7 +20,6 @@ export interface ContentIndex {
   level: ContentLevel;
   tags: string[];
   lastUpdated: string;
-  readTime: number;
 }
 
 function getMDXFiles(dir: string): string[] {
@@ -55,19 +52,12 @@ export function getAllContent(language: string = 'en'): ContentItem[] {
     const fileContent = fs.readFileSync(file, 'utf-8');
     const { data, content: mdxContent } = matter(fileContent);
     
-    const readTimeResult = readingTime(mdxContent);
-    const enrichedData = {
-      ...data,
-      readTime: Math.ceil(readTimeResult.minutes),
-    };
-    
     try {
-      const frontmatter = FrontmatterSchema.parse(enrichedData);
+      const frontmatter = FrontmatterSchema.parse(data);
       content.push({
         frontmatter,
         content: mdxContent,
         slug: frontmatter.slug,
-        readTime: Math.ceil(readTimeResult.minutes),
       });
     } catch (error) {
       console.error(`Error parsing frontmatter for ${file}:`, error);
@@ -109,7 +99,6 @@ export function getContentIndex(language: string = 'en'): ContentIndex[] {
     level: item.frontmatter.level,
     tags: item.frontmatter.tags,
     lastUpdated: item.frontmatter.lastUpdated,
-    readTime: item.readTime,
   }));
 }
 

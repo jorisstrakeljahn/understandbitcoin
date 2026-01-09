@@ -157,7 +157,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               >
                 {tTopics(frontmatter.level)}
               </Badge>
-              <span className={styles.readTime}>{article.readTime} {tTopics('minRead')}</span>
             </div>
             <h1 className={styles.title}>{frontmatter.title}</h1>
             <p className={styles.summary}>{frontmatter.summary}</p>
@@ -239,7 +238,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     <h3>{related.title}</h3>
                     <p>{related.summary}</p>
                     <span className={styles.relatedMeta}>
-                      {related.readTime} {tTopics('minRead')} · {tTopics(related.level)}
+                      {tTopics(related.level)}
                     </span>
                   </Link>
                 ))}

@@ -53,7 +53,6 @@ export const FrontmatterSchema = z.object({
   language: z.string().default('en'),
   lastUpdated: z.string(),
   sources: z.array(SourceSchema).optional().default([]),
-  readTime: z.number().optional(),
   tldr: z.array(z.string()).max(5).optional(),
   relatedQuestions: z.array(z.string()).optional().default([]),
   whyPeopleAsk: z.string().optional(),

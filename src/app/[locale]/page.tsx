@@ -30,7 +30,6 @@ const POPULAR_ARTICLES = [
     summary: 'A digital currency without banks or governments.',
     summaryDe: 'Eine digitale Währung ohne Banken oder Regierungen.',
     topic: 'basics' as Topic,
-    readTime: 5,
   },
   {
     slug: 'bitcoin-energy-consumption',
@@ -39,7 +38,6 @@ const POPULAR_ARTICLES = [
     summary: 'Understanding Bitcoin\'s energy use in context.',
     summaryDe: 'Bitcoins Energieverbrauch im Kontext verstehen.',
     topic: 'mining' as Topic,
-    readTime: 8,
   },
   {
     slug: 'is-bitcoin-a-ponzi-scheme',
@@ -48,7 +46,6 @@ const POPULAR_ARTICLES = [
     summary: 'Examining the claim with the actual definition.',
     summaryDe: 'Die Behauptung mit der tatsächlichen Definition prüfen.',
     topic: 'criticism' as Topic,
-    readTime: 6,
   },
   {
     slug: 'what-is-lightning-network',
@@ -57,7 +54,6 @@ const POPULAR_ARTICLES = [
     summary: 'Fast, cheap payments built on Bitcoin.',
     summaryDe: 'Schnelle, günstige Zahlungen auf Bitcoin-Basis.',
     topic: 'lightning' as Topic,
-    readTime: 7,
   },
 ];
 
@@ -184,7 +180,6 @@ function HomePageContent({ locale, questions }: { locale: string; questions: { t
                         {TOPICS[article.topic]?.label}
                       </span>
                     </Badge>
-                    <span className={styles.readTime}>{article.readTime} {t('topics.minRead')}</span>
                   </div>
                   <h3 className={styles.popularArticleTitle}>
                     {isGerman ? article.titleDe : article.title}
