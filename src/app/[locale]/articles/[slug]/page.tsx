@@ -12,9 +12,10 @@ import { ResizableSidebar } from '@/components/article/ResizableSidebar';
 import { CollapsibleTOC } from '@/components/article/CollapsibleTOC';
 import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
 import { HelpCircle, ArrowLeft } from '@/components/icons';
+import { siteConfig } from '@/lib/config';
 import styles from './article.module.css';
 
-const BASE_URL = 'https://thereforbitcoin.com';
+const BASE_URL = siteConfig.url;
 
 interface ArticlePageProps {
   params: Promise<{ locale: string; slug: string }>;

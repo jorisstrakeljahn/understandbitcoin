@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://thereforbitcoin.com"),
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: "Therefor Bitcoin - Clear Answers About Bitcoin",
     template: "%s | Therefor Bitcoin",
@@ -22,8 +23,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://thereforbitcoin.com",
-    siteName: "Therefor Bitcoin",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     title: "Therefor Bitcoin - Clear Answers About Bitcoin",
     description:
       "A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources.",
