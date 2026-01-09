@@ -31,7 +31,7 @@ A premium, modern "linkable in conversations" Q&A wiki where users land on a spe
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/thereforbitcoin.git
+git clone https://github.com/jorisstrakeljahn/thereforbitcoin.git
 cd thereforbitcoin
 
 # Install dependencies
