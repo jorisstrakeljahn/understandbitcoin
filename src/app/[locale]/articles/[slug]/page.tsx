@@ -1,3 +1,4 @@
+import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
@@ -272,7 +273,8 @@ function extractHeadings(content: string): { id: string; text: string; level: nu
   while ((match = headingRegex.exec(content)) !== null) {
     const level = match[1].length;
     const text = match[2];
-    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    // Support German umlauts and other characters
+    const id = text.toLowerCase().replace(/[^a-z0-9äöüß]+/g, '-').replace(/(^-|-$)/g, '');
     headings.push({ id, text, level });
   }
 
@@ -289,35 +291,240 @@ function formatDate(dateString: string, locale: string): string {
   });
 }
 
-// Simple content renderer
+// Parse inline markdown (bold, italic, code, links)
+function parseInlineMarkdown(text: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  let remaining = text;
+  let keyIndex = 0;
+
+  while (remaining.length > 0) {
+    // Bold: **text** or __text__
+    const boldMatch = remaining.match(/^(\*\*|__)(.+?)\1/);
+    if (boldMatch) {
+      parts.push(<strong key={keyIndex++}>{parseInlineMarkdown(boldMatch[2])}</strong>);
+      remaining = remaining.slice(boldMatch[0].length);
+      continue;
+    }
+
+    // Italic: *text* or _text_
+    const italicMatch = remaining.match(/^(\*|_)([^*_]+?)\1/);
+    if (italicMatch) {
+      parts.push(<em key={keyIndex++}>{parseInlineMarkdown(italicMatch[2])}</em>);
+      remaining = remaining.slice(italicMatch[0].length);
+      continue;
+    }
+
+    // Inline code: `code`
+    const codeMatch = remaining.match(/^`([^`]+)`/);
+    if (codeMatch) {
+      parts.push(<code key={keyIndex++} className={styles.inlineCode}>{codeMatch[1]}</code>);
+      remaining = remaining.slice(codeMatch[0].length);
+      continue;
+    }
+
+    // Links: [text](url)
+    const linkMatch = remaining.match(/^\[([^\]]+)\]\(([^)]+)\)/);
+    if (linkMatch) {
+      parts.push(
+        <a key={keyIndex++} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className={styles.link}>
+          {linkMatch[1]}
+        </a>
+      );
+      remaining = remaining.slice(linkMatch[0].length);
+      continue;
+    }
+
+    // Regular text - consume until next special character or end
+    const nextSpecial = remaining.search(/[\*_`\[]/);
+    if (nextSpecial === -1) {
+      parts.push(remaining);
+      break;
+    } else if (nextSpecial === 0) {
+      // Special char at start but didn't match any pattern, consume it
+      parts.push(remaining[0]);
+      remaining = remaining.slice(1);
+    } else {
+      parts.push(remaining.slice(0, nextSpecial));
+      remaining = remaining.slice(nextSpecial);
+    }
+  }
+
+  return parts;
+}
+
+// Parse a table from markdown
+function parseTable(tableText: string): React.ReactNode {
+  const lines = tableText.trim().split('\n').filter(line => line.trim());
+  if (lines.length < 2) return null;
+
+  const parseRow = (row: string) => {
+    return row
+      .split('|')
+      .map(cell => cell.trim())
+      .filter((cell, i, arr) => i > 0 && i < arr.length - 1 || (arr.length === cell.split('|').length + 1));
+  };
+
+  const headerCells = parseRow(lines[0]);
+  // Skip the separator line (line[1] with dashes)
+  const bodyRows = lines.slice(2).map(parseRow);
+
+  return (
+    <div className={styles.tableWrapper}>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            {headerCells.map((cell, i) => (
+              <th key={i}>{parseInlineMarkdown(cell)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {bodyRows.map((row, i) => (
+            <tr key={i}>
+              {row.map((cell, j) => (
+                <td key={j}>{parseInlineMarkdown(cell)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Enhanced content renderer with full Markdown support
 function ArticleContent({ content }: { content: string }) {
   const cleanContent = content.replace(/^---[\s\S]*?---/, '').trim();
   
+  // Split into blocks, preserving tables and lists
+  const blocks: string[] = [];
+  let currentBlock = '';
+  let inTable = false;
+  let inList = false;
+  
+  const lines = cleanContent.split('\n');
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const isTableLine = line.trim().startsWith('|') && line.trim().endsWith('|');
+    const isListLine = /^(\d+\.|[-*])\s/.test(line.trim());
+    const isHeading = /^#{1,6}\s/.test(line);
+    const isBlockquote = line.trim().startsWith('>');
+    const isEmpty = line.trim() === '';
+    
+    if (isTableLine) {
+      if (!inTable && currentBlock.trim()) {
+        blocks.push(currentBlock.trim());
+        currentBlock = '';
+      }
+      inTable = true;
+      currentBlock += line + '\n';
+    } else if (inTable && !isTableLine) {
+      blocks.push(currentBlock.trim());
+      currentBlock = '';
+      inTable = false;
+      if (!isEmpty) currentBlock = line + '\n';
+    } else if (isListLine) {
+      if (!inList && currentBlock.trim()) {
+        blocks.push(currentBlock.trim());
+        currentBlock = '';
+      }
+      inList = true;
+      currentBlock += line + '\n';
+    } else if (inList && !isListLine && !isEmpty) {
+      blocks.push(currentBlock.trim());
+      currentBlock = line + '\n';
+      inList = false;
+    } else if (inList && isEmpty) {
+      blocks.push(currentBlock.trim());
+      currentBlock = '';
+      inList = false;
+    } else if (isHeading || isBlockquote) {
+      if (currentBlock.trim()) {
+        blocks.push(currentBlock.trim());
+      }
+      blocks.push(line);
+      currentBlock = '';
+    } else if (isEmpty && currentBlock.trim()) {
+      blocks.push(currentBlock.trim());
+      currentBlock = '';
+    } else if (!isEmpty) {
+      currentBlock += line + '\n';
+    }
+  }
+  
+  if (currentBlock.trim()) {
+    blocks.push(currentBlock.trim());
+  }
+
   return (
     <div className={styles.prose}>
-      {cleanContent.split('\n\n').map((paragraph, i) => {
-        if (paragraph.startsWith('## ')) {
-          const text = paragraph.replace('## ', '');
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-          return <h2 key={i} id={id}>{text}</h2>;
+      {blocks.map((block, i) => {
+        // Heading 2
+        if (block.startsWith('## ')) {
+          const text = block.replace('## ', '');
+          const id = text.toLowerCase().replace(/[^a-z0-9äöüß]+/g, '-').replace(/(^-|-$)/g, '');
+          return <h2 key={i} id={id}>{parseInlineMarkdown(text)}</h2>;
         }
-        if (paragraph.startsWith('### ')) {
-          const text = paragraph.replace('### ', '');
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-          return <h3 key={i} id={id}>{text}</h3>;
+        
+        // Heading 3
+        if (block.startsWith('### ')) {
+          const text = block.replace('### ', '');
+          const id = text.toLowerCase().replace(/[^a-z0-9äöüß]+/g, '-').replace(/(^-|-$)/g, '');
+          return <h3 key={i} id={id}>{parseInlineMarkdown(text)}</h3>;
         }
-        if (paragraph.startsWith('- ')) {
+        
+        // Heading 4
+        if (block.startsWith('#### ')) {
+          const text = block.replace('#### ', '');
+          return <h4 key={i}>{parseInlineMarkdown(text)}</h4>;
+        }
+        
+        // Table
+        if (block.includes('|') && block.includes('\n')) {
+          const tableResult = parseTable(block);
+          if (tableResult) return <div key={i}>{tableResult}</div>;
+        }
+        
+        // Blockquote
+        if (block.startsWith('>')) {
+          const quoteText = block.replace(/^>\s?/gm, '');
+          return (
+            <blockquote key={i} className={styles.blockquote}>
+              {parseInlineMarkdown(quoteText)}
+            </blockquote>
+          );
+        }
+        
+        // Ordered list
+        if (/^\d+\.\s/.test(block)) {
+          const items = block.split('\n').filter(line => line.trim());
+          return (
+            <ol key={i}>
+              {items.map((item, j) => (
+                <li key={j}>{parseInlineMarkdown(item.replace(/^\d+\.\s/, ''))}</li>
+              ))}
+            </ol>
+          );
+        }
+        
+        // Unordered list
+        if (/^[-*]\s/.test(block)) {
+          const items = block.split('\n').filter(line => line.trim());
           return (
             <ul key={i}>
-              {paragraph.split('\n').map((item, j) => (
-                <li key={j}>{item.replace('- ', '')}</li>
+              {items.map((item, j) => (
+                <li key={j}>{parseInlineMarkdown(item.replace(/^[-*]\s/, ''))}</li>
               ))}
             </ul>
           );
         }
-        if (paragraph.trim()) {
-          return <p key={i}>{paragraph}</p>;
+        
+        // Paragraph
+        if (block.trim()) {
+          return <p key={i}>{parseInlineMarkdown(block)}</p>;
         }
+        
         return null;
       })}
     </div>
