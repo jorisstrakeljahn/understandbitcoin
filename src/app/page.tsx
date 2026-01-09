@@ -283,18 +283,11 @@ export default function HomePage() {
           <p className={styles.ctaSubtitle}>
             Explore well-researched, balanced content on sound money.
           </p>
-          <div className={styles.ctaButtons}>
-            <Link href="/topics/basics">
-              <Button size="lg" variant="primary">
-                Start Learning
-              </Button>
-            </Link>
-            <Link href="/topics">
-              <Button size="lg" variant="outline">
-                Explore Topics
-              </Button>
-            </Link>
-          </div>
+          <Link href="/topics">
+            <Button size="lg" variant="primary">
+              Explore Topics
+            </Button>
+          </Link>
         </div>
       </section>
     </div>

@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: '/topics', label: 'Topics' },
   { href: '/topics/criticism', label: 'Criticism' },
   { href: '/glossary', label: 'Glossary' },
+  { href: '/sources', label: 'Sources' },
 ];
 
 export function Header() {
