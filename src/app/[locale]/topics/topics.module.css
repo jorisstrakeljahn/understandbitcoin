@@ -105,13 +105,17 @@
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   text-decoration: none;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all 0.2s ease;
 }
 
 .topicCard:hover {
-  border-color: var(--color-accent);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  border-color: var(--color-border);
+  background-color: var(--color-bg-secondary);
+}
+
+.topicCard:hover .topicCardIcon {
+  background-color: var(--color-accent-muted);
+  color: var(--color-accent);
 }
 
 .topicCardHeader {
@@ -170,10 +174,15 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-accent);
   margin-top: var(--space-4);
+  transition: gap 0.2s ease;
 }
 
 .topicCard:hover .topicCardLink {
   gap: var(--space-2);
+}
+
+.topicCard:hover .topicCardTitle {
+  color: var(--color-accent);
 }
 
 /* ============================================

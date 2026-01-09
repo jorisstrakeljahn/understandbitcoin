@@ -87,6 +87,12 @@ a {
 
 a:hover {
   color: var(--color-accent-hover);
+}
+
+/* Only underline prose/text links, not navigation */
+.prose a:hover,
+article p a:hover,
+article li a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }

@@ -76,12 +76,12 @@
   color: var(--color-text-secondary);
   text-decoration: none;
   border-radius: var(--radius-md);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all 0.15s ease;
   flex: 1;
 }
 
 .treeFolder:hover {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   background-color: var(--color-bg-secondary);
 }
 
@@ -112,11 +112,11 @@
   color: var(--color-text-muted);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all 0.15s ease;
 }
 
 .treeFile:hover {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   background-color: var(--color-bg-secondary);
 }
 

@@ -86,11 +86,11 @@
   color: var(--color-text-secondary);
   text-decoration: none;
   border-radius: var(--radius-md);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all 0.15s ease;
 }
 
 .treeFolder:hover {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   background-color: var(--color-bg-secondary);
 }
 
@@ -136,11 +136,11 @@
   color: var(--color-text-muted);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all 0.15s ease;
 }
 
 .treeFile:hover {
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   background-color: var(--color-bg-secondary);
 }
 
@@ -182,10 +182,11 @@
 .breadcrumb a {
   color: var(--color-text-muted);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 .breadcrumb a:hover {
-  color: var(--color-accent);
+  color: var(--color-text-primary);
 }
 
 .breadcrumb span:last-child {
@@ -320,7 +321,7 @@
   padding: var(--space-3) var(--space-4);
   text-decoration: none;
   border-bottom: 1px solid var(--color-border-subtle);
-  transition: background-color var(--duration-fast) var(--ease-out);
+  transition: all 0.15s ease;
 }
 
 .articleItem:last-child {
@@ -329,6 +330,14 @@
 
 .articleItem:hover {
   background-color: var(--color-bg-secondary);
+}
+
+.articleItem:hover .articleTitle {
+  color: var(--color-accent);
+}
+
+.articleItem:hover .articleIcon {
+  color: var(--color-accent);
 }
 
 .articleIcon {
