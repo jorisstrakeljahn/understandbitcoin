@@ -29,14 +29,14 @@ export function Footer() {
           <div className={styles.brand}>
             <Link href="/" className={styles.logo}>
               <span className={styles.logoIcon}>₿</span>
-              <span className={styles.logoText}>Understand Bitcoin</span>
+              <span className={styles.logoText}>Therefor Bitcoin</span>
             </Link>
             <p className={styles.tagline}>
               Clear answers. Fair objections. Primary sources.
             </p>
             <p className={styles.mission}>
-              A free, open-source knowledge base helping people understand Bitcoin 
-              through well-researched, balanced content.
+              A free, open-source knowledge base helping people understand Bitcoin — 
+              therefore Bitcoin.
             </p>
           </div>
 
@@ -86,7 +86,7 @@ export function Footer() {
         {/* Bottom */}
         <div className={styles.bottom}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Understand Bitcoin. Open source under MIT license.
+            © {new Date().getFullYear()} Therefor Bitcoin. Open source under MIT license.
           </p>
           <p className={styles.disclaimer}>
             Educational content only. Not financial advice.

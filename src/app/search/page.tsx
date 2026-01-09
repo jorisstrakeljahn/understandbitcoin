@@ -16,7 +16,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
   
   return {
     title: query ? `Search: ${query}` : 'Search',
-    description: 'Search the Understand Bitcoin knowledge base.',
+    description: 'Search the Therefor Bitcoin knowledge base.',
   };
 }
 

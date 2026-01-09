@@ -114,7 +114,7 @@ export function HeroSection({ questions }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Understand Bitcoin<span className={styles.heroDot}>.</span>
+          Therefor Bitcoin<span className={styles.heroDot}>.</span>
         </motion.h1>
 
         {/* Animated Question */}

@@ -38,7 +38,7 @@ export function Header() {
             <span className={styles.logoIcon}>
               <Bitcoin size={20} strokeWidth={2.5} />
             </span>
-            <span className={styles.logoText}>Understand Bitcoin</span>
+            <span className={styles.logoText}>Therefor Bitcoin</span>
           </Link>
 
           {/* Desktop Navigation */}

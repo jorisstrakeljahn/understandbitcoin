@@ -1,4 +1,4 @@
-# Understand Bitcoin
+# Therefor Bitcoin
 
 > Mobile-first Bitcoin knowledge base frontend (Next.js + MDX) with a premium editorial design.
 
@@ -31,8 +31,8 @@ A premium, modern "linkable in conversations" Q&A wiki where users land on a spe
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/understandbitcoin.git
-cd understandbitcoin
+git clone https://github.com/yourusername/thereforbitcoin.git
+cd thereforbitcoin
 
 # Install dependencies
 pnpm install
@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the app.
 ## 📁 Project Structure
 
 ```
-understandbitcoin/
+thereforbitcoin/
 ├── content/                 # MDX content files
 │   └── en/                  # English content
 │       ├── beginner/        # Beginner-level articles

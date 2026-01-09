@@ -4,8 +4,8 @@ import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Understand Bitcoin - Clear Answers About Bitcoin",
-    template: "%s | Understand Bitcoin",
+    default: "Therefor Bitcoin - Clear Answers About Bitcoin",
+    template: "%s | Therefor Bitcoin",
   },
   description:
     "A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources.",
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
     "Austrian economics",
     "digital currency",
   ],
-  authors: [{ name: "Understand Bitcoin Contributors" }],
-  creator: "Understand Bitcoin",
+  authors: [{ name: "Therefor Bitcoin Contributors" }],
+  creator: "Therefor Bitcoin",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://understandbitcoin.com",
-    siteName: "Understand Bitcoin",
-    title: "Understand Bitcoin - Clear Answers About Bitcoin",
+    url: "https://thereforbitcoin.com",
+    siteName: "Therefor Bitcoin",
+    title: "Therefor Bitcoin - Clear Answers About Bitcoin",
     description:
       "A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources.",
     images: [
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Understand Bitcoin",
+        alt: "Therefor Bitcoin",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Understand Bitcoin",
+    title: "Therefor Bitcoin",
     description: "Clear answers. Fair objections. Primary sources.",
     images: ["/og-image.png"],
   },
