@@ -1,9 +1,15 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { FileText, BookOpen, Video, GraduationCap, ArrowRight } from '@/components/icons';
+import Link from 'next/link';
+import { FileText, BookOpen, Video, Filter, ArrowRight } from '@/components/icons';
+import { getAllBooks, getAllVideos, getAllArticles } from '@/lib/sources/loader';
+import { Source } from '@/lib/sources/types';
+import { SourceCard } from '@/components/sources';
+import { Badge } from '@/components/ui';
 import styles from './sources.module.css';
 
 interface SourcesPageProps {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ type?: string; topic?: string; level?: string }>;
 }
 
 export async function generateMetadata({ params }: SourcesPageProps) {
@@ -16,34 +22,79 @@ export async function generateMetadata({ params }: SourcesPageProps) {
   };
 }
 
-export default async function SourcesPage({ params }: SourcesPageProps) {
+export default async function SourcesPage({ params, searchParams }: SourcesPageProps) {
   const { locale } = await params;
+  const { type, topic, level } = await searchParams;
   setRequestLocale(locale);
   
   const t = await getTranslations({ locale, namespace: 'sources' });
 
+  // Get all sources
+  const books = getAllBooks();
+  const videos = getAllVideos();
+  const articles = getAllArticles();
+
+  // Combine and filter
+  let allSources: Source[] = [...books, ...videos, ...articles];
+
+  // Filter by type
+  if (type && type !== 'all') {
+    allSources = allSources.filter((s) => s.type === type);
+  }
+
+  // Filter by topic
+  if (topic && topic !== 'all') {
+    allSources = allSources.filter((s) => s.topics.includes(topic));
+  }
+
+  // Filter by level
+  if (level && level !== 'all') {
+    allSources = allSources.filter((s) => s.level === level);
+  }
+
+  // Sort: featured first, then by year (newest first)
+  allSources.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return b.year - a.year;
+  });
+
   const CATEGORIES = [
     { 
-      icon: FileText, 
-      label: t('whitepapers'), 
-      count: 12 
+      id: 'all',
+      icon: Filter, 
+      label: t('all'), 
+      count: books.length + videos.length + articles.length 
     },
     { 
-      icon: GraduationCap, 
-      label: t('academic'), 
-      count: 24 
-    },
-    { 
+      id: 'book',
       icon: BookOpen, 
       label: t('books'), 
-      count: 18 
+      count: books.length 
     },
     { 
+      id: 'video',
       icon: Video, 
       label: t('videos'), 
-      count: 30 
+      count: videos.length 
+    },
+    { 
+      id: 'article',
+      icon: FileText, 
+      label: t('articles'), 
+      count: articles.length 
     },
   ];
+
+  const LEVELS = [
+    { id: 'all', label: t('allLevels') },
+    { id: 'beginner', label: locale === 'de' ? 'Beginner' : 'Beginner' },
+    { id: 'intermediate', label: locale === 'de' ? 'Fortgeschritten' : 'Intermediate' },
+    { id: 'advanced', label: locale === 'de' ? 'Experte' : 'Advanced' },
+  ];
+
+  const currentType = type || 'all';
+  const currentLevel = level || 'all';
 
   return (
     <div className={styles.page}>
@@ -53,33 +104,65 @@ export default async function SourcesPage({ params }: SourcesPageProps) {
           <p className={styles.subtitle}>{t('subtitle')}</p>
         </header>
 
-        <div className={styles.comingSoon}>
-          <div className={styles.comingSoonIcon}>📚</div>
-          <h2>{t('comingSoon')}</h2>
-          <p>{t('description')}</p>
-        </div>
-
-        <div className={styles.preview}>
-          <h3 className={styles.categoriesTitle}>{t('categories')}</h3>
-          <div className={styles.categoriesGrid}>
+        {/* Category Tabs */}
+        <div className={styles.filters}>
+          <div className={styles.categoryTabs}>
             {CATEGORIES.map((category) => {
               const IconComponent = category.icon;
+              const isActive = currentType === category.id;
               return (
-                <div key={category.label} className={styles.categoryCard}>
-                  <div className={styles.categoryIcon}>
-                    <IconComponent size={24} />
-                  </div>
-                  <span className={styles.categoryLabel}>{category.label}</span>
-                  <span className={styles.categoryCount}>{category.count}</span>
-                </div>
+                <Link
+                  key={category.id}
+                  href={`/${locale}/sources?type=${category.id}&level=${currentLevel}`}
+                  className={`${styles.categoryTab} ${isActive ? styles.categoryTabActive : ''}`}
+                >
+                  <IconComponent size={18} />
+                  <span>{category.label}</span>
+                  <Badge variant={isActive ? 'accent' : 'default'} className={styles.countBadge}>
+                    {category.count}
+                  </Badge>
+                </Link>
               );
             })}
           </div>
-          
-          <button className={styles.browseButton} disabled>
-            {t('browseAll')} <ArrowRight size={16} />
-          </button>
+
+          {/* Level Filter */}
+          <div className={styles.levelFilter}>
+            {LEVELS.map((lvl) => {
+              const isActive = currentLevel === lvl.id;
+              return (
+                <Link
+                  key={lvl.id}
+                  href={`/${locale}/sources?type=${currentType}&level=${lvl.id}`}
+                  className={`${styles.levelChip} ${isActive ? styles.levelChipActive : ''}`}
+                >
+                  {lvl.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Sources Grid */}
+        {allSources.length > 0 ? (
+          <div className={styles.sourcesGrid}>
+            {allSources.map((source) => (
+              <SourceCard key={source.id} source={source} locale={locale} />
+            ))}
+          </div>
+        ) : (
+          <div className={styles.emptyState}>
+            <p>{t('noResults')}</p>
+            <Link href={`/${locale}/sources`} className={styles.resetLink}>
+              {t('resetFilters')} <ArrowRight size={14} />
+            </Link>
+          </div>
+        )}
+
+        {/* Affiliate Disclaimer */}
+        <footer className={styles.disclaimer}>
+          <p>{t('affiliateDisclaimer')}</p>
+        </footer>
       </div>
     </div>
   );

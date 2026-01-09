@@ -1,0 +1,94 @@
+{
+  "sources": [
+    {
+      "id": "3blue1brown-bitcoin",
+      "title": "But how does bitcoin actually work?",
+      "channel": "3Blue1Brown",
+      "youtubeId": "bBC-nXj3Ng4",
+      "duration": "26:21",
+      "year": 2017,
+      "description": {
+        "en": "Excellent visual explanation of how Bitcoin works, from cryptographic signatures to mining.",
+        "de": "Exzellente visuelle Erklärung wie Bitcoin funktioniert, von kryptografischen Signaturen bis zum Mining."
+      },
+      "topics": ["basics"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "aantonop-intro",
+      "title": "Introduction to Bitcoin",
+      "channel": "aantonop",
+      "youtubeId": "l1si5ZWLgy0",
+      "duration": "23:51",
+      "year": 2016,
+      "description": {
+        "en": "Andreas Antonopoulos explains Bitcoin fundamentals in his signature engaging style.",
+        "de": "Andreas Antonopoulos erklärt Bitcoin-Grundlagen in seinem einzigartigen, fesselnden Stil."
+      },
+      "topics": ["basics"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "saylor-bitcoin-is-hope",
+      "title": "Bitcoin is Hope",
+      "channel": "Robert Breedlove",
+      "youtubeId": "Vuz44IhGwBg",
+      "duration": "2:12:45",
+      "year": 2021,
+      "description": {
+        "en": "Michael Saylor's comprehensive take on Bitcoin as a solution to monetary problems.",
+        "de": "Michael Saylors umfassende Perspektive auf Bitcoin als Lösung für monetäre Probleme."
+      },
+      "topics": ["money", "economics"],
+      "level": "intermediate",
+      "featured": true
+    },
+    {
+      "id": "what-is-money-saylor",
+      "title": "What is Money? - Saylor Series",
+      "channel": "Robert Breedlove",
+      "youtubeId": "HrehEWYj16s",
+      "duration": "3:32:11",
+      "year": 2020,
+      "description": {
+        "en": "Deep exploration of money, energy, and Bitcoin with Michael Saylor.",
+        "de": "Tiefgehende Erforschung von Geld, Energie und Bitcoin mit Michael Saylor."
+      },
+      "topics": ["money", "economics"],
+      "level": "intermediate",
+      "featured": false
+    },
+    {
+      "id": "lightning-explained",
+      "title": "Lightning Network Explained",
+      "channel": "Whiteboard Crypto",
+      "youtubeId": "SXT9iq__V8c",
+      "duration": "11:02",
+      "year": 2021,
+      "description": {
+        "en": "Clear explanation of how the Lightning Network enables fast, cheap Bitcoin payments.",
+        "de": "Klare Erklärung wie das Lightning Network schnelle, günstige Bitcoin-Zahlungen ermöglicht."
+      },
+      "topics": ["lightning"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "bitcoin-energy",
+      "title": "Bitcoin's Energy Use Explained",
+      "channel": "Lyn Alden",
+      "youtubeId": "2T0OUIW89II",
+      "duration": "45:23",
+      "year": 2022,
+      "description": {
+        "en": "Nuanced analysis of Bitcoin's energy consumption in context.",
+        "de": "Differenzierte Analyse von Bitcoins Energieverbrauch im Kontext."
+      },
+      "topics": ["mining", "criticism"],
+      "level": "intermediate",
+      "featured": false
+    }
+  ]
+}

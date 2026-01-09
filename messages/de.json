@@ -115,15 +115,21 @@
   },
   "sources": {
     "title": "Quellenbibliothek",
-    "subtitle": "Primärquellen, wissenschaftliche Arbeiten und Expertenanalysen",
+    "subtitle": "Bücher, Videos und Artikel zum Verständnis von Bitcoin",
     "comingSoon": "Demnächst verfügbar",
     "description": "Wir kuratieren eine Bibliothek hochwertiger Quellen über Bitcoin. Jede Quelle wird kategorisiert, zusammengefasst und mit relevanten Artikeln verknüpft.",
     "categories": "Kategorien",
     "whitepapers": "Whitepapers & Technisches",
     "academic": "Akademische Forschung",
     "books": "Bücher",
-    "videos": "Video-Inhalte",
-    "browseAll": "Alle Quellen durchsuchen"
+    "videos": "Videos",
+    "articles": "Artikel",
+    "all": "Alle",
+    "allLevels": "Alle Stufen",
+    "browseAll": "Alle Quellen durchsuchen",
+    "noResults": "Keine Quellen mit diesen Filtern gefunden",
+    "resetFilters": "Filter zurücksetzen",
+    "affiliateDisclaimer": "Einige Buchlinks sind Affiliate-Links. Käufe unterstützen dieses Projekt ohne zusätzliche Kosten für dich."
   },
   "common": {
     "loading": "Laden...",

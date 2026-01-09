@@ -56,10 +56,13 @@ export {
   Share2 as Share,
   MessageCircle,
   Users,
+  User,
   Home,
   Layers,
   Globe,
   Languages,
+  Filter,
+  ChevronLeft,
 } from 'lucide-react';
 
 export type { LucideProps as IconProps } from 'lucide-react';

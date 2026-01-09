@@ -1,0 +1,79 @@
+{
+  "sources": [
+    {
+      "id": "bitcoin-whitepaper",
+      "title": "Bitcoin: A Peer-to-Peer Electronic Cash System",
+      "author": "Satoshi Nakamoto",
+      "year": 2008,
+      "url": "https://bitcoin.org/bitcoin.pdf",
+      "type": "whitepaper",
+      "description": {
+        "en": "The original Bitcoin whitepaper. The foundational document that started it all.",
+        "de": "Das originale Bitcoin-Whitepaper. Das Gründungsdokument, mit dem alles begann."
+      },
+      "topics": ["basics"],
+      "level": "intermediate",
+      "featured": true
+    },
+    {
+      "id": "bullish-case",
+      "title": "The Bullish Case for Bitcoin",
+      "author": "Vijay Boyapati",
+      "year": 2018,
+      "url": "https://vijayboyapati.medium.com/the-bullish-case-for-bitcoin-6ecc8bdecc1",
+      "type": "article",
+      "description": {
+        "en": "Comprehensive analysis of why Bitcoin has value and its potential as money.",
+        "de": "Umfassende Analyse warum Bitcoin Wert hat und sein Potenzial als Geld."
+      },
+      "topics": ["money", "economics"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "bitcoin-obsoletes-banks",
+      "title": "Bitcoin Obsoletes All Other Money",
+      "author": "Parker Lewis",
+      "year": 2019,
+      "url": "https://unchained.com/blog/bitcoin-obsoletes-all-other-money/",
+      "type": "article",
+      "description": {
+        "en": "Part of the 'Gradually, Then Suddenly' series explaining Bitcoin's monetary properties.",
+        "de": "Teil der 'Gradually, Then Suddenly'-Serie, die Bitcoins monetäre Eigenschaften erklärt."
+      },
+      "topics": ["money"],
+      "level": "beginner",
+      "featured": false
+    },
+    {
+      "id": "lightning-network-paper",
+      "title": "The Bitcoin Lightning Network",
+      "author": "Joseph Poon & Thaddeus Dryja",
+      "year": 2016,
+      "url": "https://lightning.network/lightning-network-paper.pdf",
+      "type": "whitepaper",
+      "description": {
+        "en": "The original Lightning Network whitepaper describing scalable off-chain payments.",
+        "de": "Das originale Lightning-Network-Whitepaper über skalierbare Off-Chain-Zahlungen."
+      },
+      "topics": ["lightning"],
+      "level": "advanced",
+      "featured": false
+    },
+    {
+      "id": "bitcoin-not-ponzi",
+      "title": "Why Bitcoin is Not a Ponzi Scheme",
+      "author": "Lyn Alden",
+      "year": 2021,
+      "url": "https://www.lynalden.com/bitcoin-ponzi-scheme/",
+      "type": "article",
+      "description": {
+        "en": "Detailed analysis debunking the Ponzi scheme criticism using actual definitions.",
+        "de": "Detaillierte Analyse, die die Ponzi-Schema-Kritik mit echten Definitionen widerlegt."
+      },
+      "topics": ["criticism"],
+      "level": "beginner",
+      "featured": true
+    }
+  ]
+}

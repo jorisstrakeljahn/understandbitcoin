@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 import { Button, Badge } from '@/components/ui';
 import { type Topic } from '@/lib/content/schema';
 import { getAllContent, getTopicConfig } from '@/lib/content/loader';
+import { getFeaturedSources } from '@/lib/sources/loader';
+import { Source } from '@/lib/sources/types';
 import { 
   FileText, 
   HelpCircle, 
@@ -16,6 +18,7 @@ import {
   TrendingUp
 } from '@/components/icons';
 import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
+import { SourceCarousel } from '@/components/sources';
 import styles from './page.module.css';
 
 interface HomePageProps {
@@ -80,10 +83,13 @@ export default async function HomePage({ params }: HomePageProps) {
     topicLabels[article.topic] = topicConfig.label;
   }
 
-  return <HomePageContent locale={locale} questions={questions} topicLabels={topicLabels} />;
+  // Get featured sources for carousel
+  const featuredSources = getFeaturedSources();
+
+  return <HomePageContent locale={locale} questions={questions} topicLabels={topicLabels} featuredSources={featuredSources} />;
 }
 
-function HomePageContent({ locale, questions, topicLabels }: { locale: string; questions: { text: string; slug: string }[]; topicLabels: Record<string, string> }) {
+function HomePageContent({ locale, questions, topicLabels, featuredSources }: { locale: string; questions: { text: string; slug: string }[]; topicLabels: Record<string, string>; featuredSources: Source[] }) {
   const t = useTranslations();
   const isGerman = locale === 'de';
 
@@ -204,57 +210,18 @@ function HomePageContent({ locale, questions, topicLabels }: { locale: string; q
         </div>
       </AnimatedSection>
 
-      {/* Sources Preview (Stub) */}
-      <AnimatedSection className={styles.section} delay={0.1}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <div>
-              <h2 className={styles.sectionTitle}>{t('home.sourcesPreview')}</h2>
-            </div>
-            <Link href={`/${locale}/sources`} className={styles.sectionLink}>
-              {t('home.browseLibrary')} <ArrowRight size={16} />
-            </Link>
-          </div>
-          
-          <div className={styles.sourcesPreview}>
-            <AnimatedCard delay={0}>
-              <div className={styles.sourceCard}>
-                <div className={styles.sourceType}>
-                  <BookOpen size={14} /> {isGerman ? 'Buch' : 'Book'}
-                </div>
-                <h3 className={styles.sourceTitle}>The Bitcoin Standard</h3>
-                <p className={styles.sourceAuthor}>Saifedean Ammous</p>
-              </div>
-            </AnimatedCard>
-            <AnimatedCard delay={0.1}>
-              <div className={styles.sourceCard}>
-                <div className={styles.sourceType}>
-                  <FileText size={14} /> {isGerman ? 'Paper' : 'Paper'}
-                </div>
-                <h3 className={styles.sourceTitle}>Bitcoin: A Peer-to-Peer Electronic Cash System</h3>
-                <p className={styles.sourceAuthor}>Satoshi Nakamoto</p>
-              </div>
-            </AnimatedCard>
-            <AnimatedCard delay={0.2}>
-              <div className={styles.sourceCard}>
-                <div className={styles.sourceType}>
-                  <Video size={14} /> Video
-                </div>
-                <h3 className={styles.sourceTitle}>But How Does Bitcoin Actually Work?</h3>
-                <p className={styles.sourceAuthor}>3Blue1Brown</p>
-              </div>
-            </AnimatedCard>
-            <AnimatedCard delay={0.3}>
-              <div className={styles.sourceCard}>
-                <div className={styles.sourceType}>
-                  <BookOpen size={14} /> {isGerman ? 'Buch' : 'Book'}
-                </div>
-                <h3 className={styles.sourceTitle}>Mastering Bitcoin</h3>
-                <p className={styles.sourceAuthor}>Andreas Antonopoulos</p>
-              </div>
-            </AnimatedCard>
-          </div>
+      {/* Sources Carousel */}
+      <AnimatedSection className={styles.sectionFullWidth} delay={0.1}>
+        <div className={styles.carouselHeader}>
+          <h2 className={styles.sectionTitle}>{t('home.sourcesPreview')}</h2>
+          <Link href={`/${locale}/sources`} className={styles.sectionLink}>
+            {t('home.browseLibrary')} <ArrowRight size={16} />
+          </Link>
         </div>
+        <SourceCarousel 
+          sources={featuredSources} 
+          locale={locale}
+        />
       </AnimatedSection>
 
       {/* CTA Section */}

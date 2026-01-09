@@ -115,15 +115,21 @@
   },
   "sources": {
     "title": "Source Library",
-    "subtitle": "Primary sources, academic papers, and expert analysis",
+    "subtitle": "Books, videos, and articles curated for understanding Bitcoin",
     "comingSoon": "Coming Soon",
     "description": "We're curating a library of high-quality sources about Bitcoin. Each source will be categorized, summarized, and linked to relevant articles.",
     "categories": "Categories",
     "whitepapers": "Whitepapers & Technical",
     "academic": "Academic Research",
     "books": "Books",
-    "videos": "Video Content",
-    "browseAll": "Browse all sources"
+    "videos": "Videos",
+    "articles": "Articles",
+    "all": "All",
+    "allLevels": "All Levels",
+    "browseAll": "Browse all sources",
+    "noResults": "No sources found with these filters",
+    "resetFilters": "Reset filters",
+    "affiliateDisclaimer": "Some book links are affiliate links. Purchases support this project at no extra cost to you."
   },
   "common": {
     "loading": "Loading...",
