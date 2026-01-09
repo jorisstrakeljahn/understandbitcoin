@@ -24,6 +24,16 @@ const nextConfig: NextConfig = {
         hostname: 'i.ytimg.com',
         pathname: '/vi/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'covers.openlibrary.org',
+        pathname: '/b/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+        pathname: '/images/**',
+      },
     ],
   },
 

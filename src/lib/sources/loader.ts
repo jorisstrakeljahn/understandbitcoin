@@ -76,3 +76,7 @@ export function getSourcesByType(type: 'book' | 'video' | 'article'): Source[] {
 export function getSourceById(id: string): Source | undefined {
   return getAllSources().find((source) => source.id === id);
 }
+
+export function getSourcesCount(): number {
+  return getAllSources().length;
+}

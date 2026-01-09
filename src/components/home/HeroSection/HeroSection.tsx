@@ -14,9 +14,25 @@ interface Question {
   slug: string;
 }
 
+interface Stats {
+  articles: number;
+  sources: number;
+  topics: number;
+}
+
 interface HeroSectionProps {
   questions: Question[];
   locale?: string;
+  stats?: Stats;
+}
+
+// Format stat number: round down to nearest 10 and add "+"
+function formatStat(value: number, showPlus = false, roundTo = 10): string {
+  if (showPlus) {
+    const rounded = Math.floor(value / roundTo) * roundTo;
+    return `${rounded}+`;
+  }
+  return String(value);
 }
 
 // Floating particles configuration
@@ -31,7 +47,7 @@ const FLOATING_ELEMENTS = [
   { size: 5, x: '40%', y: '10%', delay: 1.2, duration: 9 },
 ];
 
-export function HeroSection({ questions, locale = 'en' }: HeroSectionProps) {
+export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProps) {
   const t = useTranslations('home');
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -166,13 +182,8 @@ export function HeroSection({ questions, locale = 'en' }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          <Link href={`/${locale}/topics/basics`}>
-            <Button size="lg" variant="primary">
-              {t('startWithBasics')}
-            </Button>
-          </Link>
           <Link href={`/${locale}/topics`}>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="primary">
               {t('browseTopics')}
             </Button>
           </Link>
@@ -191,18 +202,24 @@ export function HeroSection({ questions, locale = 'en' }: HeroSectionProps) {
           transition={{ duration: 0.6, delay: 0.9 }}
         >
           <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>50+</span>
+            <span className={styles.trustNumber}>
+              {formatStat(stats?.articles ?? 50, true, 10)}
+            </span>
             <span className={styles.trustLabel}>{locale === 'de' ? 'Artikel' : 'Articles'}</span>
           </div>
           <div className={styles.trustDivider} />
           <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>100+</span>
+            <span className={styles.trustNumber}>
+              {formatStat(stats?.sources ?? 100, true, 10)}
+            </span>
             <span className={styles.trustLabel}>{locale === 'de' ? 'Quellen' : 'Sources'}</span>
           </div>
           <div className={styles.trustDivider} />
           <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>{locale === 'de' ? 'Faire' : 'Fair'}</span>
-            <span className={styles.trustLabel}>{locale === 'de' ? 'Kritik' : 'Criticism'}</span>
+            <span className={styles.trustNumber}>
+              {formatStat(stats?.topics ?? 7)}
+            </span>
+            <span className={styles.trustLabel}>{locale === 'de' ? 'Themen' : 'Topics'}</span>
           </div>
         </motion.div>
       </motion.div>

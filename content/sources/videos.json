@@ -31,36 +31,6 @@
       "featured": true
     },
     {
-      "id": "saylor-bitcoin-is-hope",
-      "title": "Bitcoin is Hope",
-      "channel": "Robert Breedlove",
-      "youtubeId": "Vuz44IhGwBg",
-      "duration": "2:12:45",
-      "year": 2021,
-      "description": {
-        "en": "Michael Saylor's comprehensive take on Bitcoin as a solution to monetary problems.",
-        "de": "Michael Saylors umfassende Perspektive auf Bitcoin als Lösung für monetäre Probleme."
-      },
-      "topics": ["money", "economics"],
-      "level": "intermediate",
-      "featured": true
-    },
-    {
-      "id": "what-is-money-saylor",
-      "title": "What is Money? - Saylor Series",
-      "channel": "Robert Breedlove",
-      "youtubeId": "HrehEWYj16s",
-      "duration": "3:32:11",
-      "year": 2020,
-      "description": {
-        "en": "Deep exploration of money, energy, and Bitcoin with Michael Saylor.",
-        "de": "Tiefgehende Erforschung von Geld, Energie und Bitcoin mit Michael Saylor."
-      },
-      "topics": ["money", "economics"],
-      "level": "intermediate",
-      "featured": false
-    },
-    {
       "id": "lightning-explained",
       "title": "Lightning Network Explained",
       "channel": "Whiteboard Crypto",
@@ -77,10 +47,10 @@
     },
     {
       "id": "bitcoin-energy",
-      "title": "Bitcoin's Energy Use Explained",
-      "channel": "Lyn Alden",
+      "title": "Does Bitcoin Waste Energy?",
+      "channel": "Swan Bitcoin",
       "youtubeId": "2T0OUIW89II",
-      "duration": "45:23",
+      "duration": "18:23",
       "year": 2022,
       "description": {
         "en": "Nuanced analysis of Bitcoin's energy consumption in context.",
@@ -88,7 +58,22 @@
       },
       "topics": ["mining", "criticism"],
       "level": "intermediate",
-      "featured": false
+      "featured": true
+    },
+    {
+      "id": "what-is-money-saylor",
+      "title": "What is Money?",
+      "channel": "Michael Saylor",
+      "youtubeId": "HrehEWYj16s",
+      "duration": "14:28",
+      "year": 2021,
+      "description": {
+        "en": "Michael Saylor explains the nature of money and why Bitcoin matters.",
+        "de": "Michael Saylor erklärt das Wesen des Geldes und warum Bitcoin wichtig ist."
+      },
+      "topics": ["money", "economics"],
+      "level": "beginner",
+      "featured": true
     }
   ]
 }

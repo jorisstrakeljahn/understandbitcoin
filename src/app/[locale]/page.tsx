@@ -3,8 +3,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { Button, Badge } from '@/components/ui';
 import { type Topic } from '@/lib/content/schema';
-import { getAllContent, getTopicConfig } from '@/lib/content/loader';
-import { getFeaturedSources } from '@/lib/sources/loader';
+import { getAllContent, getTopicConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
+import { getFeaturedSources, getSourcesCount } from '@/lib/sources/loader';
 import { Source } from '@/lib/sources/types';
 import { 
   FileText, 
@@ -86,10 +86,23 @@ export default async function HomePage({ params }: HomePageProps) {
   // Get featured sources for carousel
   const featuredSources = getFeaturedSources();
 
-  return <HomePageContent locale={locale} questions={questions} topicLabels={topicLabels} featuredSources={featuredSources} />;
+  // Calculate stats
+  const stats = {
+    articles: allContent.length,
+    sources: getSourcesCount(),
+    topics: getAllTopicsFromConfig().length,
+  };
+
+  return <HomePageContent locale={locale} questions={questions} topicLabels={topicLabels} featuredSources={featuredSources} stats={stats} />;
 }
 
-function HomePageContent({ locale, questions, topicLabels, featuredSources }: { locale: string; questions: { text: string; slug: string }[]; topicLabels: Record<string, string>; featuredSources: Source[] }) {
+interface Stats {
+  articles: number;
+  sources: number;
+  topics: number;
+}
+
+function HomePageContent({ locale, questions, topicLabels, featuredSources, stats }: { locale: string; questions: { text: string; slug: string }[]; topicLabels: Record<string, string>; featuredSources: Source[]; stats: Stats }) {
   const t = useTranslations();
   const isGerman = locale === 'de';
 
@@ -131,7 +144,7 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources }: { 
   return (
     <div className={styles.page}>
       {/* Hero Section with Animated Questions */}
-      <HeroSection questions={questions} locale={locale} />
+      <HeroSection questions={questions} locale={locale} stats={stats} />
 
       {/* Entry Points */}
       <AnimatedSection className={styles.section}>
