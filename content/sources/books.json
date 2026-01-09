@@ -6,7 +6,7 @@
       "author": "Saifedean Ammous",
       "year": 2018,
       "isbn": "9781119473862",
-      "cover": "https://covers.openlibrary.org/b/isbn/9781119473862-L.jpg",
+      "cover": "/sources/books/bitcoin-standard.jpg",
       "affiliateUrl": {
         "amazon_de": "https://amzn.to/DEIN_LINK",
         "amazon_com": "https://amzn.to/DEIN_LINK"
@@ -25,7 +25,7 @@
       "author": "Andreas M. Antonopoulos",
       "year": 2017,
       "isbn": "9781491954386",
-      "cover": "https://covers.openlibrary.org/b/isbn/9781491954386-L.jpg",
+      "cover": "/sources/books/mastering-bitcoin.jpg",
       "affiliateUrl": {
         "amazon_de": "https://amzn.to/DEIN_LINK",
         "amazon_com": "https://amzn.to/DEIN_LINK"
@@ -44,7 +44,7 @@
       "author": "Saifedean Ammous",
       "year": 2021,
       "isbn": "9781544526478",
-      "cover": "https://covers.openlibrary.org/b/isbn/9781544526478-L.jpg",
+      "cover": "/sources/books/fiat-standard.jpg",
       "affiliateUrl": {
         "amazon_de": "https://amzn.to/DEIN_LINK",
         "amazon_com": "https://amzn.to/DEIN_LINK"
@@ -63,7 +63,7 @@
       "author": "Lyn Alden",
       "year": 2023,
       "isbn": "9798988666103",
-      "cover": "https://m.media-amazon.com/images/I/71pCmFnVq4L._SL1500_.jpg",
+      "cover": "/sources/books/broken-money.jpg",
       "affiliateUrl": {
         "amazon_de": "https://amzn.to/DEIN_LINK",
         "amazon_com": "https://amzn.to/DEIN_LINK"
@@ -82,7 +82,7 @@
       "author": "Henry Hazlitt",
       "year": 1946,
       "isbn": "9780517548233",
-      "cover": "https://covers.openlibrary.org/b/isbn/9780517548233-L.jpg",
+      "cover": "/sources/books/economics-in-one-lesson.jpg",
       "affiliateUrl": {
         "amazon_de": "https://amzn.to/DEIN_LINK",
         "amazon_com": "https://amzn.to/DEIN_LINK"
@@ -101,17 +101,302 @@
       "author": "Ludwig von Mises",
       "year": 1949,
       "isbn": "9781610161459",
-      "cover": "https://covers.openlibrary.org/b/isbn/9781610161459-L.jpg",
+      "cover": "/sources/books/human-action.jpg",
       "affiliateUrl": {
         "amazon_de": "https://amzn.to/DEIN_LINK",
         "amazon_com": "https://amzn.to/DEIN_LINK"
       },
       "description": {
-        "en": "The magnum opus of Austrian economics. Foundational work on praxeology.",
-        "de": "Das Hauptwerk der Österreichischen Schule. Grundlagenwerk zur Praxeologie."
+        "en": "The magnum opus of Austrian economics. Foundational work on praxeology and human choice.",
+        "de": "Das Hauptwerk der Österreichischen Schule. Grundlagenwerk zur Praxeologie und menschlichem Handeln."
       },
       "topics": ["economics"],
       "level": "advanced",
+      "featured": true
+    },
+    {
+      "id": "road-to-serfdom",
+      "title": "The Road to Serfdom",
+      "author": "Friedrich A. Hayek",
+      "year": 1944,
+      "isbn": "9780226320557",
+      "cover": "/sources/books/road-to-serfdom.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Nobel laureate's warning about the dangers of central planning and socialism.",
+        "de": "Warnung des Nobelpreisträgers vor den Gefahren der Zentralplanung und des Sozialismus."
+      },
+      "topics": ["economics"],
+      "level": "intermediate",
+      "featured": true
+    },
+    {
+      "id": "what-has-government-done",
+      "title": "What Has Government Done to Our Money?",
+      "author": "Murray N. Rothbard",
+      "year": 1963,
+      "isbn": "9781610166454",
+      "cover": "/sources/books/what-has-government-done.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Brilliant explanation of money, banking, and how governments debase currencies.",
+        "de": "Brillante Erklärung von Geld, Bankwesen und wie Regierungen Währungen entwerten."
+      },
+      "topics": ["money", "economics"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "principles-of-economics-menger",
+      "title": "Principles of Economics",
+      "author": "Carl Menger",
+      "year": 1871,
+      "isbn": "9781933550299",
+      "cover": "/sources/books/principles-of-economics-menger.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "The founding work of the Austrian School. Revolutionary subjective theory of value.",
+        "de": "Das Gründungswerk der Österreichischen Schule. Revolutionäre subjektive Wertlehre."
+      },
+      "topics": ["economics"],
+      "level": "advanced",
+      "featured": false
+    },
+    {
+      "id": "theory-of-money-credit",
+      "title": "The Theory of Money and Credit",
+      "author": "Ludwig von Mises",
+      "year": 1912,
+      "isbn": "9781610161923",
+      "cover": "/sources/books/theory-of-money-credit.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Mises' groundbreaking analysis of money, banking, and business cycles.",
+        "de": "Mises' bahnbrechende Analyse von Geld, Bankwesen und Konjunkturzyklen."
+      },
+      "topics": ["money", "economics"],
+      "level": "advanced",
+      "featured": false
+    },
+    {
+      "id": "man-economy-state",
+      "title": "Man, Economy, and State",
+      "author": "Murray N. Rothbard",
+      "year": 1962,
+      "isbn": "9781610163309",
+      "cover": "/sources/books/man-economy-state.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Comprehensive treatise on Austrian economics. Rothbard's masterpiece.",
+        "de": "Umfassendes Werk zur Österreichischen Schule. Rothbards Meisterwerk."
+      },
+      "topics": ["economics"],
+      "level": "advanced",
+      "featured": false
+    },
+    {
+      "id": "ethics-of-liberty",
+      "title": "The Ethics of Liberty",
+      "author": "Murray N. Rothbard",
+      "year": 1982,
+      "isbn": "9780814775592",
+      "cover": "/sources/books/ethics-of-liberty.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Natural law defense of individual liberty and property rights.",
+        "de": "Naturrechtliche Verteidigung der individuellen Freiheit und Eigentumsrechte."
+      },
+      "topics": ["economics"],
+      "level": "intermediate",
+      "featured": false
+    },
+    {
+      "id": "layered-money",
+      "title": "Layered Money",
+      "author": "Nik Bhatia",
+      "year": 2021,
+      "isbn": "9781736110515",
+      "cover": "/sources/books/layered-money.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "From gold to Bitcoin, understanding money through layers of trust and settlement.",
+        "de": "Von Gold zu Bitcoin, Geld verstehen durch Schichten von Vertrauen und Abwicklung."
+      },
+      "topics": ["money", "lightning"],
+      "level": "intermediate",
+      "featured": true
+    },
+    {
+      "id": "price-of-tomorrow",
+      "title": "The Price of Tomorrow",
+      "author": "Jeff Booth",
+      "year": 2020,
+      "isbn": "9781999257408",
+      "cover": "/sources/books/price-of-tomorrow.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Why deflation is key to an abundant future and why our system fights it.",
+        "de": "Warum Deflation der Schlüssel zu einer Zukunft des Überflusses ist."
+      },
+      "topics": ["economics", "money"],
+      "level": "intermediate",
+      "featured": true
+    },
+    {
+      "id": "21-lessons",
+      "title": "21 Lessons",
+      "author": "Gigi",
+      "year": 2019,
+      "isbn": "9781697526608",
+      "cover": "/sources/books/21-lessons.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "What I've learned from falling down the Bitcoin rabbit hole. Philosophy meets technology.",
+        "de": "Was ich beim Fall in den Bitcoin-Kaninchenbau gelernt habe. Philosophie trifft Technologie."
+      },
+      "topics": ["basics"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "inventing-bitcoin",
+      "title": "Inventing Bitcoin",
+      "author": "Yan Pritzker",
+      "year": 2019,
+      "isbn": "9781794326316",
+      "cover": "/sources/books/inventing-bitcoin.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "The technology behind the first truly scarce and decentralized money explained.",
+        "de": "Die Technologie hinter dem ersten wirklich knappen und dezentralen Geld erklärt."
+      },
+      "topics": ["basics"],
+      "level": "beginner",
+      "featured": true
+    },
+    {
+      "id": "blocksize-war",
+      "title": "The Blocksize War",
+      "author": "Jonathan Bier",
+      "year": 2021,
+      "isbn": "9798680390160",
+      "cover": "/sources/books/blocksize-war.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "The battle for control over Bitcoin's rules. Essential Bitcoin history.",
+        "de": "Der Kampf um die Kontrolle über Bitcoins Regeln. Essentielle Bitcoin-Geschichte."
+      },
+      "topics": ["basics"],
+      "level": "intermediate",
+      "featured": false
+    },
+    {
+      "id": "thank-god-for-bitcoin",
+      "title": "Thank God for Bitcoin",
+      "author": "Jimmy Song et al.",
+      "year": 2020,
+      "isbn": "9781641991216",
+      "cover": "/sources/books/thank-god-for-bitcoin.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "The creation, corruption and redemption of money. Bitcoin from a moral perspective.",
+        "de": "Die Erschaffung, Korruption und Erlösung des Geldes. Bitcoin aus moralischer Perspektive."
+      },
+      "topics": ["money"],
+      "level": "beginner",
+      "featured": false
+    },
+    {
+      "id": "bitcoin-hard-money",
+      "title": "Bitcoin: Hard Money You Can't F*ck With",
+      "author": "Jason A. Williams",
+      "year": 2020,
+      "isbn": "9798649771634",
+      "cover": "/sources/books/bitcoin-hard-money.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Why Bitcoin will become the next global reserve currency.",
+        "de": "Warum Bitcoin die nächste globale Reservewährung werden wird."
+      },
+      "topics": ["money", "basics"],
+      "level": "beginner",
+      "featured": false
+    },
+    {
+      "id": "little-bitcoin-book",
+      "title": "The Little Bitcoin Book",
+      "author": "Bitcoin Collective",
+      "year": 2019,
+      "isbn": "9781641990509",
+      "cover": "/sources/books/little-bitcoin-book.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Why Bitcoin matters for your freedom, finances, and future.",
+        "de": "Warum Bitcoin für deine Freiheit, Finanzen und Zukunft wichtig ist."
+      },
+      "topics": ["basics"],
+      "level": "beginner",
+      "featured": false
+    },
+    {
+      "id": "denationalisation-of-money",
+      "title": "Denationalisation of Money",
+      "author": "Friedrich A. Hayek",
+      "year": 1976,
+      "isbn": "9780255362399",
+      "cover": "/sources/books/denationalisation-of-money.jpg",
+      "affiliateUrl": {
+        "amazon_de": "https://amzn.to/DEIN_LINK",
+        "amazon_com": "https://amzn.to/DEIN_LINK"
+      },
+      "description": {
+        "en": "Hayek's argument for competing private currencies. Prophetic vision that Bitcoin fulfills.",
+        "de": "Hayeks Argument für konkurrierende private Währungen. Prophetische Vision, die Bitcoin erfüllt."
+      },
+      "topics": ["money", "economics"],
+      "level": "intermediate",
       "featured": false
     }
   ]
