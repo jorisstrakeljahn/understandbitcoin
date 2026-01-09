@@ -1,11 +1,12 @@
 .sidebar {
   display: none;
-  width: 280px;
+  width: 320px;
   flex-shrink: 0;
   position: sticky;
   top: 56px;
   height: calc(100vh - 56px);
   padding: var(--space-6);
+  padding-left: var(--space-8);
   transition: width 0.2s ease, padding 0.2s ease;
 }
 
@@ -16,10 +17,11 @@
   }
 }
 
-/* Collapsed state */
+/* Collapsed state - minimal width just for the button */
 .sidebar.collapsed {
-  width: 48px;
+  width: 40px;
   padding: var(--space-6) var(--space-2);
+  background-color: transparent;
 }
 
 .sidebar.collapsed .toc {
@@ -52,6 +54,11 @@
   border-color: var(--color-border);
 }
 
+/* When collapsed, button stays at the edge */
+.sidebar.collapsed .toggleButton {
+  left: 6px;
+}
+
 /* TOC Content */
 .toc {
   padding: var(--space-4);
@@ -72,7 +79,6 @@
   margin: 0 0 var(--space-4);
   padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border-subtle);
-  white-space: nowrap;
 }
 
 .list {
@@ -110,18 +116,15 @@
     border-color var(--duration-fast) var(--ease-out),
     background-color var(--duration-fast) var(--ease-out);
   line-height: 1.4;
-  /* Prevent text wrapping for cleaner look */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* Allow text to wrap to second line */
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .link:hover {
   color: var(--color-text-primary);
   background-color: var(--color-bg-elevated);
   text-decoration: none;
-  white-space: normal;
-  overflow: visible;
 }
 
 .link.active {

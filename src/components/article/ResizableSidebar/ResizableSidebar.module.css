@@ -14,15 +14,16 @@
   }
 }
 
-/* Collapsed state */
+/* Collapsed state - minimal width just for the button */
 .sidebar.collapsed {
-  width: 48px !important;
+  width: 40px !important;
+  background-color: transparent;
 }
 
 /* Collapse Toggle Button */
 .collapseButton {
   position: absolute;
-  right: 0;
+  right: -14px;
   top: var(--space-4);
   width: 28px;
   height: 28px;
@@ -36,7 +37,6 @@
   color: var(--color-text-muted);
   transition: all 0.15s ease;
   z-index: 10;
-  transform: translateX(50%);
 }
 
 .collapseButton:hover {
@@ -45,9 +45,10 @@
   border-color: var(--color-border);
 }
 
+/* When collapsed, button stays visible at the edge */
 .sidebar.collapsed .collapseButton {
-  right: 50%;
-  transform: translateX(50%);
+  right: 0;
+  left: auto;
 }
 
 /* Content */

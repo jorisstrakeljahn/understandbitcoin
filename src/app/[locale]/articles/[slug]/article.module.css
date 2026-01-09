@@ -10,6 +10,7 @@
   display: flex;
   max-width: var(--container-2xl);
   margin: 0 auto;
+  justify-content: center;
 }
 
 @media (min-width: 1024px) {
@@ -68,7 +69,10 @@
   flex: 1;
   min-width: 0;
   max-width: 800px;
+  width: 100%;
   padding: var(--space-6) var(--space-4) var(--space-16);
+  /* Center the article content when sidebars are collapsed */
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
