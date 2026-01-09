@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { Button, Badge } from '@/components/ui';
 import { TOPICS, type Topic } from '@/lib/content/schema';
 import { getAllContent } from '@/lib/content/loader';
@@ -16,91 +18,118 @@ import {
 import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
 import styles from './page.module.css';
 
-const ENTRY_POINTS = [
-  {
-    id: 'basics',
-    icon: Bitcoin,
-    title: 'Bitcoin Basics',
-    description: 'New to Bitcoin? Start here with the fundamentals.',
-    href: '/topics/basics',
-    color: 'var(--color-accent)',
-  },
-  {
-    id: 'developer',
-    icon: Code,
-    title: 'Developer',
-    description: 'Build on Bitcoin. Technical deep-dives and guides.',
-    href: '/topics/dev',
-    color: 'var(--color-info)',
-  },
-  {
-    id: 'criticism',
-    icon: HelpCircle,
-    title: 'Criticism',
-    description: 'Fair treatment of objections and concerns.',
-    href: '/topics/criticism',
-    color: 'var(--color-warning)',
-  },
-  {
-    id: 'money',
-    icon: Coins,
-    title: 'Sound Money',
-    description: 'Austrian economics and monetary theory.',
-    href: '/topics/money',
-    color: 'var(--color-success)',
-  },
-];
+interface HomePageProps {
+  params: Promise<{ locale: string }>;
+}
 
 const POPULAR_ARTICLES = [
   {
     slug: 'what-is-bitcoin',
     title: 'What is Bitcoin?',
+    titleDe: 'Was ist Bitcoin?',
     summary: 'A digital currency without banks or governments.',
+    summaryDe: 'Eine digitale Währung ohne Banken oder Regierungen.',
     topic: 'basics' as Topic,
     readTime: 5,
   },
   {
     slug: 'bitcoin-energy-consumption',
     title: 'Does Bitcoin waste energy?',
+    titleDe: 'Verschwendet Bitcoin Energie?',
     summary: 'Understanding Bitcoin\'s energy use in context.',
+    summaryDe: 'Bitcoins Energieverbrauch im Kontext verstehen.',
     topic: 'mining' as Topic,
     readTime: 8,
   },
   {
     slug: 'is-bitcoin-a-ponzi-scheme',
     title: 'Is Bitcoin a Ponzi scheme?',
+    titleDe: 'Ist Bitcoin ein Ponzi-Schema?',
     summary: 'Examining the claim with the actual definition.',
+    summaryDe: 'Die Behauptung mit der tatsächlichen Definition prüfen.',
     topic: 'criticism' as Topic,
     readTime: 6,
   },
   {
     slug: 'what-is-lightning-network',
     title: 'What is the Lightning Network?',
+    titleDe: 'Was ist das Lightning Network?',
     summary: 'Fast, cheap payments built on Bitcoin.',
+    summaryDe: 'Schnelle, günstige Zahlungen auf Bitcoin-Basis.',
     topic: 'lightning' as Topic,
     readTime: 7,
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage({ params }: HomePageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  
   // Get all questions from the content for the animated question
-  const allContent = getAllContent();
-  const questions = allContent.map((article) => ({
-    text: article.frontmatter.title,
-    slug: article.slug,
-  }));
+  const allContent = getAllContent(locale);
+  const questions = allContent.length > 0 
+    ? allContent.map((article) => ({
+        text: article.frontmatter.title,
+        slug: article.slug,
+      }))
+    : getAllContent('en').map((article) => ({
+        text: article.frontmatter.title,
+        slug: article.slug,
+      }));
+
+  return <HomePageContent locale={locale} questions={questions} />;
+}
+
+function HomePageContent({ locale, questions }: { locale: string; questions: { text: string; slug: string }[] }) {
+  const t = useTranslations();
+  const isGerman = locale === 'de';
+
+  const ENTRY_POINTS = [
+    {
+      id: 'basics',
+      icon: Bitcoin,
+      title: t('entryPoints.basics.title'),
+      description: t('entryPoints.basics.description'),
+      href: `/${locale}/topics/basics`,
+      color: 'var(--color-accent)',
+    },
+    {
+      id: 'developer',
+      icon: Code,
+      title: t('entryPoints.dev.title'),
+      description: t('entryPoints.dev.description'),
+      href: `/${locale}/topics/dev`,
+      color: 'var(--color-info)',
+    },
+    {
+      id: 'criticism',
+      icon: HelpCircle,
+      title: t('entryPoints.criticism.title'),
+      description: t('entryPoints.criticism.description'),
+      href: `/${locale}/topics/criticism`,
+      color: 'var(--color-warning)',
+    },
+    {
+      id: 'money',
+      icon: Coins,
+      title: t('entryPoints.money.title'),
+      description: t('entryPoints.money.description'),
+      href: `/${locale}/topics/money`,
+      color: 'var(--color-success)',
+    },
+  ];
 
   return (
     <div className={styles.page}>
       {/* Hero Section with Animated Questions */}
-      <HeroSection questions={questions} />
+      <HeroSection questions={questions} locale={locale} />
 
       {/* Entry Points */}
       <AnimatedSection className={styles.section}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Choose Your Topic</h2>
+          <h2 className={styles.sectionTitle}>{t('home.chooseYourTopic')}</h2>
           <p className={styles.sectionSubtitle}>
-            Whether you&apos;re curious, skeptical, or technical — we&apos;ve got you covered.
+            {t('home.topicSubtitle')}
           </p>
           
           <div className={styles.entryPoints}>
@@ -134,13 +163,10 @@ export default function HomePage() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <div>
-              <h2 className={styles.sectionTitle}>Popular Questions</h2>
-              <p className={styles.sectionSubtitle}>
-                The most-read articles this month.
-              </p>
+              <h2 className={styles.sectionTitle}>{t('home.popularArticles')}</h2>
             </div>
-            <Link href="/topics" className={styles.sectionLink}>
-              View all topics <ArrowRight size={16} />
+            <Link href={`/${locale}/topics`} className={styles.sectionLink}>
+              {t('home.viewAllTopics')} <ArrowRight size={16} />
             </Link>
           </div>
           
@@ -148,7 +174,7 @@ export default function HomePage() {
             {POPULAR_ARTICLES.map((article, index) => (
               <AnimatedCard key={article.slug} delay={index * 0.1}>
                 <Link
-                  href={`/articles/${article.slug}`}
+                  href={`/${locale}/articles/${article.slug}`}
                   className={styles.popularArticle}
                 >
                   <div className={styles.popularArticleMeta}>
@@ -158,12 +184,16 @@ export default function HomePage() {
                         {TOPICS[article.topic]?.label}
                       </span>
                     </Badge>
-                    <span className={styles.readTime}>{article.readTime} min read</span>
+                    <span className={styles.readTime}>{article.readTime} {t('topics.minRead')}</span>
                   </div>
-                  <h3 className={styles.popularArticleTitle}>{article.title}</h3>
-                  <p className={styles.popularArticleSummary}>{article.summary}</p>
+                  <h3 className={styles.popularArticleTitle}>
+                    {isGerman ? article.titleDe : article.title}
+                  </h3>
+                  <p className={styles.popularArticleSummary}>
+                    {isGerman ? article.summaryDe : article.summary}
+                  </p>
                   <span className={styles.popularArticleLink}>
-                    Read answer <ArrowRight size={14} />
+                    {t('home.readAnswer')} <ArrowRight size={14} />
                   </span>
                 </Link>
               </AnimatedCard>
@@ -177,13 +207,10 @@ export default function HomePage() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <div>
-              <h2 className={styles.sectionTitle}>Source Library</h2>
-              <p className={styles.sectionSubtitle}>
-                Curated books, papers, and resources.
-              </p>
+              <h2 className={styles.sectionTitle}>{t('home.sourcesPreview')}</h2>
             </div>
-            <Link href="/sources" className={styles.sectionLink}>
-              Browse library <ArrowRight size={16} />
+            <Link href={`/${locale}/sources`} className={styles.sectionLink}>
+              {t('home.browseLibrary')} <ArrowRight size={16} />
             </Link>
           </div>
           
@@ -191,7 +218,7 @@ export default function HomePage() {
             <AnimatedCard delay={0}>
               <div className={styles.sourceCard}>
                 <div className={styles.sourceType}>
-                  <BookOpen size={14} /> Book
+                  <BookOpen size={14} /> {isGerman ? 'Buch' : 'Book'}
                 </div>
                 <h3 className={styles.sourceTitle}>The Bitcoin Standard</h3>
                 <p className={styles.sourceAuthor}>Saifedean Ammous</p>
@@ -200,7 +227,7 @@ export default function HomePage() {
             <AnimatedCard delay={0.1}>
               <div className={styles.sourceCard}>
                 <div className={styles.sourceType}>
-                  <FileText size={14} /> Paper
+                  <FileText size={14} /> {isGerman ? 'Paper' : 'Paper'}
                 </div>
                 <h3 className={styles.sourceTitle}>Bitcoin: A Peer-to-Peer Electronic Cash System</h3>
                 <p className={styles.sourceAuthor}>Satoshi Nakamoto</p>
@@ -218,7 +245,7 @@ export default function HomePage() {
             <AnimatedCard delay={0.3}>
               <div className={styles.sourceCard}>
                 <div className={styles.sourceType}>
-                  <BookOpen size={14} /> Book
+                  <BookOpen size={14} /> {isGerman ? 'Buch' : 'Book'}
                 </div>
                 <h3 className={styles.sourceTitle}>Mastering Bitcoin</h3>
                 <p className={styles.sourceAuthor}>Andreas Antonopoulos</p>
@@ -231,13 +258,13 @@ export default function HomePage() {
       {/* CTA Section */}
       <AnimatedSection className={styles.ctaSection} delay={0.1}>
         <div className={styles.container}>
-          <h2 className={styles.ctaTitle}>Ready to understand Bitcoin?</h2>
+          <h2 className={styles.ctaTitle}>{t('home.readyTitle')}</h2>
           <p className={styles.ctaSubtitle}>
-            Explore well-researched, balanced content on sound money.
+            {t('home.readySubtitle')}
           </p>
-          <Link href="/topics">
+          <Link href={`/${locale}/topics`}>
             <Button size="lg" variant="primary">
-              Explore Topics
+              {t('home.exploreTopics')}
             </Button>
           </Link>
         </div>

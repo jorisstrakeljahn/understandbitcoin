@@ -1,27 +1,29 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { TOPICS, Topic } from '@/lib/content/schema';
 import { getContentByTopic, getAllContent } from '@/lib/content/loader';
 import { TopicIcon, ChevronRight, FileText } from '@/components/icons';
 import styles from './topic.module.css';
 
 interface TopicPageProps {
-  params: Promise<{ topic: string }>;
+  params: Promise<{ locale: string; topic: string }>;
 }
 
 const TOPIC_ORDER: Topic[] = ['basics', 'security', 'mining', 'lightning', 'economics', 'criticism', 'money', 'dev'];
 
 export async function generateMetadata({ params }: TopicPageProps) {
-  const { topic } = await params;
+  const { locale, topic } = await params;
+  const t = await getTranslations({ locale, namespace: 'topics' });
   const topicData = TOPICS[topic as Topic];
   
   if (!topicData) {
-    return { title: 'Topic Not Found' };
+    return { title: locale === 'de' ? 'Thema nicht gefunden' : 'Topic Not Found' };
   }
 
   return {
-    title: `${topicData.label} | Documentation`,
-    description: topicData.description,
+    title: `${t(`${topic}.label`)} | ${t('documentation')}`,
+    description: t(`${topic}.description`),
   };
 }
 
@@ -30,19 +32,24 @@ export function generateStaticParams() {
 }
 
 export default async function TopicPage({ params }: TopicPageProps) {
-  const { topic } = await params;
+  const { locale, topic } = await params;
+  setRequestLocale(locale);
+  
+  const t = await getTranslations({ locale, namespace: 'topics' });
   const topicData = TOPICS[topic as Topic];
   
   if (!topicData) {
     notFound();
   }
 
-  const articles = getContentByTopic(topic as Topic);
-  const allArticles = getAllContent();
+  const articles = getContentByTopic(topic as Topic, locale).length > 0 
+    ? getContentByTopic(topic as Topic, locale) 
+    : getContentByTopic(topic as Topic, 'en');
+  const allArticles = getAllContent(locale).length > 0 ? getAllContent(locale) : getAllContent('en');
 
   // Group all articles by topic for sidebar
-  const articlesByTopic = TOPIC_ORDER.reduce((acc, t) => {
-    acc[t] = allArticles.filter((a) => a.frontmatter.topic === t);
+  const articlesByTopic = TOPIC_ORDER.reduce((acc, topicKey) => {
+    acc[topicKey] = allArticles.filter((a) => a.frontmatter.topic === topicKey);
     return acc;
   }, {} as Record<Topic, typeof allArticles>);
 
@@ -60,25 +67,24 @@ export default async function TopicPage({ params }: TopicPageProps) {
         <aside className={styles.sidebar}>
           <nav className={styles.sidebarNav}>
             <div className={styles.sidebarHeader}>
-              <Link href="/topics" className={styles.sidebarBack}>
-                <span className={styles.sidebarTitle}>Documentation</span>
+              <Link href={`/${locale}/topics`} className={styles.sidebarBack}>
+                <span className={styles.sidebarTitle}>{t('documentation')}</span>
               </Link>
             </div>
             
             <div className={styles.fileTree}>
               {TOPIC_ORDER.map((topicKey) => {
-                const t = TOPICS[topicKey];
                 const topicArticles = articlesByTopic[topicKey] || [];
                 const isActive = topicKey === topic;
                 
                 return (
                   <div key={topicKey} className={`${styles.treeSection} ${isActive ? styles.treeSectionActive : ''}`}>
                     <Link 
-                      href={`/topics/${topicKey}`} 
+                      href={`/${locale}/topics/${topicKey}`} 
                       className={`${styles.treeFolder} ${isActive ? styles.treeFolderActive : ''}`}
                     >
                       <TopicIcon topic={topicKey} size={14} />
-                      <span className={styles.treeFolderName}>{t.label}</span>
+                      <span className={styles.treeFolderName}>{t(`${topicKey}.label`)}</span>
                       {topicArticles.length > 0 && (
                         <span className={styles.treeCount}>{topicArticles.length}</span>
                       )}
@@ -90,7 +96,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                         {topicArticles.map((article) => (
                           <li key={article.slug}>
                             <Link 
-                              href={`/articles/${article.frontmatter.slug}`}
+                              href={`/${locale}/articles/${article.frontmatter.slug}`}
                               className={styles.treeFile}
                             >
                               <FileText size={12} />
@@ -113,9 +119,9 @@ export default async function TopicPage({ params }: TopicPageProps) {
         <main className={styles.main}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
-            <Link href="/topics">Documentation</Link>
+            <Link href={`/${locale}/topics`}>{t('documentation')}</Link>
             <ChevronRight size={12} />
-            <span>{topicData.label}</span>
+            <span>{t(`${topic}.label`)}</span>
           </nav>
 
           {/* Header */}
@@ -124,15 +130,15 @@ export default async function TopicPage({ params }: TopicPageProps) {
               <TopicIcon topic={topic as Topic} size={20} />
             </div>
             <div className={styles.headerContent}>
-              <h1 className={styles.title}>{topicData.label}</h1>
-              <p className={styles.description}>{topicData.description}</p>
+              <h1 className={styles.title}>{t(`${topic}.label`)}</h1>
+              <p className={styles.description}>{t(`${topic}.description`)}</p>
             </div>
           </header>
 
           {/* Content */}
           {articles.length === 0 ? (
             <div className={styles.empty}>
-              <p>No articles in this topic yet.</p>
+              <p>{locale === 'de' ? 'Noch keine Artikel in diesem Thema.' : 'No articles in this topic yet.'}</p>
             </div>
           ) : (
             <div className={styles.content}>
@@ -140,14 +146,14 @@ export default async function TopicPage({ params }: TopicPageProps) {
               {groupedArticles.beginner.length > 0 && (
                 <section className={styles.levelSection}>
                   <div className={styles.levelHeader}>
-                    <span className={styles.levelBadge} data-level="beginner">Beginner</span>
+                    <span className={styles.levelBadge} data-level="beginner">{t('beginner')}</span>
                     <span className={styles.levelCount}>{groupedArticles.beginner.length}</span>
                   </div>
                   <ul className={styles.articleList}>
                     {groupedArticles.beginner.map((article) => (
                       <li key={article.slug}>
                         <Link 
-                          href={`/articles/${article.frontmatter.slug}`}
+                          href={`/${locale}/articles/${article.frontmatter.slug}`}
                           className={styles.articleItem}
                         >
                           <FileText size={14} className={styles.articleIcon} />
@@ -160,7 +166,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                             </span>
                           </div>
                           <span className={styles.articleMeta}>
-                            {article.readTime} min
+                            {article.readTime} {t('minRead')}
                           </span>
                         </Link>
                       </li>
@@ -173,14 +179,14 @@ export default async function TopicPage({ params }: TopicPageProps) {
               {groupedArticles.intermediate.length > 0 && (
                 <section className={styles.levelSection}>
                   <div className={styles.levelHeader}>
-                    <span className={styles.levelBadge} data-level="intermediate">Intermediate</span>
+                    <span className={styles.levelBadge} data-level="intermediate">{t('intermediate')}</span>
                     <span className={styles.levelCount}>{groupedArticles.intermediate.length}</span>
                   </div>
                   <ul className={styles.articleList}>
                     {groupedArticles.intermediate.map((article) => (
                       <li key={article.slug}>
                         <Link 
-                          href={`/articles/${article.frontmatter.slug}`}
+                          href={`/${locale}/articles/${article.frontmatter.slug}`}
                           className={styles.articleItem}
                         >
                           <FileText size={14} className={styles.articleIcon} />
@@ -193,7 +199,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                             </span>
                           </div>
                           <span className={styles.articleMeta}>
-                            {article.readTime} min
+                            {article.readTime} {t('minRead')}
                           </span>
                         </Link>
                       </li>
@@ -206,14 +212,14 @@ export default async function TopicPage({ params }: TopicPageProps) {
               {groupedArticles.advanced.length > 0 && (
                 <section className={styles.levelSection}>
                   <div className={styles.levelHeader}>
-                    <span className={styles.levelBadge} data-level="advanced">Advanced</span>
+                    <span className={styles.levelBadge} data-level="advanced">{t('advanced')}</span>
                     <span className={styles.levelCount}>{groupedArticles.advanced.length}</span>
                   </div>
                   <ul className={styles.articleList}>
                     {groupedArticles.advanced.map((article) => (
                       <li key={article.slug}>
                         <Link 
-                          href={`/articles/${article.frontmatter.slug}`}
+                          href={`/${locale}/articles/${article.frontmatter.slug}`}
                           className={styles.articleItem}
                         >
                           <FileText size={14} className={styles.articleIcon} />
@@ -226,7 +232,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                             </span>
                           </div>
                           <span className={styles.articleMeta}>
-                            {article.readTime} min
+                            {article.readTime} {t('minRead')}
                           </span>
                         </Link>
                       </li>

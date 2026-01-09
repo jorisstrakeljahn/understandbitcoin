@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { TOPICS, Topic } from '@/lib/content/schema';
 import { TopicIcon, FileText } from '@/components/icons';
 import styles from './ArticleSidebar.module.css';
@@ -15,11 +16,14 @@ interface ArticleSidebarProps {
   currentTopic: Topic;
   currentSlug: string;
   articles: ArticleInfo[];
+  locale?: string;
 }
 
 const TOPIC_ORDER: Topic[] = ['basics', 'security', 'mining', 'lightning', 'economics', 'criticism', 'money', 'dev'];
 
-export function ArticleSidebar({ currentTopic, currentSlug, articles }: ArticleSidebarProps) {
+export function ArticleSidebar({ currentTopic, currentSlug, articles, locale = 'en' }: ArticleSidebarProps) {
+  const t = useTranslations('topics');
+  
   // Group articles by topic
   const articlesByTopic = TOPIC_ORDER.reduce((acc, topic) => {
     acc[topic] = articles.filter((a) => a.topic === topic);
@@ -29,25 +33,24 @@ export function ArticleSidebar({ currentTopic, currentSlug, articles }: ArticleS
   return (
     <nav className={styles.sidebar}>
       <div className={styles.header}>
-        <Link href="/topics" className={styles.headerLink}>
-          <span className={styles.headerTitle}>Documentation</span>
+        <Link href={`/${locale}/topics`} className={styles.headerLink}>
+          <span className={styles.headerTitle}>{t('documentation')}</span>
         </Link>
       </div>
       
       <div className={styles.fileTree}>
         {TOPIC_ORDER.map((topicKey) => {
-          const topic = TOPICS[topicKey];
           const topicArticles = articlesByTopic[topicKey] || [];
           const isActiveTopic = topicKey === currentTopic;
           
           return (
             <div key={topicKey} className={`${styles.treeSection} ${isActiveTopic ? styles.treeSectionActive : ''}`}>
               <Link 
-                href={`/topics/${topicKey}`} 
+                href={`/${locale}/topics/${topicKey}`} 
                 className={`${styles.treeFolder} ${isActiveTopic ? styles.treeFolderActive : ''}`}
               >
                 <TopicIcon topic={topicKey} size={14} />
-                <span className={styles.treeFolderName}>{topic.label}</span>
+                <span className={styles.treeFolderName}>{t(`${topicKey}.label`)}</span>
                 {topicArticles.length > 0 && (
                   <span className={styles.treeCount}>{topicArticles.length}</span>
                 )}
@@ -61,7 +64,7 @@ export function ArticleSidebar({ currentTopic, currentSlug, articles }: ArticleS
                     return (
                       <li key={article.slug}>
                         <Link 
-                          href={`/articles/${article.slug}`}
+                          href={`/${locale}/articles/${article.slug}`}
                           className={`${styles.treeFile} ${isCurrentArticle ? styles.treeFileActive : ''}`}
                         >
                           <FileText size={12} />

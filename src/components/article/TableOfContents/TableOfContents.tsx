@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import styles from './TableOfContents.module.css';
 
 interface Heading {
@@ -11,9 +12,11 @@ interface Heading {
 
 interface TableOfContentsProps {
   headings: Heading[];
+  locale?: string;
 }
 
 export function TableOfContents({ headings }: TableOfContentsProps) {
+  const t = useTranslations('article');
   const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <nav className={styles.toc}>
-      <h4 className={styles.title}>On This Page</h4>
+      <h4 className={styles.title}>{t('onThisPage')}</h4>
       <ul className={styles.list}>
         {headings.map((heading) => (
           <li

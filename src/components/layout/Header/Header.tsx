@@ -2,23 +2,37 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from '@/lib/hooks/useTheme';
 import { SearchModal } from '@/components/search/SearchModal';
 import { Drawer } from '@/components/ui';
-import { Menu, Search, Sun, Moon, Bitcoin } from '@/components/icons';
+import { Menu, Search, Sun, Moon, Bitcoin, Globe } from '@/components/icons';
+import { locales, localeNames, type Locale } from '@/i18n/config';
 import styles from './Header.module.css';
 
-const NAV_LINKS = [
-  { href: '/topics', label: 'Topics' },
-  { href: '/topics/criticism', label: 'Criticism' },
-  { href: '/glossary', label: 'Glossary' },
-  { href: '/sources', label: 'Sources' },
-];
-
 export function Header() {
+  const t = useTranslations('header');
+  const locale = useLocale();
+  const pathname = usePathname();
   const { resolvedTheme, toggleTheme, mounted } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+
+  const NAV_LINKS = [
+    { href: `/${locale}/topics`, label: t('topics') },
+    { href: `/${locale}/topics/criticism`, label: t('criticism') },
+    { href: `/${locale}/glossary`, label: t('glossary') },
+    { href: `/${locale}/sources`, label: t('sources') },
+  ];
+
+  // Get the path without locale for language switching
+  const getPathWithLocale = (newLocale: Locale) => {
+    const segments = pathname.split('/');
+    segments[1] = newLocale; // Replace the locale segment
+    return segments.join('/');
+  };
 
   return (
     <>
@@ -28,13 +42,13 @@ export function Header() {
           <button
             className={styles.menuButton}
             onClick={() => setIsNavOpen(true)}
-            aria-label="Open navigation menu"
+            aria-label={t('openNavigation')}
           >
             <Menu size={20} />
           </button>
 
           {/* Logo */}
-          <Link href="/" className={styles.logo}>
+          <Link href={`/${locale}`} className={styles.logo}>
             <span className={styles.logoIcon}>
               <Bitcoin size={20} strokeWidth={2.5} />
             </span>
@@ -56,18 +70,44 @@ export function Header() {
             <button
               className={styles.searchButton}
               onClick={() => setIsSearchOpen(true)}
-              aria-label="Open search"
+              aria-label={t('openSearch')}
             >
               <Search size={18} />
-              <span className={styles.searchLabel}>Search</span>
+              <span className={styles.searchLabel}>{locale === 'de' ? 'Suchen' : 'Search'}</span>
               <kbd className={styles.searchShortcut}>⌘K</kbd>
             </button>
+
+            {/* Language Switcher */}
+            <div className={styles.languageWrapper}>
+              <button
+                className={styles.languageToggle}
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                aria-label={t('changeLanguage')}
+              >
+                <Globe size={18} />
+              </button>
+              
+              {isLangOpen && (
+                <div className={styles.languageDropdown}>
+                  {locales.map((loc) => (
+                    <Link
+                      key={loc}
+                      href={getPathWithLocale(loc)}
+                      className={`${styles.languageOption} ${loc === locale ? styles.languageActive : ''}`}
+                      onClick={() => setIsLangOpen(false)}
+                    >
+                      <span>{localeNames[loc]}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Theme Toggle */}
             <button
               className={styles.themeToggle}
               onClick={toggleTheme}
-              aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
+              aria-label={resolvedTheme === 'dark' ? t('switchToLight') : t('switchToDark')}
             >
               {mounted && (
                 resolvedTheme === 'dark' ? (
@@ -94,6 +134,23 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          
+          {/* Language Switcher in Mobile */}
+          <div className={styles.mobileLanguage}>
+            <span className={styles.mobileLanguageLabel}>{t('changeLanguage')}</span>
+            <div className={styles.mobileLanguageOptions}>
+              {locales.map((loc) => (
+                <Link
+                  key={loc}
+                  href={getPathWithLocale(loc)}
+                  className={`${styles.mobileLanguageOption} ${loc === locale ? styles.languageActive : ''}`}
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  <span>{localeNames[loc]}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </nav>
       </Drawer>
 

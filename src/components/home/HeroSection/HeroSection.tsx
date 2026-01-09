@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { Search } from '@/components/icons';
 import { Button } from '@/components/ui';
 import { AnimatedQuestion } from '../AnimatedQuestion';
@@ -15,6 +16,7 @@ interface Question {
 
 interface HeroSectionProps {
   questions: Question[];
+  locale?: string;
 }
 
 // Floating particles configuration
@@ -29,7 +31,8 @@ const FLOATING_ELEMENTS = [
   { size: 5, x: '40%', y: '10%', delay: 1.2, duration: 9 },
 ];
 
-export function HeroSection({ questions }: HeroSectionProps) {
+export function HeroSection({ questions, locale = 'en' }: HeroSectionProps) {
+  const t = useTranslations('home');
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -114,7 +117,7 @@ export function HeroSection({ questions }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Therefor Bitcoin<span className={styles.heroDot}>.</span>
+          {t('heroTitle')}<span className={styles.heroDot}>.</span>
         </motion.h1>
 
         {/* Animated Question */}
@@ -124,7 +127,7 @@ export function HeroSection({ questions }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <AnimatedQuestion questions={questions} interval={3500} />
+          <AnimatedQuestion questions={questions} interval={3500} locale={locale} />
         </motion.div>
 
         {/* Search Input */}
@@ -139,7 +142,7 @@ export function HeroSection({ questions }: HeroSectionProps) {
             <input
               type="text"
               className={styles.searchInput}
-              placeholder="Search any Bitcoin question..."
+              placeholder={t('searchPlaceholder')}
               aria-label="Search"
             />
             <kbd className={styles.searchKbd}>⌘K</kbd>
@@ -153,7 +156,7 @@ export function HeroSection({ questions }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          Clear answers. Fair objections. Primary sources.
+          {t('heroSubtitle')}
         </motion.p>
 
         {/* CTAs */}
@@ -163,19 +166,19 @@ export function HeroSection({ questions }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          <Link href="/topics/basics">
+          <Link href={`/${locale}/topics/basics`}>
             <Button size="lg" variant="primary">
-              Start with Basics
+              {t('startWithBasics')}
             </Button>
           </Link>
-          <Link href="/topics">
+          <Link href={`/${locale}/topics`}>
             <Button size="lg" variant="outline">
-              Browse Topics
+              {t('browseTopics')}
             </Button>
           </Link>
-          <Link href="/topics/criticism">
+          <Link href={`/${locale}/topics/criticism`}>
             <Button size="lg" variant="outline">
-              Read Criticism
+              {t('readCriticism')}
             </Button>
           </Link>
         </motion.div>
@@ -189,17 +192,17 @@ export function HeroSection({ questions }: HeroSectionProps) {
         >
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>50+</span>
-            <span className={styles.trustLabel}>Articles</span>
+            <span className={styles.trustLabel}>{locale === 'de' ? 'Artikel' : 'Articles'}</span>
           </div>
           <div className={styles.trustDivider} />
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>100+</span>
-            <span className={styles.trustLabel}>Sources</span>
+            <span className={styles.trustLabel}>{locale === 'de' ? 'Quellen' : 'Sources'}</span>
           </div>
           <div className={styles.trustDivider} />
           <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>Fair</span>
-            <span className={styles.trustLabel}>Criticism</span>
+            <span className={styles.trustNumber}>{locale === 'de' ? 'Faire' : 'Fair'}</span>
+            <span className={styles.trustLabel}>{locale === 'de' ? 'Kritik' : 'Criticism'}</span>
           </div>
         </motion.div>
       </motion.div>
@@ -219,7 +222,7 @@ export function HeroSection({ questions }: HeroSectionProps) {
         >
           <div className={styles.scrollWheel} />
         </motion.div>
-        <span className={styles.scrollText}>Scroll to explore</span>
+        <span className={styles.scrollText}>{t('scrollToExplore')}</span>
       </motion.div>
     </section>
   );

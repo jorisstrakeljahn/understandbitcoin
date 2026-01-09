@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui';
 import { TLDRBox, SteelmanBox, SourcesList, KeyTakeaways } from '@/components/mdx';
 import { TOPICS, LEVELS } from '@/lib/content/schema';
@@ -14,18 +15,18 @@ import styles from './article.module.css';
 const BASE_URL = 'https://thereforbitcoin.com';
 
 interface ArticlePageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: ArticlePageProps) {
-  const { slug } = await params;
-  const article = getContentBySlug(slug);
+  const { locale, slug } = await params;
+  const article = getContentBySlug(slug, locale) || getContentBySlug(slug, 'en');
   
   if (!article) {
-    return { title: 'Article Not Found' };
+    return { title: locale === 'de' ? 'Artikel nicht gefunden' : 'Article Not Found' };
   }
 
-  const articleUrl = `${BASE_URL}/articles/${slug}`;
+  const articleUrl = `${BASE_URL}/${locale}/articles/${slug}`;
 
   return {
     title: article.frontmatter.title,
@@ -50,11 +51,6 @@ export async function generateMetadata({ params }: ArticlePageProps) {
         },
       ],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: article.frontmatter.title,
-      description: article.frontmatter.summary,
-    },
   };
 }
 
@@ -64,8 +60,13 @@ export function generateStaticParams() {
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { slug } = await params;
-  const article = getContentBySlug(slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  
+  const t = await getTranslations({ locale, namespace: 'article' });
+  const tTopics = await getTranslations({ locale, namespace: 'topics' });
+  
+  const article = getContentBySlug(slug, locale) || getContentBySlug(slug, 'en');
   
   if (!article) {
     notFound();
@@ -74,10 +75,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { frontmatter, content } = article;
   const topic = TOPICS[frontmatter.topic];
   const level = LEVELS[frontmatter.level];
-  const relatedArticles = getRelatedContent(slug, 'en', 4);
+  const relatedArticles = getRelatedContent(slug, locale, 4).length > 0 
+    ? getRelatedContent(slug, locale, 4) 
+    : getRelatedContent(slug, 'en', 4);
   
   // Get all articles for sidebar
-  const allArticles = getAllContent().map((a) => ({
+  const allArticles = (getAllContent(locale).length > 0 ? getAllContent(locale) : getAllContent('en')).map((a) => ({
     slug: a.slug,
     title: a.frontmatter.title,
     topic: a.frontmatter.topic,
@@ -87,17 +90,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const headings = extractHeadings(content);
 
   // Prepare JSON-LD data
-  const articleUrl = `${BASE_URL}/articles/${slug}`;
+  const articleUrl = `${BASE_URL}/${locale}/articles/${slug}`;
   const breadcrumbItems = [
-    { name: 'Home', url: BASE_URL },
-    { name: 'Topics', url: `${BASE_URL}/topics` },
-    { name: topic.label, url: `${BASE_URL}/topics/${frontmatter.topic}` },
+    { name: locale === 'de' ? 'Startseite' : 'Home', url: `${BASE_URL}/${locale}` },
+    { name: tTopics('documentation'), url: `${BASE_URL}/${locale}/topics` },
+    { name: tTopics(`${frontmatter.topic}.label`), url: `${BASE_URL}/${locale}/topics/${frontmatter.topic}` },
     { name: frontmatter.title, url: articleUrl },
   ];
 
   // Create FAQ from TL;DR if available
   const faqItems = frontmatter.tldr?.map((item, index) => ({
-    question: index === 0 ? frontmatter.title : `Key point ${index + 1} about ${frontmatter.title.toLowerCase()}`,
+    question: index === 0 ? frontmatter.title : `${locale === 'de' ? 'Wichtiger Punkt' : 'Key point'} ${index + 1}`,
     answer: item,
   })) || [];
 
@@ -124,6 +127,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             currentTopic={frontmatter.topic} 
             currentSlug={slug} 
             articles={allArticles}
+            locale={locale}
           />
         </aside>
 
@@ -131,9 +135,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <article className={styles.article}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
-            <Link href="/topics">Documentation</Link>
+            <Link href={`/${locale}/topics`}>{tTopics('documentation')}</Link>
             <span>&gt;</span>
-            <Link href={`/topics/${frontmatter.topic}`}>{topic.label}</Link>
+            <Link href={`/${locale}/topics/${frontmatter.topic}`}>{tTopics(`${frontmatter.topic}.label`)}</Link>
             <span>&gt;</span>
             <span>{frontmatter.title}</span>
           </nav>
@@ -143,7 +147,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className={styles.meta}>
               <Badge variant="accent">
                 <TopicIcon topic={frontmatter.topic} size={14} />
-                <span style={{ marginLeft: '4px' }}>{topic.label}</span>
+                <span style={{ marginLeft: '4px' }}>{tTopics(`${frontmatter.topic}.label`)}</span>
               </Badge>
               <Badge
                 variant={
@@ -151,16 +155,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   frontmatter.level === 'intermediate' ? 'warning' : 'error'
                 }
               >
-                {level.label}
+                {tTopics(frontmatter.level)}
               </Badge>
-              <span className={styles.readTime}>{article.readTime} min read</span>
+              <span className={styles.readTime}>{article.readTime} {tTopics('minRead')}</span>
             </div>
             <h1 className={styles.title}>{frontmatter.title}</h1>
             <p className={styles.summary}>{frontmatter.summary}</p>
             <div className={styles.trustCues}>
-              <span>Last updated: {formatDate(frontmatter.lastUpdated)}</span>
+              <span>{t('lastUpdated')}: {formatDate(frontmatter.lastUpdated, locale)}</span>
               {frontmatter.sources && frontmatter.sources.length > 0 && (
-                <span>{frontmatter.sources.length} sources cited</span>
+                <span>{frontmatter.sources.length} {t('sourcesCited')}</span>
               )}
             </div>
           </header>
@@ -173,14 +177,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* Why People Ask */}
           {frontmatter.whyPeopleAsk && (
             <section className={styles.whySection}>
-              <h2 id="why-people-ask">Why People Ask This</h2>
+              <h2 id="why-people-ask">{t('whyPeopleAsk')}</h2>
               <p>{frontmatter.whyPeopleAsk}</p>
             </section>
           )}
 
           {/* Main Content */}
           <div className={styles.content}>
-            <h2 id="the-answer">The Answer</h2>
+            <h2 id="the-answer">{t('theAnswer')}</h2>
             <ArticleContent content={content} />
           </div>
 
@@ -194,7 +198,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* What's True / What's Uncertain */}
           {(frontmatter.whatIsTrue || frontmatter.whatIsUncertain) && (
             <section className={styles.truthSection}>
-              <h2 id="truth-and-uncertainty">What&apos;s True &amp; What&apos;s Uncertain</h2>
+              <h2 id="truth-and-uncertainty">{t('truthAndUncertainty')}</h2>
               <div className={styles.truthGrid}>
                 {frontmatter.whatIsTrue && frontmatter.whatIsTrue.length > 0 && (
                   <KeyTakeaways items={frontmatter.whatIsTrue} />
@@ -203,7 +207,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   <div className={styles.uncertainBox}>
                     <h4 className={styles.uncertainTitle}>
                       <HelpCircle size={18} />
-                      Still Uncertain
+                      {t('stillUncertain')}
                     </h4>
                     <ul>
                       {frontmatter.whatIsUncertain.map((item, i) => (
@@ -224,18 +228,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* Related Questions */}
           {relatedArticles.length > 0 && (
             <section className={styles.relatedSection}>
-              <h2 id="related-questions">Related Questions</h2>
+              <h2 id="related-questions">{t('relatedQuestions')}</h2>
               <div className={styles.relatedGrid}>
                 {relatedArticles.map((related) => (
                   <Link
                     key={related.slug}
-                    href={`/articles/${related.slug}`}
+                    href={`/${locale}/articles/${related.slug}`}
                     className={styles.relatedCard}
                   >
                     <h3>{related.title}</h3>
                     <p>{related.summary}</p>
                     <span className={styles.relatedMeta}>
-                      {related.readTime} min · {LEVELS[related.level].label}
+                      {related.readTime} {tTopics('minRead')} · {tTopics(related.level)}
                     </span>
                   </Link>
                 ))}
@@ -245,15 +249,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Navigation */}
           <nav className={styles.articleNav}>
-            <Link href={`/topics/${frontmatter.topic}`} className={styles.navLink}>
-              <ArrowLeft size={16} /> Back to {topic.label}
+            <Link href={`/${locale}/topics/${frontmatter.topic}`} className={styles.navLink}>
+              <ArrowLeft size={16} /> {t('backTo')} {tTopics(`${frontmatter.topic}.label`)}
             </Link>
           </nav>
         </article>
 
         {/* Right Sidebar - TOC */}
         <aside className={styles.rightSidebar}>
-          <TableOfContents headings={headings} />
+          <TableOfContents headings={headings} locale={locale} />
         </aside>
       </div>
     </div>
@@ -277,18 +281,17 @@ function extractHeadings(content: string): { id: string; text: string; level: nu
 }
 
 // Helper function to format date
-function formatDate(dateString: string): string {
+function formatDate(dateString: string, locale: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(locale === 'de' ? 'de-DE' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 }
 
-// Simple content renderer (placeholder - would use MDX compiler in production)
+// Simple content renderer
 function ArticleContent({ content }: { content: string }) {
-  // Remove frontmatter and render as simple paragraphs
   const cleanContent = content.replace(/^---[\s\S]*?---/, '').trim();
   
   return (

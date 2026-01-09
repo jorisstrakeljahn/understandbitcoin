@@ -13,9 +13,10 @@ interface Question {
 interface AnimatedQuestionProps {
   questions: Question[];
   interval?: number;
+  locale?: string;
 }
 
-export function AnimatedQuestion({ questions, interval = 4000 }: AnimatedQuestionProps) {
+export function AnimatedQuestion({ questions, interval = 4000, locale = 'en' }: AnimatedQuestionProps) {
   // Start with index 0 to avoid hydration mismatch (Math.random differs on server/client)
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
@@ -79,7 +80,7 @@ export function AnimatedQuestion({ questions, interval = 4000 }: AnimatedQuestio
   if (!currentQuestion) return null;
 
   return (
-    <Link href={`/articles/${currentQuestion.slug}`} className={styles.questionLink}>
+    <Link href={`/${locale}/articles/${currentQuestion.slug}`} className={styles.questionLink}>
       <span className={styles.questionText}>
         {displayText}
         <motion.span

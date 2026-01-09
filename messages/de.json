@@ -1,0 +1,164 @@
+{
+  "metadata": {
+    "title": "Therefor Bitcoin - Klare Antworten über Bitcoin",
+    "description": "Eine umfassende, ausgewogene Wissensdatenbank über Bitcoin. Klare Antworten, faire Einwände und Primärquellen."
+  },
+  "header": {
+    "topics": "Themen",
+    "criticism": "Kritik",
+    "glossary": "Glossar",
+    "sources": "Quellen",
+    "openSearch": "Suche öffnen",
+    "openNavigation": "Navigationsmenü öffnen",
+    "switchToDark": "Zum Dunkelmodus wechseln",
+    "switchToLight": "Zum Hellmodus wechseln",
+    "changeLanguage": "Sprache ändern"
+  },
+  "footer": {
+    "tagline": "Klare Antworten. Faire Einwände. Primärquellen.",
+    "mission": "Eine freie, quelloffene Wissensdatenbank, die Menschen hilft Bitcoin zu verstehen — daher Bitcoin.",
+    "learn": "Lernen",
+    "allTopics": "Alle Themen",
+    "glossary": "Glossar",
+    "sources": "Quellen",
+    "topics": "Themen",
+    "bitcoinBasics": "Bitcoin Grundlagen",
+    "security": "Sicherheit",
+    "lightning": "Lightning",
+    "economics": "Wirtschaft",
+    "about": "Über uns",
+    "criticism": "Kritik",
+    "aboutUs": "Über uns",
+    "contribute": "Mitwirken",
+    "copyright": "Alle Inhalte sind frei verwendbar mit Quellenangabe."
+  },
+  "home": {
+    "heroTitle": "Therefor Bitcoin",
+    "heroSubtitle": "Klare Antworten. Faire Einwände. Primärquellen.",
+    "searchPlaceholder": "Nach Antworten suchen...",
+    "startWithBasics": "Mit Grundlagen starten",
+    "browseTopics": "Themen durchsuchen",
+    "readCriticism": "Kritik lesen",
+    "scrollToExplore": "Scrollen zum Entdecken",
+    "chooseYourTopic": "Wähle dein Thema",
+    "topicSubtitle": "Egal ob neugierig, skeptisch oder technisch versiert — wir haben alles abgedeckt.",
+    "popularArticles": "Beliebte Artikel",
+    "viewAllTopics": "Alle Themen anzeigen",
+    "readAnswer": "Antwort lesen",
+    "sourcesPreview": "Quellenbibliothek",
+    "sourcesDescription": "Jede Behauptung mit Primärquellen, wissenschaftlichen Arbeiten und Expertenanalysen belegt.",
+    "browseLibrary": "Bibliothek durchsuchen",
+    "readyTitle": "Bereit Bitcoin zu verstehen?",
+    "readySubtitle": "Entdecke gut recherchierte, ausgewogene Inhalte über stabiles Geld.",
+    "exploreTopics": "Themen erkunden"
+  },
+  "topics": {
+    "documentation": "Dokumentation",
+    "allTopics": "Alle Themen",
+    "articles": "Artikel",
+    "minRead": "Min. Lesezeit",
+    "beginner": "Beginner",
+    "intermediate": "Fortgeschritten",
+    "advanced": "Experte",
+    "basics": {
+      "label": "Bitcoin Grundlagen",
+      "description": "Neu bei Bitcoin? Starte hier mit den Grundlagen."
+    },
+    "security": {
+      "label": "Sicherheit & Selbstverwahrung",
+      "description": "Lerne, wie du deine Bitcoin sicher aufbewahrst."
+    },
+    "mining": {
+      "label": "Mining & Energie",
+      "description": "Bitcoin-Mining und Energieverbrauch verstehen."
+    },
+    "lightning": {
+      "label": "Lightning & Zahlungen",
+      "description": "Schnelle, günstige Zahlungen auf Bitcoin-Basis."
+    },
+    "economics": {
+      "label": "Geldpolitik",
+      "description": "Bitcoin als stabiles Geld und Wertspeicher."
+    },
+    "criticism": {
+      "label": "Kritik & Bedenken",
+      "description": "Faire Behandlung von Einwänden und Bedenken."
+    },
+    "money": {
+      "label": "Stabiles Geld",
+      "description": "Österreichische Schule und Geldtheorie."
+    },
+    "dev": {
+      "label": "Entwicklung",
+      "description": "Auf Bitcoin entwickeln. Technische Vertiefungen und Anleitungen."
+    }
+  },
+  "article": {
+    "whyPeopleAsk": "Warum Menschen das fragen",
+    "theAnswer": "Die Antwort",
+    "truthAndUncertainty": "Was stimmt & Was unsicher ist",
+    "stillUncertain": "Noch unklar",
+    "sources": "Quellen & Weiterführendes",
+    "primarySources": "Primärquellen",
+    "secondarySources": "Sekundärquellen",
+    "videoSources": "Video-Quellen",
+    "relatedQuestions": "Verwandte Fragen",
+    "backTo": "Zurück zu",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "sourcesCited": "Quellen zitiert",
+    "onThisPage": "Auf dieser Seite"
+  },
+  "search": {
+    "title": "Suchergebnisse",
+    "resultsFor": "Ergebnisse für",
+    "noResults": "Keine Ergebnisse gefunden",
+    "tryDifferent": "Versuche einen anderen Suchbegriff",
+    "placeholder": "Suchen...",
+    "all": "Alle"
+  },
+  "glossary": {
+    "title": "Glossar",
+    "subtitle": "Bitcoin-Begriffe einfach erklärt",
+    "comingSoon": "Demnächst verfügbar",
+    "description": "Wir erstellen ein umfassendes Glossar der Bitcoin- und Kryptowährungsbegriffe. Jeder Eintrag enthält klare Definitionen, Beispiele und Links zu verwandten Artikeln.",
+    "searchPlaceholder": "Begriffe suchen...",
+    "featuredTerms": "Wichtige Begriffe",
+    "viewAll": "Alle Begriffe anzeigen"
+  },
+  "sources": {
+    "title": "Quellenbibliothek",
+    "subtitle": "Primärquellen, wissenschaftliche Arbeiten und Expertenanalysen",
+    "comingSoon": "Demnächst verfügbar",
+    "description": "Wir kuratieren eine Bibliothek hochwertiger Quellen über Bitcoin. Jede Quelle wird kategorisiert, zusammengefasst und mit relevanten Artikeln verknüpft.",
+    "categories": "Kategorien",
+    "whitepapers": "Whitepapers & Technisches",
+    "academic": "Akademische Forschung",
+    "books": "Bücher",
+    "videos": "Video-Inhalte",
+    "browseAll": "Alle Quellen durchsuchen"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "notFound": "Nicht gefunden",
+    "backHome": "Zurück zur Startseite"
+  },
+  "entryPoints": {
+    "basics": {
+      "title": "Bitcoin Grundlagen",
+      "description": "Neu bei Bitcoin? Starte hier mit den Grundlagen."
+    },
+    "dev": {
+      "title": "Entwickler",
+      "description": "Auf Bitcoin entwickeln. Technische Vertiefungen und Anleitungen."
+    },
+    "criticism": {
+      "title": "Kritik",
+      "description": "Faire Behandlung von Einwänden und Bedenken."
+    },
+    "money": {
+      "title": "Stabiles Geld",
+      "description": "Österreichische Schule und Geldtheorie."
+    }
+  }
+}

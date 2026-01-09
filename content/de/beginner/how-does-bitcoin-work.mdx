@@ -1,0 +1,85 @@
+---
+slug: how-does-bitcoin-work
+title: Wie funktioniert Bitcoin?
+summary: Bitcoin nutzt Kryptographie, ein Peer-to-Peer-Netzwerk und wirtschaftliche Anreize, um ein sicheres, dezentrales Zahlungssystem zu schaffen.
+tags:
+  - technologie
+  - funktionsweise
+  - transaktionen
+  - mining
+topic: basics
+level: beginner
+type: qa
+language: de
+lastUpdated: "2024-01-15"
+tldr:
+  - Transaktionen werden mit privaten Schlüsseln signiert (wie eine digitale Unterschrift)
+  - Nodes verifizieren, dass Transaktionen gültig sind
+  - Miner konkurrieren darum, Transaktionen zur Blockchain hinzuzufügen
+  - Die Blockchain ist ein gemeinsames Verzeichnis, das jeder überprüfen kann
+  - Wirtschaftliche Anreize halten das Netzwerk sicher
+whyPeopleAsk: Nach dem Lernen, was Bitcoin ist, ist die nächste natürliche Frage, die Technologie dahinter zu verstehen – wie kann Geld ohne eine zentrale Autorität funktionieren?
+steelmanObjection: "Die Technologie ist zu kompliziert für Durchschnittsmenschen, um sie zu verstehen oder sicher zu nutzen."
+whatIsTrue:
+  - Das Kernprotokoll funktioniert seit 2009 sicher
+  - Transaktionen werden mathematisch verifiziert
+  - Das Netzwerk verarbeitet täglich tausende Transaktionen
+  - Jeder kann einen Node betreiben und alles verifizieren
+whatIsUncertain:
+  - Ob die Technologie für globale Adoption skalieren wird
+  - Wie Quantencomputing die Sicherheit beeinflussen könnte
+relatedQuestions:
+  - what-is-bitcoin
+  - what-is-mining
+  - what-is-a-private-key
+sources:
+  - title: "Bitcoin: A Peer-to-Peer Electronic Cash System"
+    url: "https://bitcoin.org/bitcoin.pdf"
+    author: Satoshi Nakamoto
+    type: primary
+  - title: "But How Does Bitcoin Actually Work?"
+    url: "https://www.youtube.com/watch?v=bBC-nXj3Ng4"
+    author: 3Blue1Brown
+    type: video
+    description: Visuelle Erklärung der Bitcoin-Kryptographie
+---
+
+## Die Kernkomponenten
+
+Bitcoin kombiniert mehrere Technologien, die vor ihm existierten, auf eine neuartige Weise:
+
+### 1. Public-Key-Kryptographie
+
+Jeder Bitcoin-Nutzer hat ein Schlüsselpaar:
+- **Privater Schlüssel**: Eine geheime Zahl, mit der du deine Bitcoin ausgeben kannst
+- **Öffentlicher Schlüssel**: Vom privaten Schlüssel abgeleitet, wird zum Empfangen von Bitcoin verwendet
+
+Wenn du Bitcoin sendest, erstellst du eine digitale Signatur mit deinem privaten Schlüssel. Jeder kann diese Signatur mit deinem öffentlichen Schlüssel verifizieren und so beweisen, dass du die Transaktion autorisiert hast.
+
+### 2. Die Blockchain
+
+Die Blockchain ist eine Kette von Blöcken, von denen jeder Transaktionen enthält. Jeder Block verweist auf den vorherigen, was eine unzerbrechliche Kette bis zum ersten Block (dem "Genesis-Block") schafft.
+
+Diese Struktur macht es praktisch unmöglich, vergangene Transaktionen zu ändern – du müsstest die gesamte Arbeit für jeden nachfolgenden Block wiederholen.
+
+### 3. Mining und Proof of Work
+
+Miner konkurrieren darum, neue Blöcke hinzuzufügen, indem sie ein mathematisches Rätsel lösen. Der Erste, der es löst, darf den Block hinzufügen und erhält neue Bitcoin als Belohnung.
+
+Dieser Prozess:
+- Sichert das Netzwerk gegen Angriffe
+- Erschafft neue Bitcoin mit einer vorhersehbaren Rate
+- Erreicht Konsens ohne eine zentrale Autorität
+
+### 4. Das Netzwerk
+
+Tausende von Nodes (Computer, die Bitcoin-Software ausführen) pflegen Kopien der Blockchain. Sie validieren Transaktionen und Blöcke und lehnen alles ab, was die Regeln bricht.
+
+## Der Transaktionsablauf
+
+1. Du erstellst eine Transaktion und signierst sie
+2. Deine Wallet sendet sie an das Netzwerk
+3. Nodes verifizieren, dass sie gültig ist
+4. Miner nehmen sie in einen Block auf
+5. Der Block wird zur Blockchain hinzugefügt
+6. Der Empfänger kann die Bitcoin jetzt ausgeben

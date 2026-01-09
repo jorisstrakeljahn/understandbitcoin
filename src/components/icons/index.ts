@@ -58,6 +58,8 @@ export {
   Users,
   Home,
   Layers,
+  Globe,
+  Languages,
 } from 'lucide-react';
 
 export type { LucideProps as IconProps } from 'lucide-react';

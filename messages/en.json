@@ -1,0 +1,164 @@
+{
+  "metadata": {
+    "title": "Therefor Bitcoin - Clear Answers About Bitcoin",
+    "description": "A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources."
+  },
+  "header": {
+    "topics": "Topics",
+    "criticism": "Criticism",
+    "glossary": "Glossary",
+    "sources": "Sources",
+    "openSearch": "Open search",
+    "openNavigation": "Open navigation menu",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode",
+    "changeLanguage": "Change language"
+  },
+  "footer": {
+    "tagline": "Clear answers. Fair objections. Primary sources.",
+    "mission": "A free, open-source knowledge base helping people understand Bitcoin — therefore Bitcoin.",
+    "learn": "Learn",
+    "allTopics": "All Topics",
+    "glossary": "Glossary",
+    "sources": "Sources",
+    "topics": "Topics",
+    "bitcoinBasics": "Bitcoin Basics",
+    "security": "Security",
+    "lightning": "Lightning",
+    "economics": "Economics",
+    "about": "About",
+    "criticism": "Criticism",
+    "aboutUs": "About Us",
+    "contribute": "Contribute",
+    "copyright": "All content is free to use with attribution."
+  },
+  "home": {
+    "heroTitle": "Therefor Bitcoin",
+    "heroSubtitle": "Clear answers. Fair objections. Primary sources.",
+    "searchPlaceholder": "Search for answers...",
+    "startWithBasics": "Start with Basics",
+    "browseTopics": "Browse Topics",
+    "readCriticism": "Read Criticism",
+    "scrollToExplore": "Scroll to explore",
+    "chooseYourTopic": "Choose Your Topic",
+    "topicSubtitle": "Whether you're curious, skeptical, or technical — we've got you covered.",
+    "popularArticles": "Popular Articles",
+    "viewAllTopics": "View all topics",
+    "readAnswer": "Read answer",
+    "sourcesPreview": "Source Library",
+    "sourcesDescription": "Every claim backed by primary sources, academic papers, and expert analysis.",
+    "browseLibrary": "Browse library",
+    "readyTitle": "Ready to understand Bitcoin?",
+    "readySubtitle": "Explore well-researched, balanced content on sound money.",
+    "exploreTopics": "Explore Topics"
+  },
+  "topics": {
+    "documentation": "Documentation",
+    "allTopics": "All Topics",
+    "articles": "articles",
+    "minRead": "min read",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "basics": {
+      "label": "Bitcoin Basics",
+      "description": "New to Bitcoin? Start here with the fundamentals."
+    },
+    "security": {
+      "label": "Security & Self-Custody",
+      "description": "Learn how to secure your Bitcoin safely."
+    },
+    "mining": {
+      "label": "Mining & Energy",
+      "description": "Understanding Bitcoin mining and energy use."
+    },
+    "lightning": {
+      "label": "Lightning & Payments",
+      "description": "Fast, cheap payments built on Bitcoin."
+    },
+    "economics": {
+      "label": "Monetary Economics",
+      "description": "Bitcoin as sound money and store of value."
+    },
+    "criticism": {
+      "label": "Criticism & Concerns",
+      "description": "Fair treatment of objections and concerns."
+    },
+    "money": {
+      "label": "Sound Money",
+      "description": "Austrian economics and monetary theory."
+    },
+    "dev": {
+      "label": "Development",
+      "description": "Build on Bitcoin. Technical deep-dives and guides."
+    }
+  },
+  "article": {
+    "whyPeopleAsk": "Why People Ask This",
+    "theAnswer": "The Answer",
+    "truthAndUncertainty": "What's True & What's Uncertain",
+    "stillUncertain": "Still Uncertain",
+    "sources": "Sources & Further Reading",
+    "primarySources": "Primary Sources",
+    "secondarySources": "Secondary Sources",
+    "videoSources": "Video Sources",
+    "relatedQuestions": "Related Questions",
+    "backTo": "Back to",
+    "lastUpdated": "Last updated",
+    "sourcesCited": "sources cited",
+    "onThisPage": "On This Page"
+  },
+  "search": {
+    "title": "Search Results",
+    "resultsFor": "results for",
+    "noResults": "No results found",
+    "tryDifferent": "Try a different search term",
+    "placeholder": "Search...",
+    "all": "All"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "subtitle": "Bitcoin terminology explained simply",
+    "comingSoon": "Coming Soon",
+    "description": "We're building a comprehensive glossary of Bitcoin and cryptocurrency terms. Each entry will include clear definitions, examples, and links to related articles.",
+    "searchPlaceholder": "Search terms...",
+    "featuredTerms": "Featured Terms",
+    "viewAll": "View all terms"
+  },
+  "sources": {
+    "title": "Source Library",
+    "subtitle": "Primary sources, academic papers, and expert analysis",
+    "comingSoon": "Coming Soon",
+    "description": "We're curating a library of high-quality sources about Bitcoin. Each source will be categorized, summarized, and linked to relevant articles.",
+    "categories": "Categories",
+    "whitepapers": "Whitepapers & Technical",
+    "academic": "Academic Research",
+    "books": "Books",
+    "videos": "Video Content",
+    "browseAll": "Browse all sources"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Not found",
+    "backHome": "Back to home"
+  },
+  "entryPoints": {
+    "basics": {
+      "title": "Bitcoin Basics",
+      "description": "New to Bitcoin? Start here with the fundamentals."
+    },
+    "dev": {
+      "title": "Developer",
+      "description": "Build on Bitcoin. Technical deep-dives and guides."
+    },
+    "criticism": {
+      "title": "Criticism",
+      "description": "Fair treatment of objections and concerns."
+    },
+    "money": {
+      "title": "Sound Money",
+      "description": "Austrian economics and monetary theory."
+    }
+  }
+}

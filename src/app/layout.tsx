@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Header, Footer } from "@/components/layout";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -20,9 +19,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Therefor Bitcoin Contributors" }],
   creator: "Therefor Bitcoin",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -70,34 +66,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Theme initialization script to prevent flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  if (theme === 'dark' || theme === 'light') {
-                    document.documentElement.setAttribute('data-theme', theme);
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body>
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
-        {/* Analytics stub - add PostHog here later */}
-      </body>
-    </html>
-  );
+  return children;
 }
