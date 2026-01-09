@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, ReactNode } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './ResizableSidebar.module.css';
 
 interface ResizableSidebarProps {
@@ -9,6 +10,7 @@ interface ResizableSidebarProps {
   minWidth?: number;
   maxWidth?: number;
   storageKey?: string;
+  collapsedStorageKey?: string;
 }
 
 export function ResizableSidebar({
@@ -17,12 +19,14 @@ export function ResizableSidebar({
   minWidth = 200,
   maxWidth = 450,
   storageKey = 'sidebar-width',
+  collapsedStorageKey = 'sidebar-collapsed',
 }: ResizableSidebarProps) {
   const [width, setWidth] = useState(defaultWidth);
   const [isResizing, setIsResizing] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Load saved width from localStorage
+  // Load saved width and collapsed state from localStorage
   useEffect(() => {
     const savedWidth = localStorage.getItem(storageKey);
     if (savedWidth) {
@@ -31,7 +35,12 @@ export function ResizableSidebar({
         setWidth(parsed);
       }
     }
-  }, [storageKey, minWidth, maxWidth]);
+    
+    const savedCollapsed = localStorage.getItem(collapsedStorageKey);
+    if (savedCollapsed === 'true') {
+      setIsCollapsed(true);
+    }
+  }, [storageKey, collapsedStorageKey, minWidth, maxWidth]);
 
   // Save width to localStorage
   useEffect(() => {
@@ -39,6 +48,11 @@ export function ResizableSidebar({
       localStorage.setItem(storageKey, String(width));
     }
   }, [width, isResizing, storageKey]);
+
+  // Save collapsed state
+  useEffect(() => {
+    localStorage.setItem(collapsedStorageKey, String(isCollapsed));
+  }, [isCollapsed, collapsedStorageKey]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -87,16 +101,33 @@ export function ResizableSidebar({
   return (
     <div
       ref={sidebarRef}
-      className={styles.sidebar}
-      style={{ width: `${width}px` }}
+      className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}
+      style={{ width: isCollapsed ? '48px' : `${width}px` }}
     >
-      <div className={styles.content}>{children}</div>
-      <div
-        className={`${styles.resizer} ${isResizing ? styles.resizerActive : ''}`}
-        onMouseDown={handleMouseDown}
+      {/* Collapse Toggle Button */}
+      <button
+        className={styles.collapseButton}
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        title={isCollapsed ? 'Expand' : 'Collapse'}
       >
-        <div className={styles.resizerHandle} />
+        {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+      </button>
+
+      {/* Content */}
+      <div className={`${styles.content} ${isCollapsed ? styles.contentHidden : ''}`}>
+        {children}
       </div>
+
+      {/* Resizer (only visible when not collapsed) */}
+      {!isCollapsed && (
+        <div
+          className={`${styles.resizer} ${isResizing ? styles.resizerActive : ''}`}
+          onMouseDown={handleMouseDown}
+        >
+          <div className={styles.resizerHandle} />
+        </div>
+      )}
     </div>
   );
 }

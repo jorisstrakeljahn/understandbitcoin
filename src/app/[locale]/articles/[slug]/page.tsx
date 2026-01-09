@@ -6,9 +6,9 @@ import { Badge } from '@/components/ui';
 import { TLDRBox, SteelmanBox, SourcesList, KeyTakeaways } from '@/components/mdx';
 import { getContentBySlug, getAllContent, getRelatedContent, getTopicConfig, getLevelConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { ArticleSidebar } from '@/components/article/ArticleSidebar';
-import { TableOfContents } from '@/components/article/TableOfContents';
 import { MobileNav } from '@/components/article/MobileNav';
 import { ResizableSidebar } from '@/components/article/ResizableSidebar';
+import { CollapsibleTOC } from '@/components/article/CollapsibleTOC';
 import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
 import { TopicIcon, HelpCircle, ArrowLeft } from '@/components/icons';
 import styles from './article.module.css';
@@ -267,10 +267,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </nav>
         </article>
 
-        {/* Right Sidebar - TOC */}
-        <aside className={styles.rightSidebar}>
-          <TableOfContents headings={headings} locale={locale} />
-        </aside>
+        {/* Right Sidebar - TOC (Collapsible) */}
+        <CollapsibleTOC headings={headings} />
       </div>
     </div>
   );
