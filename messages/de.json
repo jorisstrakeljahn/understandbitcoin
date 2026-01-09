@@ -136,9 +136,9 @@
       "title": "Bitcoin Grundlagen",
       "description": "Neu bei Bitcoin? Starte hier mit den Grundlagen."
     },
-    "dev": {
-      "title": "Entwickler",
-      "description": "Auf Bitcoin entwickeln. Technische Vertiefungen und Anleitungen."
+    "economics": {
+      "title": "Geldtheorie",
+      "description": "Bitcoin als stabiles Geld und Wertspeicher."
     },
     "criticism": {
       "title": "Kritik",

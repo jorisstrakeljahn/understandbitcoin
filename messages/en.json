@@ -136,9 +136,9 @@
       "title": "Bitcoin Basics",
       "description": "New to Bitcoin? Start here with the fundamentals."
     },
-    "dev": {
-      "title": "Developer",
-      "description": "Build on Bitcoin. Technical deep-dives and guides."
+    "economics": {
+      "title": "Monetary Economics",
+      "description": "Bitcoin as sound money and store of value."
     },
     "criticism": {
       "title": "Criticism",

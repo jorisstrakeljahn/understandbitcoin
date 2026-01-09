@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui';
 import { searchContent } from '@/lib/search';
-import { TOPICS, LEVELS } from '@/lib/content/schema';
+import { getAllTopicsFromConfig } from '@/lib/content/loader';
 import { TopicIcon, ArrowRight } from '@/components/icons';
 import styles from './search.module.css';
 
@@ -99,6 +99,9 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
   
   const t = await getTranslations({ locale, namespace: 'search' });
   const tTopics = await getTranslations({ locale, namespace: 'topics' });
+  
+  // Get topics from config
+  const topicsFromConfig = getAllTopicsFromConfig(locale);
 
   return (
     <div className={styles.page}>
@@ -128,13 +131,13 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
                 >
                   {t('all')}
                 </Link>
-                {Object.keys(TOPICS).map((topicKey) => (
+                {topicsFromConfig.map((topicItem) => (
                   <Link
-                    key={topicKey}
-                    href={`/${locale}/search?q=${q || ''}&topic=${topicKey}&level=${level || ''}`}
-                    className={`${styles.filterTag} ${topic === topicKey ? styles.filterTagActive : ''}`}
+                    key={topicItem.id}
+                    href={`/${locale}/search?q=${q || ''}&topic=${topicItem.id}&level=${level || ''}`}
+                    className={`${styles.filterTag} ${topic === topicItem.id ? styles.filterTagActive : ''}`}
                   >
-                    {tTopics(`${topicKey}.label`)}
+                    {topicItem.label}
                   </Link>
                 ))}
               </div>

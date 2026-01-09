@@ -22,7 +22,6 @@ export const TopicSchema = z.enum([
   'economics',
   'criticism',
   'money',
-  'dev',
 ]);
 
 export const SourceTypeSchema = z.enum([
@@ -68,84 +67,41 @@ export type Topic = z.infer<typeof TopicSchema>;
 export type Source = z.infer<typeof SourceSchema>;
 export type SourceType = z.infer<typeof SourceTypeSchema>;
 
-// Topic metadata for display
+// ============================================
+// DEPRECATED: Use loader functions instead
+// These are kept for backwards compatibility
+// All metadata is now in content/config.json
+// ============================================
+
+/**
+ * @deprecated Use getTopicConfig() from loader.ts instead
+ */
 export const TOPICS: Record<Topic, { label: string; description: string; icon: string }> = {
-  basics: {
-    label: 'Bitcoin Basics',
-    description: 'Fundamental concepts and how Bitcoin works',
-    icon: '₿',
-  },
-  security: {
-    label: 'Security & Self-Custody',
-    description: 'Protecting your Bitcoin and managing keys',
-    icon: '🔐',
-  },
-  mining: {
-    label: 'Mining & Energy',
-    description: 'How mining secures the network',
-    icon: '⛏️',
-  },
-  lightning: {
-    label: 'Lightning & Payments',
-    description: 'Fast, cheap Bitcoin transactions',
-    icon: '⚡',
-  },
-  economics: {
-    label: 'Monetary Economics',
-    description: 'Bitcoin as money and economic theory',
-    icon: '📊',
-  },
-  criticism: {
-    label: 'Criticism & Concerns',
-    description: 'Common objections addressed fairly',
-    icon: '🤔',
-  },
-  money: {
-    label: 'Sound Money',
-    description: 'Austrian economics and monetary history',
-    icon: '🪙',
-  },
-  dev: {
-    label: 'Development',
-    description: 'Building on Bitcoin',
-    icon: '💻',
-  },
+  basics: { label: 'Bitcoin Basics', description: 'Fundamental concepts and how Bitcoin works', icon: 'Bitcoin' },
+  security: { label: 'Security & Self-Custody', description: 'Protecting your Bitcoin and managing keys', icon: 'Shield' },
+  mining: { label: 'Mining & Energy', description: 'How mining secures the network', icon: 'Pickaxe' },
+  lightning: { label: 'Lightning & Payments', description: 'Fast, cheap Bitcoin transactions', icon: 'Zap' },
+  economics: { label: 'Monetary Economics', description: 'Bitcoin as money and economic theory', icon: 'TrendingUp' },
+  criticism: { label: 'Criticism & Concerns', description: 'Common objections addressed fairly', icon: 'CircleHelp' },
+  money: { label: 'Sound Money', description: 'Austrian economics and monetary history', icon: 'Coins' },
 };
 
+/**
+ * @deprecated Use getContentTypeConfig() from loader.ts instead
+ */
 export const CONTENT_TYPES: Record<ContentType, { label: string; description: string }> = {
-  qa: {
-    label: 'Q&A',
-    description: 'Direct answers to common questions',
-  },
-  explainer: {
-    label: 'Explainer',
-    description: 'In-depth explanations of concepts',
-  },
-  criticism: {
-    label: 'Criticism',
-    description: 'Fair treatment of objections',
-  },
-  glossary: {
-    label: 'Glossary',
-    description: 'Definitions and terms',
-  },
-  source: {
-    label: 'Source',
-    description: 'Books, articles, and resources',
-  },
+  qa: { label: 'Q&A', description: 'Direct answers to common questions' },
+  explainer: { label: 'Explainer', description: 'In-depth explanations of concepts' },
+  criticism: { label: 'Criticism', description: 'Fair treatment of objections' },
+  glossary: { label: 'Glossary', description: 'Definitions and terms' },
+  source: { label: 'Source', description: 'Books, articles, and resources' },
 };
 
+/**
+ * @deprecated Use getLevelConfig() from loader.ts instead
+ */
 export const LEVELS: Record<ContentLevel, { label: string; color: string }> = {
-  beginner: {
-    label: 'Beginner',
-    color: 'var(--color-success)',
-  },
-  intermediate: {
-    label: 'Intermediate',
-    color: 'var(--color-warning)',
-  },
-  advanced: {
-    label: 'Advanced',
-    color: 'var(--color-error)',
-  },
+  beginner: { label: 'Beginner', color: 'var(--color-success)' },
+  intermediate: { label: 'Intermediate', color: 'var(--color-warning)' },
+  advanced: { label: 'Advanced', color: 'var(--color-error)' },
 };

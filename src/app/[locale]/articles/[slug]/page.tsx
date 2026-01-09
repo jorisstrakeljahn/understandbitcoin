@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui';
 import { TLDRBox, SteelmanBox, SourcesList, KeyTakeaways } from '@/components/mdx';
-import { TOPICS, LEVELS } from '@/lib/content/schema';
-import { getContentBySlug, getAllContent, getRelatedContent } from '@/lib/content/loader';
+import { getContentBySlug, getAllContent, getRelatedContent, getTopicConfig, getLevelConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { ArticleSidebar } from '@/components/article/ArticleSidebar';
 import { TableOfContents } from '@/components/article/TableOfContents';
 import { MobileNav } from '@/components/article/MobileNav';
@@ -74,8 +73,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const { frontmatter, content } = article;
-  const topic = TOPICS[frontmatter.topic];
-  const level = LEVELS[frontmatter.level];
+  const topic = getTopicConfig(frontmatter.topic, locale);
+  const level = getLevelConfig(frontmatter.level, locale);
   const relatedArticles = getRelatedContent(slug, locale, 4).length > 0 
     ? getRelatedContent(slug, locale, 4) 
     : getRelatedContent(slug, 'en', 4);
@@ -86,6 +85,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     title: a.frontmatter.title,
     topic: a.frontmatter.topic,
   }));
+  
+  // Get topics from config for sidebar
+  const topicsForSidebar = getAllTopicsFromConfig(locale).map((t) => ({
+    id: t.id,
+    label: t.label,
+  }));
 
   // Parse headings from content for TOC
   const headings = extractHeadings(content);
@@ -95,7 +100,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const breadcrumbItems = [
     { name: locale === 'de' ? 'Startseite' : 'Home', url: `${BASE_URL}/${locale}` },
     { name: tTopics('documentation'), url: `${BASE_URL}/${locale}/topics` },
-    { name: tTopics(`${frontmatter.topic}.label`), url: `${BASE_URL}/${locale}/topics/${frontmatter.topic}` },
+    { name: topic.label, url: `${BASE_URL}/${locale}/topics/${frontmatter.topic}` },
     { name: frontmatter.title, url: articleUrl },
   ];
 
@@ -128,6 +133,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             currentTopic={frontmatter.topic} 
             currentSlug={slug} 
             articles={allArticles}
+            topics={topicsForSidebar}
             locale={locale}
           />
         </aside>
@@ -138,7 +144,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <nav className={styles.breadcrumb}>
             <Link href={`/${locale}/topics`}>{tTopics('documentation')}</Link>
             <span>&gt;</span>
-            <Link href={`/${locale}/topics/${frontmatter.topic}`}>{tTopics(`${frontmatter.topic}.label`)}</Link>
+            <Link href={`/${locale}/topics/${frontmatter.topic}`}>{topic.label}</Link>
             <span>&gt;</span>
             <span>{frontmatter.title}</span>
           </nav>
@@ -148,7 +154,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className={styles.meta}>
               <Badge variant="accent">
                 <TopicIcon topic={frontmatter.topic} size={14} />
-                <span style={{ marginLeft: '4px' }}>{tTopics(`${frontmatter.topic}.label`)}</span>
+                <span style={{ marginLeft: '4px' }}>{topic.label}</span>
               </Badge>
               <Badge
                 variant={
@@ -156,7 +162,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   frontmatter.level === 'intermediate' ? 'warning' : 'error'
                 }
               >
-                {tTopics(frontmatter.level)}
+                {level.label}
               </Badge>
             </div>
             <h1 className={styles.title}>{frontmatter.title}</h1>
@@ -250,7 +256,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* Navigation */}
           <nav className={styles.articleNav}>
             <Link href={`/${locale}/topics/${frontmatter.topic}`} className={styles.navLink}>
-              <ArrowLeft size={16} /> {t('backTo')} {tTopics(`${frontmatter.topic}.label`)}
+              <ArrowLeft size={16} /> {t('backTo')} {topic.label}
             </Link>
           </nav>
         </article>

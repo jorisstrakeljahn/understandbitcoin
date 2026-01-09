@@ -301,12 +301,21 @@
 .truthGrid {
   display: grid;
   gap: var(--space-4);
+  align-items: stretch;
 }
 
 @media (min-width: 640px) {
   .truthGrid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Make both boxes equal height */
+.truthGrid > * {
+  margin: 0 !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .uncertainBox {

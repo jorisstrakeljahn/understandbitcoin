@@ -5,6 +5,126 @@ import { FrontmatterSchema, Frontmatter, Topic, ContentType, ContentLevel } from
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
+// ============================================
+// Content Config (loaded from content/config.json)
+// ============================================
+
+export interface TopicConfig {
+  label: { en: string; de: string };
+  description: { en: string; de: string };
+  icon: string;
+  folder: string;
+  order: number;
+}
+
+export interface ContentTypeConfig {
+  label: { en: string; de: string };
+  description: { en: string; de: string };
+}
+
+export interface LevelConfig {
+  label: { en: string; de: string };
+  color: string;
+}
+
+export interface ContentConfig {
+  topics: Record<string, TopicConfig>;
+  contentTypes: Record<string, ContentTypeConfig>;
+  levels: Record<string, LevelConfig>;
+}
+
+let cachedConfig: ContentConfig | null = null;
+
+export function getContentConfig(): ContentConfig {
+  if (cachedConfig) {
+    return cachedConfig;
+  }
+
+  const configPath = path.join(CONTENT_DIR, 'config.json');
+  
+  if (!fs.existsSync(configPath)) {
+    throw new Error('Content config not found at content/config.json');
+  }
+
+  const configContent = fs.readFileSync(configPath, 'utf-8');
+  cachedConfig = JSON.parse(configContent) as ContentConfig;
+  
+  return cachedConfig;
+}
+
+export function getTopicConfig(topic: string, language: string = 'en'): { label: string; description: string; icon: string; order: number } {
+  const config = getContentConfig();
+  const topicConfig = config.topics[topic];
+  
+  if (!topicConfig) {
+    return {
+      label: topic,
+      description: '',
+      icon: '📄',
+      order: 999,
+    };
+  }
+
+  const lang = language as 'en' | 'de';
+  return {
+    label: topicConfig.label[lang] || topicConfig.label.en,
+    description: topicConfig.description[lang] || topicConfig.description.en,
+    icon: topicConfig.icon,
+    order: topicConfig.order,
+  };
+}
+
+export function getContentTypeConfig(type: string, language: string = 'en'): { label: string; description: string } {
+  const config = getContentConfig();
+  const typeConfig = config.contentTypes[type];
+  
+  if (!typeConfig) {
+    return {
+      label: type,
+      description: '',
+    };
+  }
+
+  const lang = language as 'en' | 'de';
+  return {
+    label: typeConfig.label[lang] || typeConfig.label.en,
+    description: typeConfig.description[lang] || typeConfig.description.en,
+  };
+}
+
+export function getLevelConfig(level: string, language: string = 'en'): { label: string; color: string } {
+  const config = getContentConfig();
+  const levelConfig = config.levels[level];
+  
+  if (!levelConfig) {
+    return {
+      label: level,
+      color: 'var(--color-text-secondary)',
+    };
+  }
+
+  const lang = language as 'en' | 'de';
+  return {
+    label: levelConfig.label[lang] || levelConfig.label.en,
+    color: levelConfig.color,
+  };
+}
+
+export function getAllTopicsFromConfig(language: string = 'en'): Array<{ id: string; label: string; description: string; icon: string; order: number }> {
+  const config = getContentConfig();
+  const lang = language as 'en' | 'de';
+  
+  return Object.entries(config.topics)
+    .map(([id, topic]) => ({
+      id,
+      label: topic.label[lang] || topic.label.en,
+      description: topic.description[lang] || topic.description.en,
+      icon: topic.icon,
+      order: topic.order,
+    }))
+    .sort((a, b) => a.order - b.order);
+}
+
 export interface ContentItem {
   frontmatter: Frontmatter;
   content: string;

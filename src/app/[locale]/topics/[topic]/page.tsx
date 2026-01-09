@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { TOPICS, Topic } from '@/lib/content/schema';
-import { getContentByTopic, getAllContent } from '@/lib/content/loader';
+import { Topic } from '@/lib/content/schema';
+import { getContentByTopic, getAllContent, getTopicConfig, getAllTopicsFromConfig, getContentConfig } from '@/lib/content/loader';
 import { TopicIcon, ChevronRight, FileText } from '@/components/icons';
 import styles from './topic.module.css';
 
@@ -10,25 +10,24 @@ interface TopicPageProps {
   params: Promise<{ locale: string; topic: string }>;
 }
 
-const TOPIC_ORDER: Topic[] = ['basics', 'security', 'mining', 'lightning', 'economics', 'criticism', 'money', 'dev'];
-
 export async function generateMetadata({ params }: TopicPageProps) {
   const { locale, topic } = await params;
   const t = await getTranslations({ locale, namespace: 'topics' });
-  const topicData = TOPICS[topic as Topic];
+  const topicData = getTopicConfig(topic, locale);
   
-  if (!topicData) {
+  if (!topicData.label || topicData.label === topic) {
     return { title: locale === 'de' ? 'Thema nicht gefunden' : 'Topic Not Found' };
   }
 
   return {
-    title: `${t(`${topic}.label`)} | ${t('documentation')}`,
-    description: t(`${topic}.description`),
+    title: `${topicData.label} | ${t('documentation')}`,
+    description: topicData.description,
   };
 }
 
 export function generateStaticParams() {
-  return Object.keys(TOPICS).map((topic) => ({ topic }));
+  const config = getContentConfig();
+  return Object.keys(config.topics).map((topic) => ({ topic }));
 }
 
 export default async function TopicPage({ params }: TopicPageProps) {
@@ -36,9 +35,12 @@ export default async function TopicPage({ params }: TopicPageProps) {
   setRequestLocale(locale);
   
   const t = await getTranslations({ locale, namespace: 'topics' });
-  const topicData = TOPICS[topic as Topic];
+  const topicData = getTopicConfig(topic, locale);
+  const topicsFromConfig = getAllTopicsFromConfig(locale);
   
-  if (!topicData) {
+  // Check if topic exists in config
+  const topicExists = topicsFromConfig.some((t) => t.id === topic);
+  if (!topicExists) {
     notFound();
   }
 
@@ -48,8 +50,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
   const allArticles = getAllContent(locale).length > 0 ? getAllContent(locale) : getAllContent('en');
 
   // Group all articles by topic for sidebar
-  const articlesByTopic = TOPIC_ORDER.reduce((acc, topicKey) => {
-    acc[topicKey] = allArticles.filter((a) => a.frontmatter.topic === topicKey);
+  const articlesByTopic = topicsFromConfig.reduce((acc, t) => {
+    acc[t.id as Topic] = allArticles.filter((a) => a.frontmatter.topic === t.id);
     return acc;
   }, {} as Record<Topic, typeof allArticles>);
 
@@ -73,18 +75,18 @@ export default async function TopicPage({ params }: TopicPageProps) {
             </div>
             
             <div className={styles.fileTree}>
-              {TOPIC_ORDER.map((topicKey) => {
-                const topicArticles = articlesByTopic[topicKey] || [];
-                const isActive = topicKey === topic;
+              {topicsFromConfig.map((topicItem) => {
+                const topicArticles = articlesByTopic[topicItem.id as Topic] || [];
+                const isActive = topicItem.id === topic;
                 
                 return (
-                  <div key={topicKey} className={`${styles.treeSection} ${isActive ? styles.treeSectionActive : ''}`}>
+                  <div key={topicItem.id} className={`${styles.treeSection} ${isActive ? styles.treeSectionActive : ''}`}>
                     <Link 
-                      href={`/${locale}/topics/${topicKey}`} 
+                      href={`/${locale}/topics/${topicItem.id}`} 
                       className={`${styles.treeFolder} ${isActive ? styles.treeFolderActive : ''}`}
                     >
-                      <TopicIcon topic={topicKey} size={14} />
-                      <span className={styles.treeFolderName}>{t(`${topicKey}.label`)}</span>
+                      <TopicIcon topic={topicItem.id as Topic} size={14} />
+                      <span className={styles.treeFolderName}>{topicItem.label}</span>
                       {topicArticles.length > 0 && (
                         <span className={styles.treeCount}>{topicArticles.length}</span>
                       )}
@@ -121,7 +123,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
           <nav className={styles.breadcrumb}>
             <Link href={`/${locale}/topics`}>{t('documentation')}</Link>
             <ChevronRight size={12} />
-            <span>{t(`${topic}.label`)}</span>
+            <span>{topicData.label}</span>
           </nav>
 
           {/* Header */}
@@ -130,8 +132,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
               <TopicIcon topic={topic as Topic} size={20} />
             </div>
             <div className={styles.headerContent}>
-              <h1 className={styles.title}>{t(`${topic}.label`)}</h1>
-              <p className={styles.description}>{t(`${topic}.description`)}</p>
+              <h1 className={styles.title}>{topicData.label}</h1>
+              <p className={styles.description}>{topicData.description}</p>
             </div>
           </header>
 

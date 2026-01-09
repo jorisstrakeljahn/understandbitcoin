@@ -63,4 +63,4 @@ export {
 } from 'lucide-react';
 
 export type { LucideProps as IconProps } from 'lucide-react';
-export { TopicIcon, TOPIC_ICONS } from './TopicIcon';
+export { TopicIcon, ICON_MAP } from './TopicIcon';

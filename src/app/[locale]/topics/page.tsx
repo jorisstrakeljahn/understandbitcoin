@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { TOPICS, Topic } from '@/lib/content/schema';
-import { getAllContent } from '@/lib/content/loader';
+import { Topic } from '@/lib/content/schema';
+import { getAllContent, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { TopicIcon, ArrowRight } from '@/components/icons';
 import { CollapsibleSidebar } from '@/components/topics';
 import styles from './topics.module.css';
@@ -22,8 +22,6 @@ export async function generateMetadata({ params }: TopicsPageProps) {
   };
 }
 
-const TOPIC_ORDER: Topic[] = ['basics', 'security', 'mining', 'lightning', 'economics', 'criticism', 'money', 'dev'];
-
 export default async function TopicsPage({ params }: TopicsPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -31,17 +29,20 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
   const t = await getTranslations({ locale, namespace: 'topics' });
   const allArticles = getAllContent(locale).length > 0 ? getAllContent(locale) : getAllContent('en');
   
+  // Get topics from config (sorted by order)
+  const topicsFromConfig = getAllTopicsFromConfig(locale);
+  
   // Group articles by topic
-  const articlesByTopic = TOPIC_ORDER.reduce((acc, topic) => {
-    acc[topic] = allArticles.filter((a) => a.frontmatter.topic === topic);
+  const articlesByTopic = topicsFromConfig.reduce((acc, topic) => {
+    acc[topic.id as Topic] = allArticles.filter((a) => a.frontmatter.topic === topic.id);
     return acc;
   }, {} as Record<Topic, typeof allArticles>);
 
   // Prepare topics data for sidebar
-  const topicsData = TOPIC_ORDER.map((topicKey) => ({
-    key: topicKey,
-    label: t(`${topicKey}.label`),
-    articles: (articlesByTopic[topicKey] || []).map((a) => ({
+  const topicsData = topicsFromConfig.map((topic) => ({
+    key: topic.id as Topic,
+    label: topic.label,
+    articles: (articlesByTopic[topic.id as Topic] || []).map((a) => ({
       slug: a.frontmatter.slug,
       title: a.frontmatter.title,
     })),
@@ -72,21 +73,21 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
 
           <div className={styles.content}>
             <div className={styles.topicGrid}>
-              {TOPIC_ORDER.map((topicKey) => {
-                const articles = articlesByTopic[topicKey] || [];
+              {topicsFromConfig.map((topic) => {
+                const articles = articlesByTopic[topic.id as Topic] || [];
                 
                 return (
                   <Link 
-                    key={topicKey} 
-                    href={`/${locale}/topics/${topicKey}`}
+                    key={topic.id} 
+                    href={`/${locale}/topics/${topic.id}`}
                     className={styles.topicCard}
                   >
                     <div className={styles.topicCardHeader}>
                       <div className={styles.topicCardIcon}>
-                        <TopicIcon topic={topicKey} size={24} />
+                        <TopicIcon topic={topic.id as Topic} size={24} />
                       </div>
                       <div className={styles.topicCardMeta}>
-                        <h2 className={styles.topicCardTitle}>{t(`${topicKey}.label`)}</h2>
+                        <h2 className={styles.topicCardTitle}>{topic.label}</h2>
                         <span className={styles.topicCardCount}>
                           {articles.length} {articles.length === 1 
                             ? (locale === 'de' ? 'Artikel' : 'article') 
@@ -95,7 +96,7 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
                       </div>
                     </div>
                     <p className={styles.topicCardDescription}>
-                      {t(`${topicKey}.description`)}
+                      {topic.description}
                     </p>
                     <span className={styles.topicCardLink}>
                       {locale === 'de' ? 'Thema erkunden' : 'Explore topic'} <ArrowRight size={14} />

@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next';
-import { getAllContent } from '@/lib/content/loader';
-import { TOPICS, Topic } from '@/lib/content/schema';
+import { getAllContent, getContentConfig } from '@/lib/content/loader';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://understandbitcoin.com';
   const allContent = getAllContent();
+  const config = getContentConfig();
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -34,8 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Topic pages
-  const topicPages: MetadataRoute.Sitemap = (Object.keys(TOPICS) as Topic[]).map((topic) => ({
+  // Topic pages - from config
+  const topicPages: MetadataRoute.Sitemap = Object.keys(config.topics).map((topic) => ({
     url: `${baseUrl}/topics/${topic}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

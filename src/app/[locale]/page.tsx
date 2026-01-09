@@ -2,18 +2,18 @@ import Link from 'next/link';
 import { setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { Button, Badge } from '@/components/ui';
-import { TOPICS, type Topic } from '@/lib/content/schema';
-import { getAllContent } from '@/lib/content/loader';
+import { type Topic } from '@/lib/content/schema';
+import { getAllContent, getTopicConfig } from '@/lib/content/loader';
 import { 
   FileText, 
-  Code, 
   HelpCircle, 
   Coins, 
   BookOpen,
   Video,
   ArrowRight,
   TopicIcon,
-  Bitcoin
+  Bitcoin,
+  TrendingUp
 } from '@/components/icons';
 import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
 import styles from './page.module.css';
@@ -73,10 +73,17 @@ export default async function HomePage({ params }: HomePageProps) {
         slug: article.slug,
       }));
 
-  return <HomePageContent locale={locale} questions={questions} />;
+  // Pre-load topic labels for popular articles
+  const topicLabels: Record<string, string> = {};
+  for (const article of POPULAR_ARTICLES) {
+    const topicConfig = getTopicConfig(article.topic, locale);
+    topicLabels[article.topic] = topicConfig.label;
+  }
+
+  return <HomePageContent locale={locale} questions={questions} topicLabels={topicLabels} />;
 }
 
-function HomePageContent({ locale, questions }: { locale: string; questions: { text: string; slug: string }[] }) {
+function HomePageContent({ locale, questions, topicLabels }: { locale: string; questions: { text: string; slug: string }[]; topicLabels: Record<string, string> }) {
   const t = useTranslations();
   const isGerman = locale === 'de';
 
@@ -90,11 +97,11 @@ function HomePageContent({ locale, questions }: { locale: string; questions: { t
       color: 'var(--color-accent)',
     },
     {
-      id: 'developer',
-      icon: Code,
-      title: t('entryPoints.dev.title'),
-      description: t('entryPoints.dev.description'),
-      href: `/${locale}/topics/dev`,
+      id: 'economics',
+      icon: TrendingUp,
+      title: t('entryPoints.economics.title'),
+      description: t('entryPoints.economics.description'),
+      href: `/${locale}/topics/economics`,
       color: 'var(--color-info)',
     },
     {
@@ -177,7 +184,7 @@ function HomePageContent({ locale, questions }: { locale: string; questions: { t
                     <Badge variant="accent">
                       <TopicIcon topic={article.topic} size={14} />
                       <span style={{ marginLeft: '4px' }}>
-                        {TOPICS[article.topic]?.label}
+                        {topicLabels[article.topic]}
                       </span>
                     </Badge>
                   </div>
