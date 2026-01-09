@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui';
 import { TOPICS, LEVELS } from '@/lib/content/schema';
+import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import { Search, Bitcoin, HelpCircle, Zap } from '@/components/icons';
 import styles from './SearchModal.module.css';
 
@@ -33,6 +34,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const lastTrackedQuery = useRef<string>('');
 
   // Keyboard shortcut to open
   useEffect(() => {
@@ -79,7 +81,14 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
       const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
       if (response.ok) {
         const data = await response.json();
-        setResults(data.results || []);
+        const searchResults = data.results || [];
+        setResults(searchResults);
+        
+        // Track search query (only if different from last tracked)
+        if (searchQuery.trim() !== lastTrackedQuery.current) {
+          lastTrackedQuery.current = searchQuery.trim();
+          trackSearch(searchQuery.trim(), searchResults.length);
+        }
       }
     } catch {
       // Fallback: use static data for now
@@ -111,6 +120,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         break;
       case 'Enter':
         if (results[selectedIndex]) {
+          trackSearchResultClick(query, results[selectedIndex].slug, selectedIndex);
           window.location.href = `/articles/${results[selectedIndex].slug}`;
           onClose();
         }
@@ -172,7 +182,10 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   key={result.slug}
                   href={`/articles/${result.slug}`}
                   className={`${styles.result} ${index === selectedIndex ? styles.selected : ''}`}
-                  onClick={onClose}
+                  onClick={() => {
+                    trackSearchResultClick(query, result.slug, index);
+                    onClose();
+                  }}
                   onMouseEnter={() => setSelectedIndex(index)}
                 >
                   <div className={styles.resultContent}>

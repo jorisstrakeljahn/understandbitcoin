@@ -1,9 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';
 import { Header, Footer } from '@/components/layout';
+import { PostHogProvider } from '@/components/analytics';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -52,12 +54,16 @@ export default async function LocaleLayout({
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <a href="#main-content" className="skip-link">
-            {locale === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content'}
-          </a>
-          <Header />
-          <main id="main-content">{children}</main>
-          <Footer />
+          <Suspense fallback={null}>
+            <PostHogProvider>
+              <a href="#main-content" className="skip-link">
+                {locale === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content'}
+              </a>
+              <Header />
+              <main id="main-content">{children}</main>
+              <Footer />
+            </PostHogProvider>
+          </Suspense>
         </NextIntlClientProvider>
       </body>
     </html>

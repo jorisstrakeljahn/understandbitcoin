@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from '@/lib/hooks/useTheme';
+import { trackThemeToggle, trackLanguageSwitch } from '@/lib/analytics';
 import { SearchModal } from '@/components/search/SearchModal';
 import { Drawer } from '@/components/ui';
 import { Menu, Search, Sun, Moon, Bitcoin, Globe } from '@/components/icons';
@@ -93,7 +94,12 @@ export function Header() {
                       key={loc}
                       href={getPathWithLocale(loc)}
                       className={`${styles.languageOption} ${loc === locale ? styles.languageActive : ''}`}
-                      onClick={() => setIsLangOpen(false)}
+                      onClick={() => {
+                        if (loc !== locale) {
+                          trackLanguageSwitch(locale, loc);
+                        }
+                        setIsLangOpen(false);
+                      }}
                     >
                       <span>{localeNames[loc]}</span>
                     </Link>
@@ -105,7 +111,12 @@ export function Header() {
             {/* Theme Toggle */}
             <button
               className={styles.themeToggle}
-              onClick={toggleTheme}
+              onClick={() => {
+                const from = resolvedTheme as 'light' | 'dark';
+                const to = from === 'dark' ? 'light' : 'dark';
+                trackThemeToggle(from, to);
+                toggleTheme();
+              }}
               aria-label={resolvedTheme === 'dark' ? t('switchToLight') : t('switchToDark')}
             >
               {mounted && (
@@ -143,7 +154,12 @@ export function Header() {
                   key={loc}
                   href={getPathWithLocale(loc)}
                   className={`${styles.mobileLanguageOption} ${loc === locale ? styles.languageActive : ''}`}
-                  onClick={() => setIsNavOpen(false)}
+                  onClick={() => {
+                    if (loc !== locale) {
+                      trackLanguageSwitch(locale, loc);
+                    }
+                    setIsNavOpen(false);
+                  }}
                 >
                   <span>{localeNames[loc]}</span>
                 </Link>
