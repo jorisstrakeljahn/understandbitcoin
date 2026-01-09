@@ -2,8 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { FrontmatterSchema, Frontmatter, Topic, ContentType, ContentLevel } from './schema';
+import type { Locale } from '@/i18n/config';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
+
+/** Helper to safely access locale-specific content */
+function getLocalizedText<T extends { en: string; de: string }>(obj: T, locale: string): string {
+  const lang = (locale === 'de' ? 'de' : 'en') as Locale;
+  return obj[lang] || obj.en;
+}
 
 // ============================================
 // Content Config (loaded from content/config.json)
@@ -65,10 +72,9 @@ export function getTopicConfig(topic: string, language: string = 'en'): { label:
     };
   }
 
-  const lang = language as 'en' | 'de';
   return {
-    label: topicConfig.label[lang] || topicConfig.label.en,
-    description: topicConfig.description[lang] || topicConfig.description.en,
+    label: getLocalizedText(topicConfig.label, language),
+    description: getLocalizedText(topicConfig.description, language),
     icon: topicConfig.icon,
     order: topicConfig.order,
   };
@@ -85,10 +91,9 @@ export function getContentTypeConfig(type: string, language: string = 'en'): { l
     };
   }
 
-  const lang = language as 'en' | 'de';
   return {
-    label: typeConfig.label[lang] || typeConfig.label.en,
-    description: typeConfig.description[lang] || typeConfig.description.en,
+    label: getLocalizedText(typeConfig.label, language),
+    description: getLocalizedText(typeConfig.description, language),
   };
 }
 
@@ -103,22 +108,20 @@ export function getLevelConfig(level: string, language: string = 'en'): { label:
     };
   }
 
-  const lang = language as 'en' | 'de';
   return {
-    label: levelConfig.label[lang] || levelConfig.label.en,
+    label: getLocalizedText(levelConfig.label, language),
     color: levelConfig.color,
   };
 }
 
 export function getAllTopicsFromConfig(language: string = 'en'): Array<{ id: string; label: string; description: string; icon: string; order: number }> {
   const config = getContentConfig();
-  const lang = language as 'en' | 'de';
   
   return Object.entries(config.topics)
     .map(([id, topic]) => ({
       id,
-      label: topic.label[lang] || topic.label.en,
-      description: topic.description[lang] || topic.description.en,
+      label: getLocalizedText(topic.label, language),
+      description: getLocalizedText(topic.description, language),
       icon: topic.icon,
       order: topic.order,
     }))

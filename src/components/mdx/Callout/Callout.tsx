@@ -1,15 +1,17 @@
-import { ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 import { Info, AlertTriangle, CheckCircle, AlertCircle, Lightbulb } from '@/components/icons';
 import type { IconProps } from '@/components/icons';
 import styles from './Callout.module.css';
 
+type CalloutType = 'info' | 'warning' | 'success' | 'error' | 'tip';
+
 export interface CalloutProps {
-  type?: 'info' | 'warning' | 'success' | 'error' | 'tip';
+  type?: CalloutType;
   title?: string;
   children: ReactNode;
 }
 
-const ICONS: Record<string, React.FC<IconProps>> = {
+const ICONS: Record<CalloutType, FC<IconProps>> = {
   info: Info,
   warning: AlertTriangle,
   success: CheckCircle,

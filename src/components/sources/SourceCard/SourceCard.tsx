@@ -8,27 +8,36 @@ import { getYouTubeThumbnail, getAffiliateLink } from '@/lib/sources/utils';
 import { Badge } from '@/components/ui';
 import styles from './SourceCard.module.css';
 
+type SourceCardVariant = 'default' | 'compact' | 'carousel';
+
 interface SourceCardProps {
   source: Source;
   locale?: string;
-  variant?: 'default' | 'compact' | 'carousel';
+  variant?: SourceCardVariant;
 }
 
 export function SourceCard({ source, locale = 'en', variant = 'default' }: SourceCardProps) {
   const description = source.description[locale as keyof typeof source.description] || source.description.en;
 
   if (source.type === 'book') {
-    return <BookCard book={source} locale={locale} description={description} variant={variant} />;
+    return <BookCard source={source} locale={locale} description={description} variant={variant} />;
   }
 
   if (source.type === 'video') {
-    return <VideoCard video={source} locale={locale} description={description} variant={variant} />;
+    return <VideoCard source={source} locale={locale} description={description} variant={variant} />;
   }
 
-  return <ArticleCard article={source} locale={locale} description={description} variant={variant} />;
+  return <ArticleCard source={source} locale={locale} description={description} variant={variant} />;
 }
 
-function BookCard({ book, locale, description, variant }: { book: BookSource; locale: string; description: string; variant: string }) {
+interface CardProps<T extends Source> {
+  source: T;
+  locale: string;
+  description: string;
+  variant: SourceCardVariant;
+}
+
+function BookCard({ source: book, locale, description, variant }: CardProps<BookSource>) {
   const affiliateLink = getAffiliateLink(book, locale);
   const isCarousel = variant === 'carousel';
   
@@ -82,7 +91,7 @@ function BookCard({ book, locale, description, variant }: { book: BookSource; lo
   );
 }
 
-function VideoCard({ video, locale, description, variant }: { video: VideoSource; locale: string; description: string; variant: string }) {
+function VideoCard({ source: video, locale, description, variant }: CardProps<VideoSource>) {
   const thumbnail = getYouTubeThumbnail(video.youtubeId, 'high');
   const youtubeUrl = `https://www.youtube.com/watch?v=${video.youtubeId}`;
   const isCarousel = variant === 'carousel';
@@ -127,7 +136,7 @@ function VideoCard({ video, locale, description, variant }: { video: VideoSource
   );
 }
 
-function ArticleCard({ article, locale, description, variant }: { article: ArticleSource; locale: string; description: string; variant: string }) {
+function ArticleCard({ source: article, locale, description, variant }: CardProps<ArticleSource>) {
   const isCarousel = variant === 'carousel';
   
   return (

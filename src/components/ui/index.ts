@@ -15,3 +15,6 @@ export type { TooltipProps } from './Tooltip';
 
 export { Tabs, TabList, TabTrigger, TabContent } from './Tabs';
 export type { TabsProps, TabListProps, TabTriggerProps, TabContentProps } from './Tabs';
+
+export { TopicBadge } from './TopicBadge';
+export type { TopicBadgeProps } from './TopicBadge';

@@ -2,15 +2,16 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { Badge } from '@/components/ui';
+import { TopicBadge, Badge } from '@/components/ui';
 import { TLDRBox, SteelmanBox, SourcesList, KeyTakeaways } from '@/components/mdx';
 import { getContentBySlug, getAllContent, getRelatedContent, getTopicConfig, getLevelConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
+import { extractHeadings } from '@/lib/mdx';
 import { ArticleSidebar } from '@/components/article/ArticleSidebar';
 import { MobileNav } from '@/components/article/MobileNav';
 import { ResizableSidebar } from '@/components/article/ResizableSidebar';
 import { CollapsibleTOC } from '@/components/article/CollapsibleTOC';
 import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
-import { TopicIcon, HelpCircle, ArrowLeft } from '@/components/icons';
+import { HelpCircle, ArrowLeft } from '@/components/icons';
 import styles from './article.module.css';
 
 const BASE_URL = 'https://thereforbitcoin.com';
@@ -158,10 +159,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* Article Header */}
           <header className={styles.header}>
             <div className={styles.meta}>
-              <Badge variant="accent">
-                <TopicIcon topic={frontmatter.topic} size={14} />
-                <span style={{ marginLeft: '4px' }}>{topic.label}</span>
-              </Badge>
+              <TopicBadge topic={frontmatter.topic} label={topic.label} />
               <Badge
                 variant={
                   frontmatter.level === 'beginner' ? 'success' :
@@ -272,23 +270,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </div>
     </div>
   );
-}
-
-// Helper function to extract headings from MDX content
-function extractHeadings(content: string): { id: string; text: string; level: number }[] {
-  const headingRegex = /^(#{2,3})\s+(.+)$/gm;
-  const headings: { id: string; text: string; level: number }[] = [];
-  let match;
-
-  while ((match = headingRegex.exec(content)) !== null) {
-    const level = match[1].length;
-    const text = match[2];
-    // Support German umlauts and other characters
-    const id = text.toLowerCase().replace(/[^a-z0-9äöüß]+/g, '-').replace(/(^-|-$)/g, '');
-    headings.push({ id, text, level });
-  }
-
-  return headings;
 }
 
 // Helper function to format date
