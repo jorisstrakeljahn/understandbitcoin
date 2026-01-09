@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { TOPICS, Topic } from '@/lib/content/schema';
 import { getAllContent } from '@/lib/content/loader';
-import { TopicIcon, ChevronRight, FileText } from '@/components/icons';
+import { TopicIcon, ArrowRight } from '@/components/icons';
+import { CollapsibleSidebar } from '@/components/topics';
 import styles from './topics.module.css';
 
 interface TopicsPageProps {
@@ -36,114 +37,115 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
     return acc;
   }, {} as Record<Topic, typeof allArticles>);
 
+  // Prepare topics data for sidebar
+  const topicsData = TOPIC_ORDER.map((topicKey) => ({
+    key: topicKey,
+    label: t(`${topicKey}.label`),
+    articles: (articlesByTopic[topicKey] || []).map((a) => ({
+      slug: a.frontmatter.slug,
+      title: a.frontmatter.title,
+    })),
+  }));
+
   return (
     <div className={styles.page}>
       <div className={styles.layout}>
-        {/* Sidebar - File Tree Style */}
+        {/* Sidebar - Collapsible File Tree */}
         <aside className={styles.sidebar}>
-          <nav className={styles.sidebarNav}>
-            <div className={styles.sidebarHeader}>
-              <span className={styles.sidebarTitle}>{t('documentation')}</span>
-            </div>
-            
-            <div className={styles.fileTree}>
-              {TOPIC_ORDER.map((topicKey) => {
-                const topic = TOPICS[topicKey];
-                const articles = articlesByTopic[topicKey] || [];
-                
-                return (
-                  <div key={topicKey} className={styles.treeSection}>
-                    <Link href={`/${locale}/topics/${topicKey}`} className={styles.treeFolder}>
-                      <TopicIcon topic={topicKey} size={14} />
-                      <span className={styles.treeFolderName}>{t(`${topicKey}.label`)}</span>
-                      {articles.length > 0 && (
-                        <span className={styles.treeCount}>{articles.length}</span>
-                      )}
-                    </Link>
-                    
-                    {articles.length > 0 && (
-                      <ul className={styles.treeFiles}>
-                        {articles.slice(0, 5).map((article) => (
-                          <li key={article.slug}>
-                            <Link 
-                              href={`/${locale}/articles/${article.frontmatter.slug}`}
-                              className={styles.treeFile}
-                            >
-                              <FileText size={12} />
-                              <span className={styles.treeFileName}>
-                                {article.frontmatter.title}
-                              </span>
-                            </Link>
-                          </li>
-                        ))}
-                        {articles.length > 5 && (
-                          <li>
-                            <Link 
-                              href={`/${locale}/topics/${topicKey}`}
-                              className={styles.treeMore}
-                            >
-                              +{articles.length - 5} {locale === 'de' ? 'mehr' : 'more'}
-                            </Link>
-                          </li>
-                        )}
-                      </ul>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </nav>
+          <CollapsibleSidebar 
+            topics={topicsData} 
+            locale={locale} 
+            documentationLabel={t('documentation')}
+          />
         </aside>
 
-        {/* Main Content */}
+        {/* Main Content - Topic Descriptions */}
         <main className={styles.main}>
           <header className={styles.header}>
             <h1 className={styles.title}>{t('documentation')}</h1>
             <p className={styles.subtitle}>
               {locale === 'de' 
-                ? 'Durchsuche alle Bitcoin-Themen. Jeder Artikel bietet klare Antworten mit Quellen.' 
-                : 'Browse all Bitcoin topics. Each article provides clear answers with sources.'}
+                ? 'Wähle ein Thema aus der Sidebar oder entdecke die Übersicht unten. Jeder Artikel bietet klare Antworten mit Primärquellen.' 
+                : 'Select a topic from the sidebar or explore the overview below. Each article provides clear answers with primary sources.'}
             </p>
           </header>
 
           <div className={styles.content}>
-            {TOPIC_ORDER.map((topicKey) => {
-              const articles = articlesByTopic[topicKey] || [];
-              
-              return (
-                <section key={topicKey} id={topicKey} className={styles.topicSection}>
-                  <div className={styles.topicHeader}>
-                    <TopicIcon topic={topicKey} size={18} />
-                    <h2 className={styles.topicTitle}>{t(`${topicKey}.label`)}</h2>
-                    <span className={styles.topicCount}>{articles.length}</span>
-                  </div>
-                  <p className={styles.topicDescription}>{t(`${topicKey}.description`)}</p>
-                  
-                  {articles.length > 0 ? (
-                    <ul className={styles.articleList}>
-                      {articles.map((article) => (
-                        <li key={article.slug}>
-                          <Link 
-                            href={`/${locale}/articles/${article.frontmatter.slug}`}
-                            className={styles.articleItem}
-                          >
-                            <FileText size={14} className={styles.articleIcon} />
-                            <span className={styles.articleTitle}>
-                              {article.frontmatter.title}
-                            </span>
-                            <ChevronRight size={14} className={styles.articleArrow} />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className={styles.emptyState}>
-                      {locale === 'de' ? 'Noch keine Artikel.' : 'No articles yet.'}
+            <div className={styles.topicGrid}>
+              {TOPIC_ORDER.map((topicKey) => {
+                const articles = articlesByTopic[topicKey] || [];
+                
+                return (
+                  <Link 
+                    key={topicKey} 
+                    href={`/${locale}/topics/${topicKey}`}
+                    className={styles.topicCard}
+                  >
+                    <div className={styles.topicCardHeader}>
+                      <div className={styles.topicCardIcon}>
+                        <TopicIcon topic={topicKey} size={24} />
+                      </div>
+                      <div className={styles.topicCardMeta}>
+                        <h2 className={styles.topicCardTitle}>{t(`${topicKey}.label`)}</h2>
+                        <span className={styles.topicCardCount}>
+                          {articles.length} {articles.length === 1 
+                            ? (locale === 'de' ? 'Artikel' : 'article') 
+                            : (locale === 'de' ? 'Artikel' : 'articles')}
+                        </span>
+                      </div>
+                    </div>
+                    <p className={styles.topicCardDescription}>
+                      {t(`${topicKey}.description`)}
                     </p>
-                  )}
-                </section>
-              );
-            })}
+                    <span className={styles.topicCardLink}>
+                      {locale === 'de' ? 'Thema erkunden' : 'Explore topic'} <ArrowRight size={14} />
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Quick Start Section */}
+            <section className={styles.quickStart}>
+              <h2 className={styles.quickStartTitle}>
+                {locale === 'de' ? 'Wo anfangen?' : 'Where to Start?'}
+              </h2>
+              <div className={styles.quickStartContent}>
+                <div className={styles.quickStartItem}>
+                  <span className={styles.quickStartNumber}>1</span>
+                  <div>
+                    <h3>{locale === 'de' ? 'Neu bei Bitcoin?' : 'New to Bitcoin?'}</h3>
+                    <p>
+                      {locale === 'de' 
+                        ? 'Starte mit den Bitcoin Grundlagen. Dort findest du Antworten auf die häufigsten Fragen.' 
+                        : 'Start with Bitcoin Basics. There you\'ll find answers to the most common questions.'}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.quickStartItem}>
+                  <span className={styles.quickStartNumber}>2</span>
+                  <div>
+                    <h3>{locale === 'de' ? 'Skeptisch?' : 'Skeptical?'}</h3>
+                    <p>
+                      {locale === 'de' 
+                        ? 'Schau dir Kritik & Bedenken an. Wir behandeln alle Einwände fair und mit Primärquellen.' 
+                        : 'Check out Criticism & Concerns. We address all objections fairly with primary sources.'}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.quickStartItem}>
+                  <span className={styles.quickStartNumber}>3</span>
+                  <div>
+                    <h3>{locale === 'de' ? 'Interessiert an der Theorie?' : 'Interested in Theory?'}</h3>
+                    <p>
+                      {locale === 'de' 
+                        ? 'Stabiles Geld und Geldpolitik erklären den wirtschaftlichen Hintergrund.' 
+                        : 'Sound Money and Monetary Economics explain the economic background.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </main>
       </div>
