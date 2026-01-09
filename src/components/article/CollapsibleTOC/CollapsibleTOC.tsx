@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import styles from './CollapsibleTOC.module.css';
@@ -16,23 +16,35 @@ interface CollapsibleTOCProps {
   storageKey?: string;
 }
 
+// Custom hook for localStorage with SSR support
+function useLocalStorageState(key: string, defaultValue: boolean): [boolean, (value: boolean) => void] {
+  const getSnapshot = useCallback(() => {
+    if (typeof window === 'undefined') return defaultValue;
+    const saved = localStorage.getItem(key);
+    return saved === 'true';
+  }, [key, defaultValue]);
+
+  const getServerSnapshot = useCallback(() => defaultValue, [defaultValue]);
+
+  const subscribe = useCallback((callback: () => void) => {
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+  }, []);
+
+  const value = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  const setValue = useCallback((newValue: boolean) => {
+    localStorage.setItem(key, String(newValue));
+    window.dispatchEvent(new Event('storage'));
+  }, [key]);
+
+  return [value, setValue];
+}
+
 export function CollapsibleTOC({ headings, storageKey = 'toc-collapsed' }: CollapsibleTOCProps) {
   const t = useTranslations('article');
   const [activeId, setActiveId] = useState<string>('');
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // Load collapsed state from localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem(storageKey);
-    if (saved === 'true') {
-      setIsCollapsed(true);
-    }
-  }, [storageKey]);
-
-  // Save collapsed state
-  useEffect(() => {
-    localStorage.setItem(storageKey, String(isCollapsed));
-  }, [isCollapsed, storageKey]);
+  const [isCollapsed, setIsCollapsed] = useLocalStorageState(storageKey, false);
 
   // Intersection observer for active heading
   useEffect(() => {

@@ -91,7 +91,7 @@ function BookCard({ source: book, locale, description, variant }: CardProps<Book
   );
 }
 
-function VideoCard({ source: video, locale, description, variant }: CardProps<VideoSource>) {
+function VideoCard({ source: video, description, variant }: CardProps<VideoSource>) {
   const thumbnail = getYouTubeThumbnail(video.youtubeId, 'high');
   const youtubeUrl = `https://www.youtube.com/watch?v=${video.youtubeId}`;
   const isCarousel = variant === 'carousel';

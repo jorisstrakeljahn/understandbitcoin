@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect, ReactNode } from 'react';
+import { useState, useRef, useCallback, useEffect, ReactNode, useSyncExternalStore } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './ResizableSidebar.module.css';
 
@@ -13,6 +13,23 @@ interface ResizableSidebarProps {
   collapsedStorageKey?: string;
 }
 
+// Hook to read initial value from localStorage without causing hydration issues
+function useLocalStorageValue<T>(key: string, defaultValue: T, parse: (val: string | null) => T): T {
+  const getSnapshot = useCallback(() => {
+    if (typeof window === 'undefined') return defaultValue;
+    return parse(localStorage.getItem(key));
+  }, [key, defaultValue, parse]);
+
+  const getServerSnapshot = useCallback(() => defaultValue, [defaultValue]);
+
+  const subscribe = useCallback((callback: () => void) => {
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+  }, []);
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
+
 export function ResizableSidebar({
   children,
   defaultWidth = 280,
@@ -21,26 +38,27 @@ export function ResizableSidebar({
   storageKey = 'sidebar-width',
   collapsedStorageKey = 'sidebar-collapsed',
 }: ResizableSidebarProps) {
-  const [width, setWidth] = useState(defaultWidth);
-  const [isResizing, setIsResizing] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  // Read initial values from localStorage using useSyncExternalStore
+  const initialWidth = useLocalStorageValue(
+    storageKey,
+    defaultWidth,
+    useCallback((val: string | null) => {
+      if (!val) return defaultWidth;
+      const parsed = parseInt(val, 10);
+      return (parsed >= minWidth && parsed <= maxWidth) ? parsed : defaultWidth;
+    }, [defaultWidth, minWidth, maxWidth])
+  );
 
-  // Load saved width and collapsed state from localStorage
-  useEffect(() => {
-    const savedWidth = localStorage.getItem(storageKey);
-    if (savedWidth) {
-      const parsed = parseInt(savedWidth, 10);
-      if (parsed >= minWidth && parsed <= maxWidth) {
-        setWidth(parsed);
-      }
-    }
-    
-    const savedCollapsed = localStorage.getItem(collapsedStorageKey);
-    if (savedCollapsed === 'true') {
-      setIsCollapsed(true);
-    }
-  }, [storageKey, collapsedStorageKey, minWidth, maxWidth]);
+  const initialCollapsed = useLocalStorageValue(
+    collapsedStorageKey,
+    false,
+    useCallback((val: string | null) => val === 'true', [])
+  );
+
+  const [width, setWidth] = useState(initialWidth);
+  const [isResizing, setIsResizing] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(initialCollapsed);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   // Save width to localStorage
   useEffect(() => {

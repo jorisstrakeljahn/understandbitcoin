@@ -5,7 +5,6 @@ import { locales } from '@/i18n/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
-  const allContent = getAllContent();
   const config = getContentConfig();
 
   const entries: MetadataRoute.Sitemap = [];

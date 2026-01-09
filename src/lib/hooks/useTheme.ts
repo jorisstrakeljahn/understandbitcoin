@@ -1,21 +1,61 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useSyncExternalStore } from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
 
-export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem('theme') as Theme | null;
-    if (stored) {
-      setThemeState(stored);
+// Create a simple theme store
+const themeStore = {
+  theme: 'system' as Theme,
+  listeners: new Set<() => void>(),
+  
+  getTheme() {
+    if (typeof window === 'undefined') return 'system' as Theme;
+    return (localStorage.getItem('theme') as Theme) || 'system';
+  },
+  
+  setTheme(newTheme: Theme) {
+    this.theme = newTheme;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', newTheme);
     }
-  }, []);
+    this.listeners.forEach((listener) => listener());
+  },
+  
+  subscribe(listener: () => void) {
+    themeStore.listeners.add(listener);
+    return () => themeStore.listeners.delete(listener);
+  },
+  
+  getSnapshot() {
+    if (typeof window === 'undefined') return 'system' as Theme;
+    return (localStorage.getItem('theme') as Theme) || 'system';
+  },
+  
+  getServerSnapshot() {
+    return 'system' as Theme;
+  },
+};
+
+// Hook to detect if we're on the client
+function useHasMounted() {
+  const getSnapshot = useCallback(() => true, []);
+  const getServerSnapshot = useCallback(() => false, []);
+  const subscribe = useCallback(() => () => {}, []);
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
+
+export function useTheme() {
+  const mounted = useHasMounted();
+  
+  const theme = useSyncExternalStore(
+    themeStore.subscribe,
+    themeStore.getSnapshot,
+    themeStore.getServerSnapshot
+  );
+  
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     if (!mounted) return;
@@ -50,8 +90,7 @@ export function useTheme() {
   }, [theme, mounted]);
 
   const setTheme = useCallback((newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
+    themeStore.setTheme(newTheme);
   }, []);
 
   const toggleTheme = useCallback(() => {

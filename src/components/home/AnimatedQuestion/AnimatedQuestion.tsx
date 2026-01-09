@@ -20,7 +20,7 @@ export function AnimatedQuestion({ questions, interval = 4000, locale = 'en' }: 
   // Start with index 0 to avoid hydration mismatch (Math.random differs on server/client)
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [phase, setPhase] = useState<'typing' | 'waiting' | 'deleting'>('typing');
   const hasInitialized = useRef(false);
 
   const currentQuestion = questions[currentIndex];
@@ -35,47 +35,57 @@ export function AnimatedQuestion({ questions, interval = 4000, locale = 'en' }: 
     return newIndex;
   }, [questions.length, currentIndex]);
 
-  // Set random initial index after hydration (client-side only)
+  // Set random initial index after mount (client-side only)
   useEffect(() => {
     if (!hasInitialized.current && questions.length > 1) {
       hasInitialized.current = true;
-      setCurrentIndex(Math.floor(Math.random() * questions.length));
+      // Use requestAnimationFrame to defer the state update
+      requestAnimationFrame(() => {
+        setCurrentIndex(Math.floor(Math.random() * questions.length));
+      });
     }
   }, [questions.length]);
 
+  // Typewriter effect - all setState calls are inside setTimeout callbacks
   useEffect(() => {
     if (!currentQuestion) return;
 
     const fullText = currentQuestion.text;
-    let timeout: NodeJS.Timeout;
+    let timeoutId: NodeJS.Timeout;
 
-    if (!isDeleting) {
-      // Typing
+    if (phase === 'typing') {
       if (displayText.length < fullText.length) {
-        timeout = setTimeout(() => {
+        timeoutId = setTimeout(() => {
           setDisplayText(fullText.slice(0, displayText.length + 1));
-        }, 50); // Typing speed
+        }, 50);
       } else {
-        // Done typing, wait before deleting
-        timeout = setTimeout(() => {
-          setIsDeleting(true);
-        }, interval);
+        // Done typing, wait before deleting - use setTimeout to avoid sync setState
+        timeoutId = setTimeout(() => {
+          setPhase('waiting');
+        }, 0);
       }
-    } else {
-      // Deleting
+    } else if (phase === 'waiting') {
+      timeoutId = setTimeout(() => {
+        setPhase('deleting');
+      }, interval);
+    } else if (phase === 'deleting') {
       if (displayText.length > 0) {
-        timeout = setTimeout(() => {
+        timeoutId = setTimeout(() => {
           setDisplayText(displayText.slice(0, -1));
-        }, 30); // Deleting speed (faster)
+        }, 30);
       } else {
-        // Done deleting, move to random question
-        setIsDeleting(false);
-        setCurrentIndex(getRandomIndex());
+        // Done deleting, move to next question - use setTimeout to avoid sync setState
+        timeoutId = setTimeout(() => {
+          setPhase('typing');
+          setCurrentIndex(getRandomIndex());
+        }, 0);
       }
     }
 
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, currentQuestion, interval, getRandomIndex]);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [displayText, phase, currentQuestion, interval, getRandomIndex]);
 
   if (!currentQuestion) return null;
 

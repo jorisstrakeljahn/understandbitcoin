@@ -13,11 +13,11 @@ interface ScrollDepthTrackerProps {
  */
 export function ScrollDepthTracker({ slug, children }: ScrollDepthTrackerProps) {
   const trackedDepths = useRef<Set<25 | 50 | 75 | 100>>(new Set());
-  const startTime = useRef<number>(Date.now());
+  const startTime = useRef<number>(0);
   const articleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Reset on mount
+    // Reset on mount and initialize time
     trackedDepths.current = new Set();
     startTime.current = Date.now();
 

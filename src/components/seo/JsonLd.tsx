@@ -1,5 +1,3 @@
-import { Frontmatter } from '@/lib/content/schema';
-
 interface WebsiteJsonLdProps {
   url: string;
   name: string;
