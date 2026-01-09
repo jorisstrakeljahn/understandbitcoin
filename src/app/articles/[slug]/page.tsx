@@ -7,8 +7,11 @@ import { getContentBySlug, getAllContent, getRelatedContent } from '@/lib/conten
 import { ArticleSidebar } from '@/components/article/ArticleSidebar';
 import { TableOfContents } from '@/components/article/TableOfContents';
 import { MobileNav } from '@/components/article/MobileNav';
+import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
 import { TopicIcon, HelpCircle, ArrowLeft } from '@/components/icons';
 import styles from './article.module.css';
+
+const BASE_URL = 'https://thereforbitcoin.com';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -22,14 +25,35 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     return { title: 'Article Not Found' };
   }
 
+  const articleUrl = `${BASE_URL}/articles/${slug}`;
+
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.summary,
+    alternates: {
+      canonical: articleUrl,
+    },
     openGraph: {
       title: article.frontmatter.title,
       description: article.frontmatter.summary,
       type: 'article',
       publishedTime: article.frontmatter.lastUpdated,
+      modifiedTime: article.frontmatter.lastUpdated,
+      url: articleUrl,
+      siteName: 'Therefor Bitcoin',
+      images: [
+        {
+          url: `${BASE_URL}/og?title=${encodeURIComponent(article.frontmatter.title)}&subtitle=${encodeURIComponent(article.frontmatter.summary.slice(0, 100))}&topic=${article.frontmatter.topic}`,
+          width: 1200,
+          height: 630,
+          alt: article.frontmatter.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.frontmatter.title,
+      description: article.frontmatter.summary,
     },
   };
 }
@@ -62,8 +86,34 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // Parse headings from content for TOC
   const headings = extractHeadings(content);
 
+  // Prepare JSON-LD data
+  const articleUrl = `${BASE_URL}/articles/${slug}`;
+  const breadcrumbItems = [
+    { name: 'Home', url: BASE_URL },
+    { name: 'Topics', url: `${BASE_URL}/topics` },
+    { name: topic.label, url: `${BASE_URL}/topics/${frontmatter.topic}` },
+    { name: frontmatter.title, url: articleUrl },
+  ];
+
+  // Create FAQ from TL;DR if available
+  const faqItems = frontmatter.tldr?.map((item, index) => ({
+    question: index === 0 ? frontmatter.title : `Key point ${index + 1} about ${frontmatter.title.toLowerCase()}`,
+    answer: item,
+  })) || [];
+
   return (
     <div className={styles.page}>
+      {/* JSON-LD Structured Data */}
+      <ArticleJsonLd
+        url={articleUrl}
+        title={frontmatter.title}
+        description={frontmatter.summary}
+        datePublished={frontmatter.lastUpdated}
+        dateModified={frontmatter.lastUpdated}
+      />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      {faqItems.length > 0 && <FAQJsonLd questions={faqItems} />}
+
       {/* Mobile Navigation */}
       <MobileNav headings={headings} />
       

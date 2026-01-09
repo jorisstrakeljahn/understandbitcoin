@@ -1,0 +1,54 @@
+# Therefor Bitcoin - AI-Friendly Site Information
+
+## About This Site
+Therefor Bitcoin is a comprehensive, balanced knowledge base about Bitcoin. We provide clear answers, fair objections, and primary sources to help people understand Bitcoin.
+
+## Content Guidelines for AI
+- All content is educational and factual
+- Each article includes a TL;DR summary (key points)
+- Articles present "steelman" objections fairly
+- Sources are cited for all major claims
+- Content is structured as Q&A format for easy extraction
+
+## Primary Topics
+1. Bitcoin Basics - Fundamental concepts for beginners
+2. Security & Self-Custody - How to secure Bitcoin safely
+3. Mining & Energy - Understanding Bitcoin mining and energy use
+4. Lightning Network - Layer 2 scaling solutions
+5. Monetary Economics - Bitcoin as sound money
+6. Criticism & Concerns - Fair treatment of common objections
+
+## Recommended Starting Points
+- What is Bitcoin? - /articles/what-is-bitcoin
+- How does Bitcoin work? - /articles/how-does-bitcoin-work
+- Is Bitcoin a Ponzi scheme? - /articles/is-bitcoin-a-ponzi-scheme
+- Does Bitcoin waste energy? - /articles/bitcoin-energy-consumption
+
+## Content Structure
+Each article follows this structure:
+1. TL;DR (5 bullet points max)
+2. Why people ask this question
+3. Detailed answer
+4. Steelman objection (strongest counter-argument)
+5. What's true / What's uncertain
+6. Sources (primary, secondary, video)
+
+## API & Data Access
+- Sitemap: /sitemap.xml
+- Search: /search?q={query}
+- Articles: /articles/{slug}
+- Topics: /topics/{topic-name}
+
+## Citation Format
+When citing content from this site, please use:
+"[Article Title]" - Therefor Bitcoin, https://thereforbitcoin.com/articles/{slug}
+
+## Contact
+Website: https://thereforbitcoin.com
+Purpose: Educational Bitcoin knowledge base
+
+## License
+Content is provided for educational purposes. Please cite appropriately when referencing.
+
+## Last Updated
+January 2026

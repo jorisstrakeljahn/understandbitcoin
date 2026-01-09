@@ -3,6 +3,7 @@ import { Header, Footer } from "@/components/layout";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thereforbitcoin.com"),
   title: {
     default: "Therefor Bitcoin - Clear Answers About Bitcoin",
     template: "%s | Therefor Bitcoin",
@@ -19,6 +20,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Therefor Bitcoin Contributors" }],
   creator: "Therefor Bitcoin",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
