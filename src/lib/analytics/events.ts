@@ -6,6 +6,12 @@ function capture(eventName: string, properties?: Record<string, unknown>) {
   posthog.capture(eventName, properties);
 }
 
+// Set user properties (e.g., preferred language, theme)
+export function setUserProperties(properties: Record<string, unknown>) {
+  if (!isPostHogReady()) return;
+  posthog.setPersonProperties(properties);
+}
+
 // ============================================
 // PAGE VIEW EVENTS
 // ============================================
@@ -128,4 +134,123 @@ export function trackTopicSelect(topic: string, source: 'home' | 'sidebar' | 'he
     topic,
     source,
   });
+}
+
+// ============================================
+// HOMEPAGE EVENTS
+// ============================================
+
+/**
+ * Track entry point card clicks on homepage
+ */
+export function trackEntryPointClick(entryPoint: string) {
+  capture('entry_point_click', {
+    entry_point: entryPoint,
+  });
+}
+
+/**
+ * Track popular article clicks on homepage
+ */
+export function trackPopularArticleClick(slug: string, topic: string, position: number) {
+  capture('popular_article_click', {
+    slug,
+    topic,
+    position,
+  });
+}
+
+/**
+ * Track source carousel interaction
+ */
+export function trackSourceClick(sourceId: string, sourceType: string, title: string) {
+  capture('source_click', {
+    source_id: sourceId,
+    source_type: sourceType,
+    title,
+  });
+}
+
+// ============================================
+// ARTICLE VIEW EVENTS
+// ============================================
+
+/**
+ * Track article view with full context
+ */
+export function trackArticleView(
+  slug: string, 
+  topic: string, 
+  level: string,
+  referrer: 'search' | 'topic' | 'home' | 'related' | 'direct' | 'sidebar'
+) {
+  capture('article_view', {
+    slug,
+    topic,
+    level,
+    referrer,
+  });
+}
+
+/**
+ * Track topic page view
+ */
+export function trackTopicView(topic: string) {
+  capture('topic_view', {
+    topic,
+  });
+}
+
+/**
+ * Track sources page view
+ */
+export function trackSourcesPageView(activeTab: string) {
+  capture('sources_page_view', {
+    active_tab: activeTab,
+  });
+}
+
+/**
+ * Track source tab change
+ */
+export function trackSourceTabChange(fromTab: string, toTab: string) {
+  capture('source_tab_change', {
+    from_tab: fromTab,
+    to_tab: toTab,
+  });
+}
+
+// ============================================
+// ENGAGEMENT EVENTS
+// ============================================
+
+/**
+ * Track time spent on article (call when leaving)
+ */
+export function trackTimeOnArticle(slug: string, timeSeconds: number) {
+  capture('article_time_spent', {
+    slug,
+    time_seconds: timeSeconds,
+    time_bucket: getTimeBucket(timeSeconds),
+  });
+}
+
+/**
+ * Track copy link/heading click
+ */
+export function trackCopyLink(slug: string, headingId: string) {
+  capture('copy_link', {
+    slug,
+    heading_id: headingId,
+  });
+}
+
+// Helper to bucket time into categories
+function getTimeBucket(seconds: number): string {
+  if (seconds < 10) return '<10s';
+  if (seconds < 30) return '10-30s';
+  if (seconds < 60) return '30-60s';
+  if (seconds < 120) return '1-2min';
+  if (seconds < 300) return '2-5min';
+  return '>5min';
 }

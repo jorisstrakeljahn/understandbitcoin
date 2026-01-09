@@ -7,11 +7,8 @@ import { getAllContent, getTopicConfig, getAllTopicsFromConfig } from '@/lib/con
 import { getFeaturedSources, getSourcesCount } from '@/lib/sources/loader';
 import { Source } from '@/lib/sources/types';
 import { 
-  FileText, 
   HelpCircle, 
   Coins, 
-  BookOpen,
-  Video,
   ArrowRight,
   TopicIcon,
   Bitcoin,

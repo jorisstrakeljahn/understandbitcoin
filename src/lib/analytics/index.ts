@@ -3,6 +3,8 @@ export { initPostHog, posthog, isPostHogReady } from './posthog';
 
 // Event tracking functions
 export {
+  // User properties
+  setUserProperties,
   // Page views
   trackPageView,
   // Search
@@ -15,7 +17,19 @@ export {
   trackScrollDepth,
   trackExternalLinkClick,
   trackRelatedArticleClick,
+  trackArticleView,
+  trackTimeOnArticle,
+  trackCopyLink,
+  // Topics
+  trackTopicView,
+  trackTopicSelect,
+  // Homepage
+  trackEntryPointClick,
+  trackPopularArticleClick,
+  // Sources
+  trackSourceClick,
+  trackSourcesPageView,
+  trackSourceTabChange,
   // Navigation
   trackCTAClick,
-  trackTopicSelect,
 } from './events';

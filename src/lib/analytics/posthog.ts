@@ -20,8 +20,15 @@ export function initPostHog() {
     capture_pageleave: true,
     // Respect Do Not Track
     respect_dnt: true,
-    // Disable session recording by default (enable in PostHog dashboard if needed)
-    disable_session_recording: true,
+    // Enable session recording
+    disable_session_recording: false,
+    // Session recording settings
+    session_recording: {
+      // Mask all text inputs for privacy
+      maskAllInputs: true,
+      // Mask text content (optional - set to false to see actual content)
+      maskTextSelector: undefined,
+    },
     // Persistence
     persistence: 'localStorage+cookie',
     // Bootstrap with person properties
