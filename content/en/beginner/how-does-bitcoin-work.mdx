@@ -1,0 +1,85 @@
+---
+slug: how-does-bitcoin-work
+title: How does Bitcoin work?
+summary: Bitcoin uses cryptography, a peer-to-peer network, and economic incentives to create a secure, decentralized payment system.
+tags:
+  - technology
+  - how it works
+  - transactions
+  - mining
+topic: basics
+level: beginner
+type: qa
+language: en
+lastUpdated: "2024-01-15"
+tldr:
+  - Transactions are signed with private keys (like a digital signature)
+  - Nodes verify transactions are valid
+  - Miners compete to add transactions to the blockchain
+  - The blockchain is a shared record everyone can verify
+  - Economic incentives keep the network secure
+whyPeopleAsk: After learning what Bitcoin is, the natural next question is understanding the technology behind it - how can money work without a central authority?
+steelmanObjection: "The technology is too complicated for average people to understand or use safely."
+whatIsTrue:
+  - The core protocol has worked securely since 2009
+  - Transactions are mathematically verified
+  - The network processes thousands of transactions daily
+  - Anyone can run a node and verify everything
+whatIsUncertain:
+  - Whether the technology will scale for global adoption
+  - How quantum computing might affect security
+relatedQuestions:
+  - what-is-bitcoin
+  - what-is-mining
+  - what-is-a-private-key
+sources:
+  - title: "Bitcoin: A Peer-to-Peer Electronic Cash System"
+    url: "https://bitcoin.org/bitcoin.pdf"
+    author: Satoshi Nakamoto
+    type: primary
+  - title: "But How Does Bitcoin Actually Work?"
+    url: "https://www.youtube.com/watch?v=bBC-nXj3Ng4"
+    author: 3Blue1Brown
+    type: video
+    description: Visual explanation of Bitcoin cryptography
+---
+
+## The Core Components
+
+Bitcoin combines several technologies that existed before it in a novel way:
+
+### 1. Public Key Cryptography
+
+Every Bitcoin user has a pair of keys:
+- **Private key**: A secret number that lets you spend your bitcoin
+- **Public key**: Derived from the private key, used to receive bitcoin
+
+When you send bitcoin, you create a digital signature using your private key. Anyone can verify this signature using your public key, proving you authorized the transaction.
+
+### 2. The Blockchain
+
+The blockchain is a chain of blocks, each containing transactions. Every block references the previous one, creating an unbreakable chain back to the first block (the "genesis block").
+
+This structure makes it practically impossible to change past transactions - you'd have to redo all the work for every subsequent block.
+
+### 3. Mining and Proof of Work
+
+Miners compete to add new blocks by solving a mathematical puzzle. The first to solve it gets to add the block and receives new bitcoin as a reward.
+
+This process:
+- Secures the network against attacks
+- Creates new bitcoin at a predictable rate
+- Reaches consensus without a central authority
+
+### 4. The Network
+
+Thousands of nodes (computers running Bitcoin software) maintain copies of the blockchain. They validate transactions and blocks, rejecting anything that breaks the rules.
+
+## The Transaction Flow
+
+1. You create a transaction and sign it
+2. Your wallet broadcasts it to the network
+3. Nodes verify it's valid
+4. Miners include it in a block
+5. The block is added to the blockchain
+6. The recipient can now spend the bitcoin

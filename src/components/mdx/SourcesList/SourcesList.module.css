@@ -1,0 +1,124 @@
+.sourcesList {
+  margin: var(--space-8) 0;
+  padding: var(--space-5);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.heading svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-accent);
+}
+
+.group {
+  margin-bottom: var(--space-5);
+}
+
+.group:last-child {
+  margin-bottom: 0;
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin: 0 0 var(--space-3);
+}
+
+.groupIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.groupIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.item:first-child {
+  padding-top: 0;
+}
+
+.link,
+.noLink {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover .title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.title {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+}
+
+.noLink .title {
+  color: var(--color-text-primary);
+}
+
+.author {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.external {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-muted);
+  margin-left: var(--space-1);
+  flex-shrink: 0;
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: var(--space-2) 0 0;
+  line-height: var(--line-height-normal);
+}

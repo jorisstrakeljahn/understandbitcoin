@@ -1,0 +1,87 @@
+---
+slug: what-is-lightning-network
+title: What is the Lightning Network?
+summary: Lightning is a payment layer built on Bitcoin that enables fast, cheap transactions by creating payment channels between users.
+tags:
+  - lightning
+  - payments
+  - scaling
+  - layer 2
+topic: lightning
+level: beginner
+type: qa
+language: en
+lastUpdated: "2024-01-22"
+tldr:
+  - Lightning enables near-instant Bitcoin payments
+  - Fees are tiny (often fractions of a cent)
+  - Works through payment channels secured by Bitcoin
+  - Ideal for everyday purchases and micropayments
+  - Increases Bitcoin's transaction capacity dramatically
+whyPeopleAsk: People hear that Bitcoin is slow and expensive for small transactions. Lightning is the solution being built, and people want to understand how it works.
+steelmanObjection: "Lightning is too complex for regular users, requires being online, and channels can fail. It's not ready for mainstream adoption."
+whatIsTrue:
+  - Lightning payments are genuinely fast and cheap
+  - It's secured by Bitcoin's blockchain
+  - Capacity and adoption are growing rapidly
+  - User experience has improved significantly
+whatIsUncertain:
+  - Whether it will scale to billions of users
+  - How routing will work at massive scale
+  - Regulatory treatment of Lightning service providers
+relatedQuestions:
+  - how-does-lightning-work
+  - lightning-vs-visa
+  - how-to-use-lightning
+sources:
+  - title: "The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments"
+    url: "https://lightning.network/lightning-network-paper.pdf"
+    author: Joseph Poon, Thaddeus Dryja
+    type: primary
+    description: Original Lightning Network whitepaper
+  - title: "Mastering the Lightning Network"
+    author: Andreas Antonopoulos
+    type: book
+    description: Technical deep-dive into Lightning
+---
+
+## The Scaling Problem
+
+Bitcoin's base layer can process about 7 transactions per second. Visa handles thousands. For Bitcoin to work as everyday money, it needs to scale.
+
+Lightning solves this without changing Bitcoin itself.
+
+## How Lightning Works
+
+### Payment Channels
+
+Two people can open a "payment channel" by locking bitcoin in a special Bitcoin transaction. Once open, they can send payments back and forth instantly, updating who owns how much of the locked bitcoin.
+
+When they're done, they close the channel with one final Bitcoin transaction.
+
+### The Network Effect
+
+Here's the clever part: you don't need a direct channel with everyone. If Alice has a channel with Bob, and Bob has a channel with Carol, Alice can pay Carol through Bob.
+
+This creates a network where payments can route through multiple hops to reach anyone.
+
+### Security
+
+Lightning is secured by Bitcoin. If someone tries to cheat (claiming old balances), the other party can prove fraud and take all the funds. This makes cheating unprofitable.
+
+## Benefits
+
+- **Speed**: Payments confirm in milliseconds
+- **Cost**: Fees are often under $0.01
+- **Capacity**: Millions of transactions per second potential
+- **Privacy**: Transactions aren't all recorded on-chain
+- **Micropayments**: Pay fractions of a cent
+
+## Current State
+
+Lightning is live and growing:
+- Thousands of BTC in channels
+- Millions of users (especially in El Salvador)
+- Used for everyday purchases, streaming sats, gaming
+
+User experience has improved dramatically with modern wallets that handle the complexity behind the scenes.
