@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import styles from './AnimatedQuestion.module.css';
@@ -16,11 +16,11 @@ interface AnimatedQuestionProps {
 }
 
 export function AnimatedQuestion({ questions, interval = 4000 }: AnimatedQuestionProps) {
-  const [currentIndex, setCurrentIndex] = useState(() => 
-    Math.floor(Math.random() * questions.length)
-  );
+  // Start with index 0 to avoid hydration mismatch (Math.random differs on server/client)
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const hasInitialized = useRef(false);
 
   const currentQuestion = questions[currentIndex];
 
@@ -33,6 +33,14 @@ export function AnimatedQuestion({ questions, interval = 4000 }: AnimatedQuestio
     } while (newIndex === currentIndex);
     return newIndex;
   }, [questions.length, currentIndex]);
+
+  // Set random initial index after hydration (client-side only)
+  useEffect(() => {
+    if (!hasInitialized.current && questions.length > 1) {
+      hasInitialized.current = true;
+      setCurrentIndex(Math.floor(Math.random() * questions.length));
+    }
+  }, [questions.length]);
 
   useEffect(() => {
     if (!currentQuestion) return;
