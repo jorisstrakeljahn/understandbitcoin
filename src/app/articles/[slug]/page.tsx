@@ -201,19 +201,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </nav>
         </article>
 
-        {/* Right Sidebar - TOC & Key Takeaways */}
+        {/* Right Sidebar - TOC */}
         <aside className={styles.rightSidebar}>
           <TableOfContents headings={headings} />
-          {frontmatter.tldr && frontmatter.tldr.length > 0 && (
-            <div className={styles.keyPoints}>
-              <h4>Key Points</h4>
-              <ul>
-                {frontmatter.tldr.slice(0, 3).map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </aside>
       </div>
     </div>

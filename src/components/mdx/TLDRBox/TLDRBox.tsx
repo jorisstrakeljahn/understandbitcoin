@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { List } from '@/components/icons';
 import styles from './TLDRBox.module.css';
 
 export interface TLDRBoxProps {
@@ -10,12 +9,6 @@ export interface TLDRBoxProps {
 export function TLDRBox({ children, items }: TLDRBoxProps) {
   return (
     <div className={styles.tldrBox}>
-      <div className={styles.header}>
-        <span className={styles.badge}>
-          <List size={14} />
-          TL;DR
-        </span>
-      </div>
       <div className={styles.content}>
         {items ? (
           <ul className={styles.list}>
