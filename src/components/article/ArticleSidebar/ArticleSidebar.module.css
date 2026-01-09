@@ -1,107 +1,131 @@
+/* ============================================
+   Article Sidebar - File Tree Style
+   ============================================ */
+
 .sidebar {
-  display: flex;
-  flex-direction: column;
+  padding: var(--space-2) 0;
 }
 
 .header {
-  margin-bottom: var(--space-4);
+  padding: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
-.title {
-  font-family: var(--font-sans);
+.headerLink {
+  text-decoration: none;
+}
+
+.headerTitle {
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-  margin: 0;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
-.topicList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.topicLink {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
-}
-
-.topicLink:hover {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
-  text-decoration: none;
-}
-
-.topicLink.active {
-  background-color: var(--color-accent-muted);
+.headerLink:hover .headerTitle {
   color: var(--color-accent);
 }
 
-.topicIcon {
-  font-size: 1rem;
-}
-
-.topicLabel {
-  font-weight: var(--font-weight-medium);
-}
-
-.divider {
-  height: 1px;
-  background-color: var(--color-border-subtle);
-  margin: var(--space-6) 0;
-}
-
-.quickLinks {
-  padding-top: var(--space-2);
-}
-
-.quickLinksTitle {
-  font-family: var(--font-sans);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-  margin: 0 0 var(--space-3);
-}
-
-.quickLinksList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* File Tree Structure */
+.fileTree {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
 
-.quickLink {
+.treeSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.treeSectionActive {
+  margin-bottom: var(--space-2);
+}
+
+.treeFolder {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-1-5) var(--space-2);
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
   text-decoration: none;
   border-radius: var(--radius-md);
-  transition: background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
-.quickLink:hover {
-  background-color: var(--color-bg-tertiary);
+.treeFolder:hover {
   color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.treeFolderActive {
+  color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.treeFolderActive:hover {
+  color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.treeFolderName {
+  flex: 1;
+}
+
+.treeCount {
+  font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+.treeFolderActive .treeCount {
+  color: var(--color-accent);
+}
+
+.treeFiles {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-4);
+  border-left: 1px solid var(--color-border-subtle);
+  margin-left: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.treeFile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
   text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.treeFile:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.treeFileActive {
+  color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.treeFileActive:hover {
+  color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.treeFileName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

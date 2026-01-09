@@ -23,27 +23,59 @@ export default function TopicsPage() {
   return (
     <div className={styles.page}>
       <div className={styles.layout}>
-        {/* Sidebar */}
+        {/* Sidebar - File Tree Style */}
         <aside className={styles.sidebar}>
           <nav className={styles.sidebarNav}>
             <div className={styles.sidebarHeader}>
-              <h2 className={styles.sidebarTitle}>Topics</h2>
+              <span className={styles.sidebarTitle}>Documentation</span>
             </div>
-            <ul className={styles.topicList}>
+            
+            <div className={styles.fileTree}>
               {TOPIC_ORDER.map((topicKey) => {
                 const topic = TOPICS[topicKey];
-                const count = articlesByTopic[topicKey]?.length || 0;
+                const articles = articlesByTopic[topicKey] || [];
+                
                 return (
-                  <li key={topicKey}>
-                    <a href={`#${topicKey}`} className={styles.topicNavItem}>
-                      <TopicIcon topic={topicKey} size={16} />
-                      <span>{topic.label}</span>
-                      <span className={styles.articleCount}>{count}</span>
-                    </a>
-                  </li>
+                  <div key={topicKey} className={styles.treeSection}>
+                    <Link href={`/topics/${topicKey}`} className={styles.treeFolder}>
+                      <TopicIcon topic={topicKey} size={14} />
+                      <span className={styles.treeFolderName}>{topic.label}</span>
+                      {articles.length > 0 && (
+                        <span className={styles.treeCount}>{articles.length}</span>
+                      )}
+                    </Link>
+                    
+                    {articles.length > 0 && (
+                      <ul className={styles.treeFiles}>
+                        {articles.slice(0, 5).map((article) => (
+                          <li key={article.slug}>
+                            <Link 
+                              href={`/articles/${article.frontmatter.slug}`}
+                              className={styles.treeFile}
+                            >
+                              <FileText size={12} />
+                              <span className={styles.treeFileName}>
+                                {article.frontmatter.title}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                        {articles.length > 5 && (
+                          <li>
+                            <Link 
+                              href={`/topics/${topicKey}`}
+                              className={styles.treeMore}
+                            >
+                              +{articles.length - 5} more
+                            </Link>
+                          </li>
+                        )}
+                      </ul>
+                    )}
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           </nav>
         </aside>
 
@@ -64,9 +96,9 @@ export default function TopicsPage() {
               return (
                 <section key={topicKey} id={topicKey} className={styles.topicSection}>
                   <div className={styles.topicHeader}>
-                    <TopicIcon topic={topicKey} size={20} />
+                    <TopicIcon topic={topicKey} size={18} />
                     <h2 className={styles.topicTitle}>{topic.label}</h2>
-                    <span className={styles.topicCount}>{articles.length} articles</span>
+                    <span className={styles.topicCount}>{articles.length}</span>
                   </div>
                   <p className={styles.topicDescription}>{topic.description}</p>
                   
@@ -78,27 +110,21 @@ export default function TopicsPage() {
                             href={`/articles/${article.frontmatter.slug}`}
                             className={styles.articleItem}
                           >
-                            <FileText size={16} className={styles.articleIcon} />
-                            <div className={styles.articleContent}>
-                              <span className={styles.articleTitle}>
-                                {article.frontmatter.title}
-                              </span>
-                              <span className={styles.articleMeta}>
-                                {article.readTime} min read
-                              </span>
-                            </div>
-                            <ChevronRight size={16} className={styles.articleArrow} />
+                            <FileText size={14} className={styles.articleIcon} />
+                            <span className={styles.articleTitle}>
+                              {article.frontmatter.title}
+                            </span>
+                            <span className={styles.articleMeta}>
+                              {article.readTime} min
+                            </span>
+                            <ChevronRight size={14} className={styles.articleArrow} />
                           </Link>
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <p className={styles.emptyState}>No articles yet. Coming soon.</p>
+                    <p className={styles.emptyState}>No articles yet.</p>
                   )}
-                  
-                  <Link href={`/topics/${topicKey}`} className={styles.viewAllLink}>
-                    View all in {topic.label} <ChevronRight size={14} />
-                  </Link>
                 </section>
               );
             })}

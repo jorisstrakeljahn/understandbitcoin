@@ -51,6 +51,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const topic = TOPICS[frontmatter.topic];
   const level = LEVELS[frontmatter.level];
   const relatedArticles = getRelatedContent(slug, 'en', 4);
+  
+  // Get all articles for sidebar
+  const allArticles = getAllContent().map((a) => ({
+    slug: a.slug,
+    title: a.frontmatter.title,
+    topic: a.frontmatter.topic,
+  }));
 
   // Parse headings from content for TOC
   const headings = extractHeadings(content);
@@ -63,17 +70,21 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <div className={styles.container}>
         {/* Left Sidebar - Topic Navigation */}
         <aside className={styles.leftSidebar}>
-          <ArticleSidebar currentTopic={frontmatter.topic} currentSlug={slug} />
+          <ArticleSidebar 
+            currentTopic={frontmatter.topic} 
+            currentSlug={slug} 
+            articles={allArticles}
+          />
         </aside>
 
         {/* Main Content */}
         <article className={styles.article}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
-            <Link href="/topics">Topics</Link>
-            <span>/</span>
+            <Link href="/topics">Documentation</Link>
+            <span>&gt;</span>
             <Link href={`/topics/${frontmatter.topic}`}>{topic.label}</Link>
-            <span>/</span>
+            <span>&gt;</span>
             <span>{frontmatter.title}</span>
           </nav>
 

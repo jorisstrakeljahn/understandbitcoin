@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Clock, List } from '@/components/icons';
+import { List } from '@/components/icons';
 import styles from './TLDRBox.module.css';
 
 export interface TLDRBoxProps {
@@ -14,10 +14,6 @@ export function TLDRBox({ children, items }: TLDRBoxProps) {
         <span className={styles.badge}>
           <List size={14} />
           TL;DR
-        </span>
-        <span className={styles.readTime}>
-          <Clock size={12} />
-          20-40 seconds
         </span>
       </div>
       <div className={styles.content}>
