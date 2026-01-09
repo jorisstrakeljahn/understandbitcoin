@@ -1,0 +1,323 @@
+/* ============================================
+   Hero Section - WOW Effect
+   ============================================ */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+  padding: var(--space-6) var(--space-4) var(--space-16);
+  overflow: hidden;
+}
+
+/* ============================================
+   Animated Background
+   ============================================ */
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.gradientOrb1 {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(
+    circle,
+    rgba(247, 147, 26, 0.15) 0%,
+    rgba(247, 147, 26, 0.05) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.gradientOrb2 {
+  position: absolute;
+  bottom: -30%;
+  right: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(
+    circle,
+    rgba(247, 147, 26, 0.1) 0%,
+    rgba(247, 147, 26, 0.03) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.floatingParticle {
+  position: absolute;
+  background: var(--color-accent);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image: radial-gradient(
+    var(--color-border-subtle) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    black 20%,
+    transparent 70%
+  );
+}
+
+/* ============================================
+   Hero Content
+   ============================================ */
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  text-align: center;
+}
+
+/* Title */
+.heroTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.05;
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-4);
+}
+
+.heroDot {
+  color: var(--color-accent);
+}
+
+/* Question Wrapper */
+.questionWrapper {
+  width: 100%;
+  margin-bottom: var(--space-6);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtitle */
+.heroSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-8);
+  max-width: 500px;
+}
+
+@media (min-width: 768px) {
+  .heroSubtitle {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ============================================
+   Search Box
+   ============================================ */
+
+.searchWrapper {
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: var(--space-8);
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-elevated);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 0 0 transparent;
+  transition: 
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.searchBox:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 0 4px rgba(247, 147, 26, 0.15);
+}
+
+.searchIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  height: 40px;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.searchKbd {
+  display: none;
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+@media (min-width: 640px) {
+  .searchKbd {
+    display: block;
+  }
+}
+
+/* ============================================
+   CTAs
+   ============================================ */
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-10);
+}
+
+/* ============================================
+   Trust Indicators
+   ============================================ */
+
+.trustIndicators {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--radius-xl);
+}
+
+[data-theme="dark"] .trustIndicators {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.trustItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.trustNumber {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+}
+
+.trustLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.trustDivider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-border-subtle);
+}
+
+/* ============================================
+   Scroll Indicator
+   ============================================ */
+
+.scrollIndicator {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.scrollMouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.scrollWheel {
+  width: 4px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+.scrollText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Hide scroll indicator on mobile */
+@media (max-width: 768px) {
+  .scrollIndicator {
+    display: none;
+  }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .gradientOrb1,
+  .gradientOrb2,
+  .floatingParticle {
+    animation: none !important;
+  }
+  
+  .scrollMouse {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,31 @@
+.questionLink {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity var(--duration-fast) var(--ease-out);
+  min-height: 48px;
+}
+
+.questionLink:hover {
+  opacity: 0.8;
+}
+
+.questionText {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .questionText {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+.cursor {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-light);
+  margin-left: 2px;
+}

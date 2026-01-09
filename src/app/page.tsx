@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Button, Badge } from '@/components/ui';
 import { TOPICS, type Topic } from '@/lib/content/schema';
+import { getAllContent } from '@/lib/content/loader';
 import { 
-  Search, 
   FileText, 
   Code, 
   HelpCircle, 
@@ -13,15 +13,8 @@ import {
   TopicIcon,
   Bitcoin
 } from '@/components/icons';
+import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
 import styles from './page.module.css';
-
-const EXAMPLE_CHIPS = [
-  { label: 'Energy use?', query: 'energy' },
-  { label: 'Inflation hedge', query: 'inflation' },
-  { label: 'Lightning', query: 'lightning' },
-  { label: '"Ponzi scheme"', query: 'ponzi' },
-  { label: 'Self-custody', query: 'custody' },
-];
 
 const ENTRY_POINTS = [
   {
@@ -90,71 +83,20 @@ const POPULAR_ARTICLES = [
 ];
 
 export default function HomePage() {
+  // Get all questions from the content for the animated question
+  const allContent = getAllContent();
+  const questions = allContent.map((article) => ({
+    text: article.frontmatter.title,
+    slug: article.slug,
+  }));
+
   return (
     <div className={styles.page}>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroBackground}>
-          <div className={styles.heroGradient} />
-          <div className={styles.heroPattern} />
-        </div>
-        
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            Understand Bitcoin<span className={styles.heroDot}>.</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Clear answers. Fair objections. Primary sources.
-          </p>
-
-          {/* Search Input */}
-          <div className={styles.searchWrapper}>
-            <div className={styles.searchBox}>
-              <Search size={20} className={styles.searchIcon} />
-              <input
-                type="text"
-                className={styles.searchInput}
-                placeholder="Search any Bitcoin question..."
-                aria-label="Search"
-              />
-              <kbd className={styles.searchKbd}>⌘K</kbd>
-            </div>
-            <div className={styles.searchChips}>
-              {EXAMPLE_CHIPS.map((chip) => (
-                <Link
-                  key={chip.query}
-                  href={`/search?q=${chip.query}`}
-                  className={styles.searchChip}
-                >
-                  {chip.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* CTAs */}
-          <div className={styles.heroCtas}>
-            <Link href="/topics/basics">
-              <Button size="lg" variant="primary">
-                Start with Basics
-              </Button>
-            </Link>
-            <Link href="/topics">
-              <Button size="lg" variant="outline">
-                Browse Topics
-              </Button>
-            </Link>
-            <Link href="/topics/criticism">
-              <Button size="lg" variant="ghost">
-                Read Criticism
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section with Animated Questions */}
+      <HeroSection questions={questions} />
 
       {/* Entry Points */}
-      <section className={styles.section}>
+      <AnimatedSection className={styles.section}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Choose Your Topic</h2>
           <p className={styles.sectionSubtitle}>
@@ -162,32 +104,33 @@ export default function HomePage() {
           </p>
           
           <div className={styles.entryPoints}>
-            {ENTRY_POINTS.map((entry) => {
+            {ENTRY_POINTS.map((entry, index) => {
               const IconComponent = entry.icon;
               return (
-                <Link
-                  key={entry.id}
-                  href={entry.href}
-                  className={styles.entryPoint}
-                  style={{ '--entry-color': entry.color } as React.CSSProperties}
-                >
-                  <span className={styles.entryIcon}>
-                    <IconComponent size={28} />
-                  </span>
-                  <h3 className={styles.entryTitle}>{entry.title}</h3>
-                  <p className={styles.entryDescription}>{entry.description}</p>
-                  <span className={styles.entryArrow}>
-                    <ArrowRight size={18} />
-                  </span>
-                </Link>
+                <AnimatedCard key={entry.id} delay={index * 0.1}>
+                  <Link
+                    href={entry.href}
+                    className={styles.entryPoint}
+                    style={{ '--entry-color': entry.color } as React.CSSProperties}
+                  >
+                    <span className={styles.entryIcon}>
+                      <IconComponent size={28} />
+                    </span>
+                    <h3 className={styles.entryTitle}>{entry.title}</h3>
+                    <p className={styles.entryDescription}>{entry.description}</p>
+                    <span className={styles.entryArrow}>
+                      <ArrowRight size={18} />
+                    </span>
+                  </Link>
+                </AnimatedCard>
               );
             })}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Popular Articles */}
-      <section className={styles.section} data-variant="alt">
+      <AnimatedSection className={styles.section} data-variant="alt" delay={0.1}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <div>
@@ -202,34 +145,35 @@ export default function HomePage() {
           </div>
           
           <div className={styles.popularArticles}>
-            {POPULAR_ARTICLES.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/articles/${article.slug}`}
-                className={styles.popularArticle}
-              >
-                <div className={styles.popularArticleMeta}>
-                  <Badge variant="accent">
-                    <TopicIcon topic={article.topic} size={14} />
-                    <span style={{ marginLeft: '4px' }}>
-                      {TOPICS[article.topic]?.label}
-                    </span>
-                  </Badge>
-                  <span className={styles.readTime}>{article.readTime} min read</span>
-                </div>
-                <h3 className={styles.popularArticleTitle}>{article.title}</h3>
-                <p className={styles.popularArticleSummary}>{article.summary}</p>
-                <span className={styles.popularArticleLink}>
-                  Read answer <ArrowRight size={14} />
-                </span>
-              </Link>
+            {POPULAR_ARTICLES.map((article, index) => (
+              <AnimatedCard key={article.slug} delay={index * 0.1}>
+                <Link
+                  href={`/articles/${article.slug}`}
+                  className={styles.popularArticle}
+                >
+                  <div className={styles.popularArticleMeta}>
+                    <Badge variant="accent">
+                      <TopicIcon topic={article.topic} size={14} />
+                      <span style={{ marginLeft: '4px' }}>
+                        {TOPICS[article.topic]?.label}
+                      </span>
+                    </Badge>
+                    <span className={styles.readTime}>{article.readTime} min read</span>
+                  </div>
+                  <h3 className={styles.popularArticleTitle}>{article.title}</h3>
+                  <p className={styles.popularArticleSummary}>{article.summary}</p>
+                  <span className={styles.popularArticleLink}>
+                    Read answer <ArrowRight size={14} />
+                  </span>
+                </Link>
+              </AnimatedCard>
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Sources Preview (Stub) */}
-      <section className={styles.section}>
+      <AnimatedSection className={styles.section} delay={0.1}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <div>
@@ -244,40 +188,48 @@ export default function HomePage() {
           </div>
           
           <div className={styles.sourcesPreview}>
-            <div className={styles.sourceCard}>
-              <div className={styles.sourceType}>
-                <BookOpen size={14} /> Book
+            <AnimatedCard delay={0}>
+              <div className={styles.sourceCard}>
+                <div className={styles.sourceType}>
+                  <BookOpen size={14} /> Book
+                </div>
+                <h3 className={styles.sourceTitle}>The Bitcoin Standard</h3>
+                <p className={styles.sourceAuthor}>Saifedean Ammous</p>
               </div>
-              <h3 className={styles.sourceTitle}>The Bitcoin Standard</h3>
-              <p className={styles.sourceAuthor}>Saifedean Ammous</p>
-            </div>
-            <div className={styles.sourceCard}>
-              <div className={styles.sourceType}>
-                <FileText size={14} /> Paper
+            </AnimatedCard>
+            <AnimatedCard delay={0.1}>
+              <div className={styles.sourceCard}>
+                <div className={styles.sourceType}>
+                  <FileText size={14} /> Paper
+                </div>
+                <h3 className={styles.sourceTitle}>Bitcoin: A Peer-to-Peer Electronic Cash System</h3>
+                <p className={styles.sourceAuthor}>Satoshi Nakamoto</p>
               </div>
-              <h3 className={styles.sourceTitle}>Bitcoin: A Peer-to-Peer Electronic Cash System</h3>
-              <p className={styles.sourceAuthor}>Satoshi Nakamoto</p>
-            </div>
-            <div className={styles.sourceCard}>
-              <div className={styles.sourceType}>
-                <Video size={14} /> Video
+            </AnimatedCard>
+            <AnimatedCard delay={0.2}>
+              <div className={styles.sourceCard}>
+                <div className={styles.sourceType}>
+                  <Video size={14} /> Video
+                </div>
+                <h3 className={styles.sourceTitle}>But How Does Bitcoin Actually Work?</h3>
+                <p className={styles.sourceAuthor}>3Blue1Brown</p>
               </div>
-              <h3 className={styles.sourceTitle}>But How Does Bitcoin Actually Work?</h3>
-              <p className={styles.sourceAuthor}>3Blue1Brown</p>
-            </div>
-            <div className={styles.sourceCard}>
-              <div className={styles.sourceType}>
-                <BookOpen size={14} /> Book
+            </AnimatedCard>
+            <AnimatedCard delay={0.3}>
+              <div className={styles.sourceCard}>
+                <div className={styles.sourceType}>
+                  <BookOpen size={14} /> Book
+                </div>
+                <h3 className={styles.sourceTitle}>Mastering Bitcoin</h3>
+                <p className={styles.sourceAuthor}>Andreas Antonopoulos</p>
               </div>
-              <h3 className={styles.sourceTitle}>Mastering Bitcoin</h3>
-              <p className={styles.sourceAuthor}>Andreas Antonopoulos</p>
-            </div>
+            </AnimatedCard>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* CTA Section */}
-      <section className={styles.ctaSection}>
+      <AnimatedSection className={styles.ctaSection} delay={0.1}>
         <div className={styles.container}>
           <h2 className={styles.ctaTitle}>Ready to understand Bitcoin?</h2>
           <p className={styles.ctaSubtitle}>
@@ -289,7 +241,7 @@ export default function HomePage() {
             </Button>
           </Link>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   );
 }
