@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { searchContent } from '@/lib/search';
 import { TopicSchema, ContentTypeSchema, ContentLevelSchema } from '@/lib/content/schema';
+import { getTopicConfig, getLevelConfig } from '@/lib/content/loader';
 
 const SearchParamsSchema = z.object({
   q: z.string().default(''),
@@ -9,6 +10,7 @@ const SearchParamsSchema = z.object({
   type: ContentTypeSchema.optional(),
   level: ContentLevelSchema.optional(),
   limit: z.coerce.number().int().positive().max(100).optional(),
+  locale: z.string().default('en'),
 });
 
 export async function GET(request: NextRequest) {
@@ -20,6 +22,7 @@ export async function GET(request: NextRequest) {
     type: searchParams.get('type') ?? undefined,
     level: searchParams.get('level') ?? undefined,
     limit: searchParams.get('limit') ?? undefined,
+    locale: searchParams.get('locale') ?? 'en',
   });
 
   if (!parseResult.success) {
@@ -29,7 +32,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { q: query, topic, type, level, limit } = parseResult.data;
+  const { q: query, topic, type, level, limit, locale } = parseResult.data;
 
   const results = searchContent(query, {
     topic,
@@ -38,5 +41,13 @@ export async function GET(request: NextRequest) {
     limit,
   });
 
-  return NextResponse.json({ results, query });
+  // Enrich results with localized labels
+  const enrichedResults = results.map(result => ({
+    ...result,
+    topicLabel: getTopicConfig(result.topic, locale).label,
+    levelLabel: getLevelConfig(result.level, locale).label,
+    levelColor: getLevelConfig(result.level, locale).color,
+  }));
+
+  return NextResponse.json({ results: enrichedResults, query });
 }

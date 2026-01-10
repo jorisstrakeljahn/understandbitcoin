@@ -5,8 +5,8 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Search } from '@/components/icons';
 import { Button } from '@/components/ui';
+import { SearchInput } from '@/components/search/SearchInput';
 import styles from './HeroSection.module.css';
 
 // Lazy load AnimatedQuestion since it's not immediately visible
@@ -179,16 +179,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <div className={styles.searchBox}>
-            <Search size={20} className={styles.searchIcon} />
-            <input
-              type="text"
-              className={styles.searchInput}
-              placeholder={t('searchPlaceholder')}
-              aria-label="Search"
-            />
-            <kbd className={styles.searchKbd}>⌘K</kbd>
-          </div>
+          <SearchInput variant="hero" />
         </motion.div>
 
         {/* Subtitle */}

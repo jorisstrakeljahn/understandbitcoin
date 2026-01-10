@@ -129,7 +129,7 @@
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   margin: 0 0 var(--space-8);
-  max-width: 500px;
+  max-width: 550px;
 }
 
 @media (min-width: 768px) {
