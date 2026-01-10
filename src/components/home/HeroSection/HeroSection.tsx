@@ -8,7 +8,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl';
 import { Search, TrendingUp, Sparkles, ArrowRight } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
-import { Button, Badge } from '@/components/ui';
+import { Button } from '@/components/ui';
 import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import styles from './HeroSection.module.css';
 
@@ -392,21 +392,12 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
                                   <TopicIcon topic={result.topic} size={18} />
                                 </div>
                                 <div className={styles.dropdownResultContent}>
-                                  <h4 
-                                    className={styles.dropdownResultTitle}
-                                    dangerouslySetInnerHTML={{ 
-                                      __html: result.highlights?.title || result.title 
-                                    }}
-                                  />
-                                  <p 
-                                    className={styles.dropdownResultSummary}
-                                    dangerouslySetInnerHTML={{ 
-                                      __html: result.highlights?.summary || result.summary 
-                                    }}
-                                  />
-                                </div>
-                                <div className={styles.dropdownResultMeta}>
-                                  <Badge variant="accent">{result.topicLabel}</Badge>
+                                  <h4 className={styles.dropdownResultTitle}>
+                                    {result.title}
+                                  </h4>
+                                  <p className={styles.dropdownResultSummary}>
+                                    {result.summary}
+                                  </p>
                                 </div>
                               </Link>
                             </motion.div>

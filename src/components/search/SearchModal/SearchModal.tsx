@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Badge } from '@/components/ui';
 import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import { Search, Bitcoin, HelpCircle, Zap, Sparkles, TrendingUp, ArrowRight, X } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
@@ -289,24 +288,12 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                                 <TopicIcon topic={result.topic} size={18} />
                               </div>
                               <div className={styles.resultContent}>
-                                <h4 
-                                  className={styles.resultTitle}
-                                  dangerouslySetInnerHTML={{ 
-                                    __html: result.highlights?.title || result.title 
-                                  }}
-                                />
-                                <p 
-                                  className={styles.resultSummary}
-                                  dangerouslySetInnerHTML={{ 
-                                    __html: result.highlights?.summary || result.summary 
-                                  }}
-                                />
-                              </div>
-                              <div className={styles.resultMeta}>
-                                <Badge variant="accent">{result.topicLabel}</Badge>
-                                <Badge variant="default" style={{ color: result.levelColor }}>
-                                  {result.levelLabel}
-                                </Badge>
+                                <h4 className={styles.resultTitle}>
+                                  {result.title}
+                                </h4>
+                                <p className={styles.resultSummary}>
+                                  {result.summary}
+                                </p>
                               </div>
                             </Link>
                           </motion.div>
