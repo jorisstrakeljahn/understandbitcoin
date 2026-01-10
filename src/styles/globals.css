@@ -4,6 +4,16 @@
 
 @import './tokens.css';
 
+/* ---- Font Variables with Generic Fallbacks ---- */
+/* next/font injects --font-sans, --font-serif, --font-mono on html element */
+/* These provide safe fallbacks and satisfy linter generic family requirement */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', Times, serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
 /* ---- Reset ---- */
 *,
 *::before,

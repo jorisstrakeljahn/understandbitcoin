@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import { Search, Bitcoin, HelpCircle, Zap, Sparkles, TrendingUp, ArrowRight, X } from '@/components/icons';
@@ -48,7 +48,6 @@ const TRENDING_SEARCHES = [
 ];
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
-  const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
   const isGerman = locale === 'de';

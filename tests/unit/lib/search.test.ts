@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { searchContent, getSearchSuggestions, getDidYouMean, getTrendingSearches } from '@/lib/search';
 
 // Note: The search functions use a cached Fuse instance, so we test the actual behavior
@@ -101,7 +101,7 @@ describe('Search Logic', () => {
     it('gibt Vorschlag bei Tippfehler zurück oder null', () => {
       const suggestion = getDidYouMean('bitconi');
       // May or may not return a suggestion depending on the content
-      expect(suggestion === null || typeof suggestion === 'string').toBe(true);
+      expect(suggestion === null || suggestion === 'string').toBe(true);
     });
   });
 

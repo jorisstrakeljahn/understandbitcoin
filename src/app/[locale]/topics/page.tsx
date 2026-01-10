@@ -16,9 +16,7 @@ export async function generateMetadata({ params }: TopicsPageProps) {
   
   return {
     title: t('documentation'),
-    description: locale === 'de' 
-      ? 'Durchsuche alle Bitcoin-Themen und Artikel.' 
-      : 'Browse all Bitcoin topics and articles.',
+    description: t('subtitle'),
   };
 }
 
@@ -64,11 +62,7 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
         <main className={styles.main}>
           <header className={styles.header}>
             <h1 className={styles.title}>{t('documentation')}</h1>
-            <p className={styles.subtitle}>
-              {locale === 'de' 
-                ? 'Wähle ein Thema aus der Sidebar oder entdecke die Übersicht unten. Jeder Artikel bietet klare Antworten mit Primärquellen.' 
-                : 'Select a topic from the sidebar or explore the overview below. Each article provides clear answers with primary sources.'}
-            </p>
+            <p className={styles.subtitle}>{t('subtitle')}</p>
           </header>
 
           <div className={styles.content}>

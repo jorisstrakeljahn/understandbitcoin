@@ -52,6 +52,7 @@
   },
   "topics": {
     "documentation": "Documentation",
+    "subtitle": "Select a topic from the sidebar or explore the overview below. Each article provides clear answers with primary sources.",
     "allTopics": "All Topics",
     "articles": "articles",
     "beginner": "Beginner",
