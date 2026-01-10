@@ -55,13 +55,13 @@ async function SearchResults({ locale, query, topic, level }: {
   }
 
   return (
-    <div className={styles.results}>
-      <p className={styles.resultsCount}>
+    <div className={styles.results} data-testid="search-results">
+      <p className={styles.resultsCount} data-testid="search-results-count">
         <span className={styles.resultsNumber}>{results.length}</span> {t('resultsFor')} <span className={styles.resultsQuery}>&ldquo;{query}&rdquo;</span>
       </p>
       
-      <div className={styles.resultsList}>
-        {results.map((result) => {
+      <div className={styles.resultsList} data-testid="search-results-list">
+        {results.map((result, index) => {
           const topicConfig = getTopicConfig(result.topic, locale);
           const levelConfig = getLevelConfig(result.level, locale);
           
@@ -70,6 +70,7 @@ async function SearchResults({ locale, query, topic, level }: {
               key={result.slug} 
               href={`/${locale}/articles/${result.slug}`}
               className={styles.resultCard}
+              data-testid={`search-page-result-${index}`}
             >
               <div className={styles.resultIcon}>
                 <TopicIcon topic={result.topic} size={24} />
@@ -121,12 +122,12 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
   const topicsFromConfig = getAllTopicsFromConfig(locale);
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} data-testid="search-page">
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1 className={styles.title}>{t('title')}</h1>
+          <h1 className={styles.title} data-testid="search-page-title">{t('title')}</h1>
           
-          <form className={styles.searchForm} action={`/${locale}/search`} method="get">
+          <form className={styles.searchForm} action={`/${locale}/search`} method="get" data-testid="search-page-form">
             <div className={styles.searchInputWrapper}>
               <Search size={20} className={styles.searchIcon} />
               <input 
@@ -135,6 +136,7 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
                 defaultValue={q || ''} 
                 placeholder={t('placeholder')}
                 className={styles.searchInput}
+                data-testid="search-page-input"
                 autoFocus
               />
             </div>

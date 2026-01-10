@@ -282,13 +282,23 @@ tests/
 │   │   ├── homepage.feature
 │   │   ├── navigation.feature
 │   │   ├── search.feature
-│   │   └── article.feature
+│   │   ├── search-results.feature
+│   │   ├── article.feature
+│   │   ├── topics.feature
+│   │   ├── sources.feature
+│   │   ├── language-switching.feature
+│   │   └── theme-toggle.feature
 │   ├── steps/              # Step definitions
 │   │   ├── common.steps.ts
 │   │   ├── homepage.steps.ts
 │   │   ├── navigation.steps.ts
 │   │   ├── search.steps.ts
-│   │   └── article.steps.ts
+│   │   ├── search-results.steps.ts
+│   │   ├── article.steps.ts
+│   │   ├── topics.steps.ts
+│   │   ├── sources.steps.ts
+│   │   ├── language.steps.ts
+│   │   └── theme.steps.ts
 │   └── fixtures/           # Page objects
 │       └── pages.ts
 ├── unit/
@@ -323,8 +333,11 @@ All interactive components have `data-testid` attributes for reliable test selec
 |-----------|----------|
 | Hero Section | `hero-title`, `hero-search-input`, `hero-search-dropdown`, `hero-search-result-{index}` |
 | Search Modal | `search-modal`, `search-modal-input`, `search-modal-close`, `search-result-{index}` |
-| Header | `header`, `header-logo`, `header-search-button`, `header-nav-topics` |
+| Header | `header`, `header-logo`, `header-search-button`, `header-nav-topics`, `theme-toggle`, `language-toggle` |
 | Article | `article-title`, `article-content`, `article-toc`, `article-back-button` |
+| Topics | `topics-grid`, `topic-card-{id}`, `topic-title`, `topic-articles` |
+| Sources | `sources-page`, `sources-grid`, `sources-filters`, `sources-filter-{type}` |
+| Search Page | `search-page`, `search-page-input`, `search-results`, `search-page-result-{index}` |
 
 ### CI/CD
 

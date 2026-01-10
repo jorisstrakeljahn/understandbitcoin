@@ -43,6 +43,7 @@ export function Header() {
             className={styles.menuButton}
             onClick={() => setIsNavOpen(true)}
             aria-label={t('openNavigation')}
+            data-testid="mobile-menu-button"
           >
             <Menu size={20} />
           </button>
@@ -78,22 +79,24 @@ export function Header() {
             </button>
 
             {/* Language Switcher */}
-            <div className={styles.languageWrapper}>
+            <div className={styles.languageWrapper} data-testid="language-switcher">
               <button
                 className={styles.languageToggle}
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 aria-label={t('changeLanguage')}
+                data-testid="language-toggle"
               >
                 <Globe size={18} />
               </button>
               
               {isLangOpen && (
-                <div className={styles.languageDropdown}>
+                <div className={styles.languageDropdown} data-testid="language-dropdown">
                   {locales.map((loc) => (
                     <Link
                       key={loc}
                       href={getPathWithLocale(loc)}
                       className={`${styles.languageOption} ${loc === locale ? styles.languageActive : ''}`}
+                      data-testid={`language-option-${loc}`}
                       onClick={() => {
                         if (loc !== locale) {
                           trackLanguageSwitch(locale, loc);
@@ -118,6 +121,8 @@ export function Header() {
                 toggleTheme();
               }}
               aria-label={resolvedTheme === 'dark' ? t('switchToLight') : t('switchToDark')}
+              data-testid="theme-toggle"
+              data-theme={resolvedTheme}
             >
               {mounted && (
                 resolvedTheme === 'dark' ? (

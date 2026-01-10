@@ -118,9 +118,9 @@ export default async function TopicPage({ params }: TopicPageProps) {
         </aside>
 
         {/* Main Content */}
-        <main className={styles.main}>
+        <main className={styles.main} data-testid="topic-detail-page">
           {/* Breadcrumb */}
-          <nav className={styles.breadcrumb}>
+          <nav className={styles.breadcrumb} data-testid="topic-breadcrumb">
             <Link href={`/${locale}/topics`}>{t('documentation')}</Link>
             <ChevronRight size={12} />
             <span>{topicData.label}</span>
@@ -132,18 +132,18 @@ export default async function TopicPage({ params }: TopicPageProps) {
               <TopicIcon topic={topic as Topic} size={20} />
             </div>
             <div className={styles.headerContent}>
-              <h1 className={styles.title}>{topicData.label}</h1>
-              <p className={styles.description}>{topicData.description}</p>
+              <h1 className={styles.title} data-testid="topic-title">{topicData.label}</h1>
+              <p className={styles.description} data-testid="topic-description">{topicData.description}</p>
             </div>
           </header>
 
           {/* Content */}
           {articles.length === 0 ? (
-            <div className={styles.empty}>
+            <div className={styles.empty} data-testid="topic-empty">
               <p>{locale === 'de' ? 'Noch keine Artikel in diesem Thema.' : 'No articles in this topic yet.'}</p>
             </div>
           ) : (
-            <div className={styles.content}>
+            <div className={styles.content} data-testid="topic-articles">
               {/* Beginner */}
               {groupedArticles.beginner.length > 0 && (
                 <section className={styles.levelSection}>

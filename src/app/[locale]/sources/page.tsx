@@ -97,15 +97,15 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
   const currentLevel = level || 'all';
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} data-testid="sources-page">
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1 className={styles.title}>{t('title')}</h1>
+          <h1 className={styles.title} data-testid="sources-title">{t('title')}</h1>
           <p className={styles.subtitle}>{t('subtitle')}</p>
         </header>
 
         {/* Category Tabs */}
-        <div className={styles.filters}>
+        <div className={styles.filters} data-testid="sources-filters">
           <div className={styles.categoryTabs}>
             {CATEGORIES.map((category) => {
               const IconComponent = category.icon;
@@ -115,6 +115,7 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
                   key={category.id}
                   href={`/${locale}/sources?type=${category.id}&level=${currentLevel}`}
                   className={`${styles.categoryTab} ${isActive ? styles.categoryTabActive : ''}`}
+                  data-testid={`sources-filter-${category.id}`}
                 >
                   <IconComponent size={18} />
                   <span>{category.label}</span>
@@ -145,7 +146,7 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
 
         {/* Sources Grid */}
         {allSources.length > 0 ? (
-          <div className={styles.sourcesGrid}>
+          <div className={styles.sourcesGrid} data-testid="sources-grid">
             {allSources.map((source) => (
               <SourceCard key={source.id} source={source} locale={locale} />
             ))}
