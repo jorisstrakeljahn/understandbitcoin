@@ -1,7 +1,7 @@
 ---
 slug: what-is-proof-of-work
 title: Was ist Proof of Work?
-summary: Proof of Work ist der Mechanismus, der Bitcoin absichert, indem Miner echte Energie aufwenden müssen, um Blöcke zur Blockchain hinzuzufügen. Es macht Angriffe auf das Netzwerk prohibitiv teuer.
+summary: Proof of Work ist der Mechanismus, der Bitcoin sichert, indem er Miner dazu zwingt, reale Energie aufzuwenden, um Blöcke zur Blockchain hinzuzufügen. Er macht Angriffe auf das Netzwerk prohibitiv teuer.
 tags:
   - proof of work
   - mining
@@ -14,21 +14,21 @@ type: explainer
 language: de
 lastUpdated: "2025-01-10"
 tldr:
-  - Proof of Work erfordert Rechenaufwand um Blöcke hinzuzufügen
+  - Proof of Work erfordert Rechenaufwand, um Blöcke hinzuzufügen
   - Dieser Energieaufwand macht Angriffe ökonomisch irrational
-  - Jeder kann verifizieren, dass die Arbeit geleistet wurde, aber niemand kann sie fälschen
+  - Jeder kann die Arbeit verifizieren, aber niemand kann sie fälschen
   - PoW wandelt Elektrizität in Sicherheit um
-  - Es ist der Grund warum Bitcoin nie erfolgreich angegriffen wurde
-whyPeopleAsk: Menschen hören, dass Bitcoin "Proof of Work" verwendet und dass es energieintensiv ist, verstehen aber nicht warum diese Designentscheidung getroffen wurde oder welches Problem sie löst.
-steelmanObjection: "Proof of Stake erreicht das gleiche Ergebnis ohne Energie zu verschwenden. Die Umweltkosten von Proof of Work sind nicht zu rechtfertigen wenn bessere Alternativen existieren."
+  - Es ist der Grund, warum Bitcoin nie erfolgreich angegriffen wurde
+whyPeopleAsk: Menschen hören, dass Bitcoin "Proof of Work" verwendet und energieintensiv ist, aber sie verstehen nicht, warum diese Designentscheidung getroffen wurde oder welches Problem sie löst.
+steelmanObjection: "Proof of Stake erreicht dasselbe Ergebnis ohne Energieverschwendung. Die Umweltkosten von Proof of Work sind nicht zu rechtfertigen, wenn bessere Alternativen existieren."
 whatIsTrue:
-  - PoW verbraucht signifikante Energie
+  - PoW verbraucht tatsächlich erhebliche Energie
   - Dieser Energieaufwand bietet Sicherheitsgarantien
-  - PoW hat eine 15+ Jahre Erfolgsgeschichte der Sicherheit
-  - Alternative Konsensmechanismen existieren mit anderen Kompromissen
+  - PoW hat eine 15+-jährige Sicherheitsbilanz
+  - Alternative Konsensmechanismen existieren mit anderen Trade-offs
 whatIsUncertain:
-  - Ob PoS äquivalente Sicherheit bietet (umstritten)
-  - Die wahren Umweltauswirkungen (hängt von Energiequelle ab)
+  - Ob PoS gleichwertige Sicherheit bietet (umstritten)
+  - Die tatsächlichen Umweltauswirkungen (hängt von Energiequelle ab)
   - Ob PoW langfristig dominant bleiben wird
 relatedQuestions:
   - how-does-bitcoin-mining-work
@@ -47,50 +47,91 @@ sources:
     description: Frühe akademische Arbeit zu PoW-Konzepten
 ---
 
-## Die kurze Antwort
+## Die einfache Idee, die Bitcoin unfälschbar macht
 
-<!-- ÜBERSETZEN: PoW introduction -->
+Jedes verteilte System steht vor einem fundamentalen Problem: Wenn es keine zentrale Autorität gibt, wie bringt man Fremde dazu, sich darauf zu einigen, was wahr ist?
 
-## Das Problem das es löst
+In einer traditionellen Datenbank ist die Antwort einfach. Eine Partei kontrolliert die Datenbank und entscheidet, was sie enthält. Jeder vertraut dieser Partei – oder akzeptiert zumindest ihre Autorität. Aber Bitcoin hat keine solche Partei. Kein Unternehmen betreibt es. Keine Regierung kontrolliert es. Tausende Computer weltweit, betrieben von Menschen, die sich nicht kennen oder vertrauen, müssen irgendwie zustimmen, welche Transaktionen gültig sind und in welcher Reihenfolge sie stattfanden.
 
-<!-- ÜBERSETZEN: Problem it solves -->
+Proof of Work ist Bitcoins Antwort. Es ist ein Mechanismus, der Lügen teuer und Wahrheit erzählen profitabel macht. Indem er jeden, der einen Block zur Blockchain hinzufügen will, dazu zwingt, zuerst zu beweisen, dass er Rechenressourcen aufgewendet hat, schafft er eine ökonomische Barriere, die alle Anreize auf Ehrlichkeit ausrichtet.
 
-## Wie es funktioniert
+Die Kernerkenntnis ist fast absurd einfach: aufgewendete Energie. Um einen Block hinzuzufügen, musst du Strom verbrennen, um ein kryptografisches Rätsel zu lösen. Das beweist, dass du reale Kosten bezahlt hast. Jeder kann den Beweis sofort verifizieren, aber niemand kann ihn fälschen, ohne tatsächlich die Kosten zu bezahlen. Und sobald sich genug Arbeit auf einer Version der Geschichte angesammelt hat, würde das Ändern dieser Geschichte erfordern, all das neu zu machen – mehr Energie auszugeben, als ehrliche Miner bereits ausgegeben haben.
 
-### Der grundlegende Mechanismus
+## Die Mechanik des Beweises
 
-<!-- ÜBERSETZEN: Basic mechanism steps -->
+Wenn ein Miner einen Kandidatenblock baut, muss er eine Zahl namens Nonce finden, die, kombiniert mit den anderen Daten des Blocks und durch die SHA-256-Hash-Funktion geführt, ein Ergebnis unter einem bestimmten Target produziert. Der Hash-Output sieht zufällig aus – es gibt keine Möglichkeit, die richtige Nonce direkt zu berechnen. Man muss einfach raten, immer wieder, bis man eine findet, die funktioniert.
 
-### Der Energieaufwand
+Im Durchschnitt erfordert das Finden eines gültigen Hashes Billionen von Versuchen. Jeder Versuch kostet Strom. Das Difficulty Target passt sich an, um sicherzustellen, dass global ungefähr alle zehn Minuten jemand einen gültigen Block findet, unabhängig davon, wie viel gesamte Rechenpower sucht.
 
-<!-- ÜBERSETZEN: Energy expenditure explanation -->
+Die Asymmetrie ist entscheidend. Den Beweis zu finden ist extrem schwer – global werden jährlich Milliarden Dollar an Strom ausgegeben. Den Beweis zu verifizieren ist trivial – eine einzige Hash-Berechnung, die jedes Smartphone in Millisekunden durchführen kann. Diese Asymmetrie bedeutet, dass jeder prüfen kann, dass Arbeit geleistet wurde, ohne sie selbst wiederholen zu müssen.
 
-### Die Mathematik
+## Warum Energie der Punkt ist
 
-<!-- ÜBERSETZEN: The math explanation -->
+Kritiker stellen Bitcoins Energieverbrauch oft als Verschwendung dar. Das verkennt das fundamentale Design.
 
-## Warum Energie wichtig ist
+Die Energie wird nicht verbrannt, um willkürliche Rätsel um ihrer selbst willen zu lösen. Die Energie wird verbrannt, um unfälschbare Kosten zu schaffen – reale Ausgaben, die bezahlt werden müssen, um in Bitcoins Register zu schreiben. Diese Kosten sind es, die das System sicher machen.
 
-### Unfälschbare Kostspieligkeit
+Nick Szabo, ein Kryptograf, dessen Ideen Bitcoins Design beeinflussten, prägte den Begriff „unfälschbare Kostspieligkeit". Manche Dinge beziehen ihren Wert teilweise daraus, dass ihre Herstellung wirklich teuer ist. Gold hat Wert, teilweise weil sein Abbau schwer ist. Seltene Kunst hat Wert, teilweise weil sie nicht repliziert werden kann. Und Bitcoin-Blöcke haben Integrität, teilweise weil ihre Produktion erhebliche Ressourcen erfordert.
 
-<!-- ÜBERSETZEN: Unforgeable costliness -->
+Du kannst nicht vortäuschen, Strom ausgegeben zu haben. Der Hash erfüllt entweder das Target oder nicht. Der Beweis existiert entweder oder nicht. Es gibt keine Möglichkeit zu täuschen – keine Fälschung möglich, keine Abkürzung verfügbar. Das schafft Sicherheit: Ein Angreifer muss ehrliche Miner tatsächlich überbieten, nicht nur überlisten.
 
-### Verteidigung gegen Angriffe
+## Der Angriff, der mehr kosten würde als er wert ist
 
-<!-- ÜBERSETZEN: Defense against attacks -->
+Um Bitcoin anzugreifen – eine Transaktion rückgängig zu machen, Coins doppelt auszugeben oder Zahlungen zu zensieren – muss ein Angreifer Blöcke schneller produzieren als alle ehrlichen Miner zusammen. Das nennt man eine 51%-Attacke, und sie erfordert die Kontrolle über mehr als die Hälfte der gesamten Rechenpower des Netzwerks.
 
-### Dezentralisierung durch Kosten
+Bedenke, was das heute tatsächlich erfordern würde. Bitcoins Netzwerk läuft mit über 500 Exahashes pro Sekunde. Um das zu übertreffen, bräuchte ein Angreifer Mining-Hardware im Wert von Milliarden Dollar – Hardware, deren Herstellung und Beschaffung in Mengen Monate dauert. Er bräuchte Stromversorgung, die kleinen Ländern entspricht. Er bräuchte Betriebsexpertise und Infrastruktur in massivem Maßstab.
 
-<!-- ÜBERSETZEN: Decentralization through cost -->
+Aber selbst all das zu beschaffen würde keinen Erfolg garantieren. Während des Angriffsversuchs verlängern ehrliche Miner weiter die legitime Kette. Der Angreifer muss seinen Vorteil lange genug aufrechterhalten, um bedeutende Geschichte umzuschreiben. Wenn er scheitert, hat er Milliarden für Strom und Hardware ausgegeben, ohne etwas vorzuweisen. Wenn er erfolgreich ist... hat er wahrscheinlich den Wert genau der Bitcoin zerstört, die er zu stehlen oder doppelt auszugeben versucht.
 
-## Proof of Work vs. Proof of Stake
+Die Ökonomie funktioniert einfach nicht. Ehrliches Mining ist profitabel. Angreifen ist es fast sicher nicht. Proof of Work transformiert Sicherheit von einem technischen Problem in ein ökonomisches – und macht dann die ökonomische Antwort offensichtlich.
 
-<!-- ÜBERSETZEN: PoW vs PoS table and explanation -->
+## Dezentralisierung ohne Gatekeeper
 
-## Häufige Missverständnisse
+Es gibt noch eine weitere entscheidende Eigenschaft von Proof of Work, die oft unterbewertet wird: Er erfordert keine Erlaubnis und keine vorherige Beziehung.
 
-<!-- ÜBERSETZEN: Common misconceptions -->
+Jeder mit Strom und Hardware kann minen. Du musst dich nicht registrieren. Du brauchst keine Genehmigung. Du musst keine Token staken, die vom Netzwerk selbst ausgegeben werden. Du fängst einfach an, Hashes zu raten, und wenn du einen gültigen Block findest, wird das Netzwerk ihn akzeptieren. Deine Identität spielt keine Rolle – nur ob der Beweis gültig ist.
+
+Das ist enorm wichtig für Zensurresistenz. Wenn das Hinzufügen von Blöcken Erlaubnis erfordern würde, könnte derjenige, der die Erlaubnis erteilt, entscheiden, wer teilnimmt. Er könnte bestimmte Transaktionen oder Miner ausschließen. Er könnte von Regierungen unter Druck gesetzt werden. Die Erlaubnislosigkeit von Proof of Work verhindert das. Die Regeln werden von Physik und Mathematik durchgesetzt, nicht von einem Gatekeeper.
+
+## Die große Debatte: Proof of Work vs. Proof of Stake
+
+Proof of Stake ist ein alternativer Konsensmechanismus, bei dem Blockproduzenten basierend darauf ausgewählt werden, wie viele Coins sie als Sicherheit gesperrt haben. Er verbraucht weit weniger Energie, da kein Mining-Rätsel gelöst werden muss.
+
+Die Debatte zwischen Befürwortern von Proof of Work und Proof of Stake ist heftig, technisch und wird wahrscheinlich nicht endgültig gelöst. Hier ist eine ehrliche Zusammenfassung:
+
+| Dimension | Proof of Work | Proof of Stake |
+|-----------|--------------|----------------|
+| Sicherheitskosten | Stromausgaben | Gesperrtes Kapital |
+| Energieverbrauch | Hoch | Sehr niedrig |
+| Eintrittsvoraussetzung | Hardware + Strom | Coins zum Staken |
+| Angriffskosten | Extern (muss Energie beschaffen) | Intern (nutzt existierende Coins) |
+| Erfolgsbilanz | 15+ Jahre, nie gebrochen | Neuer, weniger kampferprobt |
+| Nothing-at-Stake-Problem | Nicht anwendbar | Erfordert sorgfältige Mitigierung |
+
+Proof-of-Stake-Befürworter argumentieren, dass PoS gleichwertige Sicherheit mit einem Bruchteil der Umweltauswirkungen erreicht. Warum all diese Energie verschwenden, wenn man ein Netzwerk sichern kann, indem man von Stakern verlangt, ihre Coins zu riskieren?
+
+Proof-of-Work-Befürworter erwidern, dass der Energieaufwand etwas bietet, was Staking nicht kann: externe, reale Kosten, die nicht von innerhalb des Systems beschafft werden können. Wenn Sicherheit von gestakten Coins abhängt, haben diejenigen, die früh Coins angesammelt haben, permanente Vorteile. Wenn Sicherheit von Energie abhängt, bleibt das Spielfeld über die Zeit etwas ausgeglichener. Außerdem argumentieren PoW-Befürworter, dass das „Nothing-at-Stake"-Problem in Proof of Stake – bei dem Validatoren kostenlos für mehrere widersprüchliche Ketten stimmen können – sorgfältiges Protokolldesign erfordert, das neue Angriffsvektoren einführen könnte.
+
+Bitcoin verwendet Proof of Work und hat keine Pläne, das zu ändern. Ethereum wechselte 2022 zu Proof of Stake. Das Experiment wird auf beiden Seiten fortgesetzt.
+
+## Die Energiefrage direkt adressiert
+
+Ja, Bitcoin verbraucht erhebliche Energie. Schätzungen verorten den Verbrauch im Bereich mittelgroßer Länder. Das ist eine reale Überlegung, nichts, was man abtun sollte.
+
+Aber Kontext ist wichtig. Das globale Bankensystem – einschließlich Büros, Rechenzentren, Geldautomaten, gepanzerten Fahrzeugen und unzähliger Mitarbeiter – verbraucht weit mehr Energie als Bitcoin. Die Frage ist nicht, ob Bitcoin Energie verbraucht, sondern ob die Energie das wert ist, was sie kauft.
+
+Was Proof of Work kauft, ist ein Geldsystem, das von keiner Regierung oder Institution kontrolliert oder zensiert werden kann. Ein Zahlungsnetzwerk, das in New York genauso funktioniert wie in Nigeria. Hartes Geld mit einem festen Angebot, das nicht durch politische Entscheidungen entwertet werden kann. Finanzielle Souveränität für jeden, überall, mit nichts weiter als einer Internetverbindung.
+
+Ob diese Eigenschaften die Energiekosten wert sind, ist letztlich ein Werturteil. Für Menschen in stabilen Demokratien mit vertrauenswürdigen Bankensystemen mag es übertrieben wirken. Für Menschen in Ländern mit Hyperinflation, Kapitalverkehrskontrollen oder autoritären Regierungen mag es das einzige Finanzsystem sein, das tatsächlich für sie funktioniert.
+
+Die Energie wird nicht in dem Sinne verschwendet, dass sie nichts produziert. Sie wird in Sicherheitseigenschaften transformiert, die nichts anderes bietet. Ob diese Eigenschaften genug bedeuten, um die Kosten zu rechtfertigen, ist eine Frage, die jeder für sich selbst beantworten muss.
 
 ## Das Fazit
 
-<!-- ÜBERSETZEN: Bottom line -->
+Proof of Work ist Bitcoins Immunsystem. Er wandelt reale Energie in digitale Sicherheit um und schafft eine ökonomische Barriere, die das Angreifen des Netzwerks teurer macht, als sich der Angriff lohnen würde.
+
+Der Mechanismus ist elegant in seiner Einfachheit. Um ins Register zu schreiben, musst du beweisen, dass du Kosten bezahlt hast. Der Beweis ist unfälschbar. Die kumulative Arbeit wird zunehmend teurer rückgängig zu machen. Und jeder kann ohne Erlaubnis teilnehmen.
+
+Der Energieverbrauch ist real. Die Umwelterwägungen sind legitime Diskussionsthemen. Aber zu verstehen, warum Proof of Work Energie verwendet – und was diese Energie produziert – ist essenziell, bevor man ein Urteil fällt.
+
+Seit fünfzehn Jahren operiert Bitcoin ununterbrochen ohne erfolgreichen Angriff, geschützt durch die einfache Idee, dass das Erstellen von Blöcken etwas Reales kosten sollte. Ob du diesen Trade-off für genial oder verschwenderisch hältst – ihn zu verstehen ist der erste Schritt zu jeder ehrlichen Bewertung von Bitcoin.
