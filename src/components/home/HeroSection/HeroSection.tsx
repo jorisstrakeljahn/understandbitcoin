@@ -348,11 +348,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
               autoCapitalize="off"
               spellCheck="false"
             />
-            {isLoading ? (
-              <div className={styles.spinner} />
-            ) : (
-              <kbd className={styles.searchKbd}>⌘K</kbd>
-            )}
+            {isLoading && <div className={styles.spinner} />}
           </div>
 
           {/* Search Dropdown */}
@@ -366,101 +362,107 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
                 transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
               >
-                {query.trim() ? (
-                  // Search Results
-                  results.length > 0 ? (
+                <div className={styles.dropdownContent}>
+                  {query.trim() ? (
+                    // Search Results
+                    results.length > 0 ? (
+                      <>
+                        <div className={styles.dropdownHeader}>
+                          <Sparkles size={14} />
+                          <span>{isGerman ? 'Ergebnisse' : 'Results'}</span>
+                        </div>
+                        <div className={styles.dropdownResults}>
+                          {results.slice(0, 5).map((result, index) => (
+                            <motion.div
+                              key={result.slug}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.03 }}
+                            >
+                              <Link
+                                href={`/${locale}/articles/${result.slug}`}
+                                className={`${styles.dropdownResult} ${index === selectedIndex ? styles.dropdownResultSelected : ''}`}
+                                onClick={() => {
+                                  trackSearchResultClick(query, result.slug, index);
+                                  setIsFocused(false);
+                                }}
+                                onMouseEnter={() => setSelectedIndex(index)}
+                              >
+                                <div className={styles.dropdownResultIcon}>
+                                  <TopicIcon topic={result.topic} size={18} />
+                                </div>
+                                <div className={styles.dropdownResultContent}>
+                                  <h4 
+                                    className={styles.dropdownResultTitle}
+                                    dangerouslySetInnerHTML={{ 
+                                      __html: result.highlights?.title || result.title 
+                                    }}
+                                  />
+                                  <p 
+                                    className={styles.dropdownResultSummary}
+                                    dangerouslySetInnerHTML={{ 
+                                      __html: result.highlights?.summary || result.summary 
+                                    }}
+                                  />
+                                </div>
+                                <div className={styles.dropdownResultMeta}>
+                                  <Badge variant="accent">{result.topicLabel}</Badge>
+                                </div>
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </>
+                    ) : !isLoading ? (
+                      <div className={styles.dropdownEmpty}>
+                        <p>{isGerman ? `Keine Ergebnisse für "${query}"` : `No results for "${query}"`}</p>
+                        <p className={styles.dropdownEmptyHint}>
+                          {isGerman ? 'Versuche andere Suchbegriffe' : 'Try different keywords'}
+                        </p>
+                      </div>
+                    ) : null
+                  ) : (
+                    // Trending Searches (empty state)
                     <>
                       <div className={styles.dropdownHeader}>
-                        <Sparkles size={14} />
-                        <span>{isGerman ? 'Ergebnisse' : 'Results'}</span>
+                        <TrendingUp size={14} />
+                        <span>{isGerman ? 'Beliebte Suchen' : 'Trending'}</span>
                       </div>
-                      <div className={styles.dropdownResults}>
-                        {results.slice(0, 5).map((result, index) => (
+                      <div className={styles.dropdownTrending}>
+                        {TRENDING_SEARCHES.map((item, index) => (
                           <motion.div
-                            key={result.slug}
+                            key={item.slug}
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.03 }}
+                            transition={{ delay: index * 0.05 }}
                           >
                             <Link
-                              href={`/${locale}/articles/${result.slug}`}
-                              className={`${styles.dropdownResult} ${index === selectedIndex ? styles.dropdownResultSelected : ''}`}
-                              onClick={() => {
-                                trackSearchResultClick(query, result.slug, index);
-                                setIsFocused(false);
-                              }}
+                              href={`/${locale}/articles/${item.slug}`}
+                              className={`${styles.dropdownTrendingItem} ${selectedIndex === index ? styles.dropdownResultSelected : ''}`}
+                              onClick={() => setIsFocused(false)}
                               onMouseEnter={() => setSelectedIndex(index)}
                             >
-                              <div className={styles.dropdownResultIcon}>
-                                <TopicIcon topic={result.topic} size={18} />
-                              </div>
-                              <div className={styles.dropdownResultContent}>
-                                <h4 
-                                  className={styles.dropdownResultTitle}
-                                  dangerouslySetInnerHTML={{ 
-                                    __html: result.highlights?.title || result.title 
-                                  }}
-                                />
-                                <p 
-                                  className={styles.dropdownResultSummary}
-                                  dangerouslySetInnerHTML={{ 
-                                    __html: result.highlights?.summary || result.summary 
-                                  }}
-                                />
-                              </div>
-                              <div className={styles.dropdownResultMeta}>
-                                <Badge variant="accent">{result.topicLabel}</Badge>
-                              </div>
+                              <Search size={14} className={styles.dropdownTrendingIcon} />
+                              <span>{isGerman ? item.queryDe : item.query}</span>
+                              <ArrowRight size={14} className={styles.dropdownTrendingArrow} />
                             </Link>
                           </motion.div>
                         ))}
                       </div>
-                      <Link 
-                        href={`/${locale}/search?q=${encodeURIComponent(query)}`}
-                        className={styles.dropdownViewAll}
-                        onClick={() => setIsFocused(false)}
-                      >
-                        {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
-                        <ArrowRight size={14} />
-                      </Link>
                     </>
-                  ) : !isLoading ? (
-                    <div className={styles.dropdownEmpty}>
-                      <p>{isGerman ? `Keine Ergebnisse für "${query}"` : `No results for "${query}"`}</p>
-                      <p className={styles.dropdownEmptyHint}>
-                        {isGerman ? 'Versuche andere Suchbegriffe' : 'Try different keywords'}
-                      </p>
-                    </div>
-                  ) : null
-                ) : (
-                  // Trending Searches (empty state)
-                  <>
-                    <div className={styles.dropdownHeader}>
-                      <TrendingUp size={14} />
-                      <span>{isGerman ? 'Beliebte Suchen' : 'Trending'}</span>
-                    </div>
-                    <div className={styles.dropdownTrending}>
-                      {TRENDING_SEARCHES.map((item, index) => (
-                        <motion.div
-                          key={item.slug}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <Link
-                            href={`/${locale}/articles/${item.slug}`}
-                            className={`${styles.dropdownTrendingItem} ${selectedIndex === index ? styles.dropdownResultSelected : ''}`}
-                            onClick={() => setIsFocused(false)}
-                            onMouseEnter={() => setSelectedIndex(index)}
-                          >
-                            <Search size={14} className={styles.dropdownTrendingIcon} />
-                            <span>{isGerman ? item.queryDe : item.query}</span>
-                            <ArrowRight size={14} className={styles.dropdownTrendingArrow} />
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </>
+                  )}
+                </div>
+                
+                {/* Fixed Footer - Always visible */}
+                {query.trim() && (
+                  <Link 
+                    href={`/${locale}/search?q=${encodeURIComponent(query)}`}
+                    className={styles.dropdownViewAll}
+                    onClick={() => setIsFocused(false)}
+                  >
+                    {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
+                    <ArrowRight size={14} />
+                  </Link>
                 )}
               </motion.div>
             )}

@@ -250,8 +250,15 @@
   box-shadow: var(--shadow-xl);
   overflow: hidden;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
   max-height: 400px;
+}
+
+.dropdownContent {
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .dropdownHeader {
@@ -389,9 +396,9 @@
 .dropdownViewAll {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: var(--space-2);
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-4);
   background: var(--color-bg-secondary);
   color: var(--color-accent);
   font-size: var(--font-size-sm);

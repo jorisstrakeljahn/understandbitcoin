@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui';
 import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
-import { Search, Bitcoin, HelpCircle, Zap, Sparkles, TrendingUp, ArrowRight } from '@/components/icons';
+import { Search, Bitcoin, HelpCircle, Zap, Sparkles, TrendingUp, ArrowRight, X } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
 import styles from './SearchModal.module.css';
 
@@ -239,12 +239,13 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   <motion.button 
                     className={styles.closeButton} 
                     onClick={onClose}
+                    aria-label={isGerman ? 'Schließen' : 'Close'}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <kbd>ESC</kbd>
+                    <X size={18} />
                   </motion.button>
                 )}
               </AnimatePresence>
@@ -397,20 +398,14 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               </AnimatePresence>
             </div>
 
-            {/* Footer */}
-            <motion.div 
-              className={styles.footer}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className={styles.footerHints}>
-                <span><kbd>↑</kbd><kbd>↓</kbd> {isGerman ? 'Navigieren' : 'Navigate'}</span>
-                <span><kbd>↵</kbd> {isGerman ? 'Auswählen' : 'Select'}</span>
-                <span><kbd>ESC</kbd> {isGerman ? 'Schließen' : 'Close'}</span>
-              </div>
-              
-              {query.trim() && results.length > 0 && (
+            {/* Footer - only show when searching */}
+            {query.trim() && (
+              <motion.div 
+                className={styles.footer}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
                 <Link 
                   href={`/${locale}/search?q=${encodeURIComponent(query)}`}
                   className={styles.viewAllButton}
@@ -419,8 +414,8 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
                   <ArrowRight size={14} />
                 </Link>
-              )}
-            </motion.div>
+              </motion.div>
+            )}
           </motion.div>
         </motion.div>
       )}
