@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ArrowRight, Sparkles, TrendingUp } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
+import { Badge } from '@/components/ui';
 import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import styles from './SearchInput.module.css';
 
@@ -37,10 +38,10 @@ interface SearchInputProps {
 
 // Trending searches for empty state
 const TRENDING_SEARCHES = [
-  { query: 'What is Bitcoin?', slug: 'what-is-bitcoin' },
-  { query: 'Bitcoin energy', slug: 'bitcoin-energy-consumption' },
-  { query: 'Is Bitcoin a Ponzi?', slug: 'is-bitcoin-a-ponzi-scheme' },
-  { query: 'Lightning Network', slug: 'what-is-lightning-network' },
+  { query: 'What is Bitcoin?', queryDe: 'Was ist Bitcoin?', slug: 'what-is-bitcoin' },
+  { query: 'Bitcoin energy', queryDe: 'Bitcoin Energie', slug: 'bitcoin-energy-consumption' },
+  { query: 'Is Bitcoin a Ponzi?', queryDe: 'Ist Bitcoin ein Ponzi?', slug: 'is-bitcoin-a-ponzi-scheme' },
+  { query: 'Lightning Network', queryDe: 'Lightning Network', slug: 'what-is-lightning-network' },
 ];
 
 export function SearchInput({ 
@@ -53,6 +54,7 @@ export function SearchInput({
   const t = useTranslations('home');
   const locale = useLocale();
   const router = useRouter();
+  const isGerman = locale === 'de';
   
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -141,7 +143,6 @@ export function SearchInput({
           router.push(`/${locale}/articles/${trending.slug}`);
           onResultClick?.();
         } else if (query.trim()) {
-          // Navigate to search page
           router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
           onResultClick?.();
         }
@@ -165,6 +166,11 @@ export function SearchInput({
     }
     onResultClick?.();
   };
+
+  // Reset selection when results change
+  useEffect(() => {
+    setSelectedIndex(-1);
+  }, [results]);
 
   const showResults = showDropdown && (query.trim() ? results.length > 0 : true);
   const isHero = variant === 'hero';
@@ -227,18 +233,6 @@ export function SearchInput({
           )}
         </AnimatePresence>
 
-        {/* Keyboard shortcut hint */}
-        {isHero && !isFocused && (
-          <motion.kbd 
-            className={styles.kbd}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            ⌘K
-          </motion.kbd>
-        )}
-
         {/* Clear button */}
         <AnimatePresence>
           {query && (
@@ -273,9 +267,9 @@ export function SearchInput({
             {query.trim() ? (
               // Search Results
               <>
-                <div className={styles.dropdownHeader}>
+                <div className={styles.sectionHeader}>
                   <Sparkles size={14} />
-                  <span>{locale === 'de' ? 'Ergebnisse' : 'Results'}</span>
+                  <span>{isGerman ? 'Ergebnisse' : 'Results'}</span>
                 </div>
                 <div className={styles.resultsList}>
                   {results.map((result, index) => (
@@ -283,7 +277,7 @@ export function SearchInput({
                       key={result.slug}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
+                      transition={{ delay: index * 0.03 }}
                     >
                       <Link
                         href={`/${locale}/articles/${result.slug}`}
@@ -301,14 +295,19 @@ export function SearchInput({
                               __html: result.highlights?.title || result.title 
                             }}
                           />
-                          <div className={styles.resultMeta}>
-                            <span className={styles.topicLabel}>{result.topicLabel}</span>
-                            <span className={styles.levelBadge} style={{ color: result.levelColor }}>
-                              {result.levelLabel}
-                            </span>
-                          </div>
+                          <p 
+                            className={styles.resultSummary}
+                            dangerouslySetInnerHTML={{ 
+                              __html: result.highlights?.summary || result.summary 
+                            }}
+                          />
                         </div>
-                        <ArrowRight size={16} className={styles.resultArrow} />
+                        <div className={styles.resultMeta}>
+                          <Badge variant="accent">{result.topicLabel}</Badge>
+                          <Badge variant="default" style={{ color: result.levelColor }}>
+                            {result.levelLabel}
+                          </Badge>
+                        </div>
                       </Link>
                     </motion.div>
                   ))}
@@ -319,14 +318,14 @@ export function SearchInput({
                   className={styles.dropdownFooter}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.15 }}
                 >
                   <Link 
                     href={`/${locale}/search?q=${encodeURIComponent(query)}`}
                     className={styles.viewAllLink}
                     onClick={() => onResultClick?.()}
                   >
-                    {locale === 'de' ? 'Alle Ergebnisse anzeigen' : 'View all results'}
+                    {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
                     <ArrowRight size={14} />
                   </Link>
                 </motion.div>
@@ -334,9 +333,9 @@ export function SearchInput({
             ) : (
               // Trending Searches (empty state)
               <>
-                <div className={styles.dropdownHeader}>
+                <div className={styles.sectionHeader}>
                   <TrendingUp size={14} />
-                  <span>{locale === 'de' ? 'Beliebte Suchen' : 'Trending'}</span>
+                  <span>{isGerman ? 'Beliebte Suchen' : 'Trending'}</span>
                 </div>
                 <div className={styles.trendingList}>
                   {TRENDING_SEARCHES.map((item, index) => (
@@ -353,8 +352,8 @@ export function SearchInput({
                         onMouseEnter={() => setSelectedIndex(index)}
                       >
                         <Search size={14} className={styles.trendingIcon} />
-                        <span>{item.query}</span>
-                        <ArrowRight size={14} className={styles.resultArrow} />
+                        <span>{isGerman ? item.queryDe : item.query}</span>
+                        <ArrowRight size={14} className={styles.trendingArrow} />
                       </Link>
                     </motion.div>
                   ))}

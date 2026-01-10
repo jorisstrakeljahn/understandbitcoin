@@ -74,7 +74,6 @@ export function Header() {
             >
               <Search size={18} />
               <span className={styles.searchLabel}>{locale === 'de' ? 'Suchen' : 'Search'}</span>
-              <kbd className={styles.searchShortcut}>⌘K</kbd>
             </button>
 
             {/* Language Switcher */}

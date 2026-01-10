@@ -312,22 +312,6 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         ))}
                       </div>
                       
-                      {/* View all link */}
-                      <motion.div 
-                        className={styles.viewAllWrapper}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        <Link 
-                          href={`/${locale}/search?q=${encodeURIComponent(query)}`}
-                          className={styles.viewAllLink}
-                          onClick={onClose}
-                        >
-                          {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
-                          <ArrowRight size={14} />
-                        </Link>
-                      </motion.div>
                     </motion.div>
                   ) : !isLoading ? (
                     // No results
@@ -425,6 +409,17 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 <span><kbd>↵</kbd> {isGerman ? 'Auswählen' : 'Select'}</span>
                 <span><kbd>ESC</kbd> {isGerman ? 'Schließen' : 'Close'}</span>
               </div>
+              
+              {query.trim() && results.length > 0 && (
+                <Link 
+                  href={`/${locale}/search?q=${encodeURIComponent(query)}`}
+                  className={styles.viewAllButton}
+                  onClick={onClose}
+                >
+                  {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
+                  <ArrowRight size={14} />
+                </Link>
+              )}
             </motion.div>
           </motion.div>
         </motion.div>
