@@ -170,7 +170,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 {level.label}
               </Badge>
             </div>
-            <h1 className={styles.title}>{frontmatter.title}</h1>
+            <h1 className={styles.title} data-testid="article-title">{frontmatter.title}</h1>
             <p className={styles.summary}>{frontmatter.summary}</p>
             <div className={styles.trustCues}>
               <span>{t('lastUpdated')}: {formatDate(frontmatter.lastUpdated, locale)}</span>
@@ -194,7 +194,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           )}
 
           {/* Main Content */}
-          <div className={styles.content}>
+          <div className={styles.content} data-testid="article-content">
             <h2 id="the-answer">{t('theAnswer')}</h2>
             <ArticleContent content={content} />
           </div>
@@ -253,7 +253,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Navigation */}
           <nav className={styles.articleNav}>
-            <Link href={`/${locale}/topics/${frontmatter.topic}`} className={styles.navLink}>
+            <Link href={`/${locale}/topics/${frontmatter.topic}`} className={styles.navLink} data-testid="article-back-button">
               <ArrowLeft size={16} /> {t('backTo')} {topic.label}
             </Link>
           </nav>

@@ -196,6 +196,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         >
           <motion.div 
             className={styles.modal}
+            data-testid="search-modal"
             initial={{ opacity: 0, y: -20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -216,6 +217,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 type="text"
                 className={styles.input}
                 placeholder={isGerman ? 'Artikel, Themen, Begriffe suchen...' : 'Search articles, topics, terms...'}
+                data-testid="search-modal-input"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -239,6 +241,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     className={styles.closeButton} 
                     onClick={onClose}
                     aria-label={isGerman ? 'Schließen' : 'Close'}
+                    data-testid="search-modal-close"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     whileHover={{ scale: 1.05 }}
@@ -278,6 +281,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             <Link
                               href={`/${locale}/articles/${result.slug}`}
                               className={`${styles.result} ${index === selectedIndex ? styles.selected : ''}`}
+                              data-testid={`search-result-${index}`}
                               onClick={() => {
                                 trackSearchResultClick(query, result.slug, index);
                                 onClose();

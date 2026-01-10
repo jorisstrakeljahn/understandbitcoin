@@ -76,7 +76,7 @@ export function CollapsibleTOC({ headings, storageKey = 'toc-collapsed' }: Colla
   }
 
   return (
-    <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
+    <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`} data-testid="article-toc">
       {/* Toggle Button */}
       <button
         className={styles.toggleButton}

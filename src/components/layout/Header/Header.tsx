@@ -22,9 +22,9 @@ export function Header() {
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   const NAV_LINKS = [
-    { href: `/${locale}/topics`, label: t('topics') },
-    { href: `/${locale}/topics/criticism`, label: t('criticism') },
-    { href: `/${locale}/sources`, label: t('sources') },
+    { href: `/${locale}/topics`, label: t('topics'), testId: 'header-nav-topics' },
+    { href: `/${locale}/topics/criticism`, label: t('criticism'), testId: 'header-nav-criticism' },
+    { href: `/${locale}/sources`, label: t('sources'), testId: 'header-nav-sources' },
   ];
 
   // Get the path without locale for language switching
@@ -36,7 +36,7 @@ export function Header() {
 
   return (
     <>
-      <header className={styles.header}>
+      <header className={styles.header} data-testid="header">
         <div className={styles.container}>
           {/* Mobile menu button */}
           <button
@@ -48,7 +48,7 @@ export function Header() {
           </button>
 
           {/* Logo */}
-          <Link href={`/${locale}`} className={styles.logo}>
+          <Link href={`/${locale}`} className={styles.logo} data-testid="header-logo">
             <span className={styles.logoIcon}>
               <Bitcoin size={20} strokeWidth={2.5} />
             </span>
@@ -56,9 +56,9 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className={styles.nav}>
+          <nav className={styles.nav} data-testid="header-nav">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className={styles.navLink}>
+              <Link key={link.href} href={link.href} className={styles.navLink} data-testid={link.testId}>
                 {link.label}
               </Link>
             ))}
@@ -71,6 +71,7 @@ export function Header() {
               className={styles.searchButton}
               onClick={() => setIsSearchOpen(true)}
               aria-label={t('openSearch')}
+              data-testid="header-search-button"
             >
               <Search size={18} />
               <span className={styles.searchLabel}>{locale === 'de' ? 'Suchen' : 'Search'}</span>

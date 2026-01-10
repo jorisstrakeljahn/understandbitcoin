@@ -72,7 +72,7 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
           </header>
 
           <div className={styles.content}>
-            <div className={styles.topicGrid}>
+            <div className={styles.topicGrid} data-testid="topics-grid">
               {topicsFromConfig.map((topic) => {
                 const articles = articlesByTopic[topic.id as Topic] || [];
                 
@@ -81,6 +81,7 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
                     key={topic.id} 
                     href={`/${locale}/topics/${topic.id}`}
                     className={styles.topicCard}
+                    data-testid={`topic-card-${topic.id}`}
                   >
                     <div className={styles.topicCardHeader}>
                       <div className={styles.topicCardIcon}>

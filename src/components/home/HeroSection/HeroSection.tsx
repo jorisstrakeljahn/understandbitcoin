@@ -307,6 +307,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
         {/* Main Title */}
         <motion.h1
           className={styles.heroTitle}
+          data-testid="hero-title"
           initial={isMounted ? { opacity: 0, y: 30 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: isMounted ? 0.1 : 0 }}
@@ -339,6 +340,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
               className={styles.searchInput}
               placeholder={t('searchPlaceholder')}
               aria-label="Search"
+              data-testid="hero-search-input"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -357,6 +359,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
               <motion.div
                 ref={dropdownRef}
                 className={styles.searchDropdown}
+                data-testid="hero-search-dropdown"
                 initial={{ opacity: 0, y: -10, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -382,6 +385,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
                               <Link
                                 href={`/${locale}/articles/${result.slug}`}
                                 className={`${styles.dropdownResult} ${index === selectedIndex ? styles.dropdownResultSelected : ''}`}
+                                data-testid={`hero-search-result-${index}`}
                                 onClick={() => {
                                   trackSearchResultClick(query, result.slug, index);
                                   setIsFocused(false);
@@ -477,12 +481,12 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: isMounted ? 0.7 : 0 }}
         >
-          <Link href={`/${locale}/topics`}>
+          <Link href={`/${locale}/topics`} data-testid="hero-cta-topics">
             <Button size="lg" variant="primary">
               {t('browseTopics')}
             </Button>
           </Link>
-          <Link href={`/${locale}/topics/criticism`}>
+          <Link href={`/${locale}/topics/criticism`} data-testid="hero-cta-criticism">
             <Button size="lg" variant="outline">
               {t('readCriticism')}
             </Button>

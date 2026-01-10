@@ -242,6 +242,99 @@ pnpm build
 pnpm start
 ```
 
+## 🧪 Testing
+
+The project uses a comprehensive test suite with BDD-style E2E tests and unit tests.
+
+### Test Stack
+
+- **E2E Tests**: [Playwright](https://playwright.dev/) with [Cucumber/Gherkin](https://cucumber.io/) via `playwright-bdd`
+- **Unit Tests**: [Vitest](https://vitest.dev/) with `@testing-library/react`
+
+### Running Tests
+
+```bash
+# Run all tests
+pnpm test
+
+# Run unit tests only
+pnpm test:unit
+
+# Run unit tests in watch mode
+pnpm test:unit:watch
+
+# Run E2E tests (headless)
+pnpm test:e2e
+
+# Run E2E tests with browser UI
+pnpm test:e2e:headed
+
+# Run E2E tests with Playwright UI
+pnpm test:e2e:ui
+```
+
+### Test Structure
+
+```
+tests/
+├── e2e/
+│   ├── features/           # Gherkin feature files
+│   │   ├── homepage.feature
+│   │   ├── navigation.feature
+│   │   ├── search.feature
+│   │   └── article.feature
+│   ├── steps/              # Step definitions
+│   │   ├── common.steps.ts
+│   │   ├── homepage.steps.ts
+│   │   ├── navigation.steps.ts
+│   │   ├── search.steps.ts
+│   │   └── article.steps.ts
+│   └── fixtures/           # Page objects
+│       └── pages.ts
+├── unit/
+│   ├── lib/
+│   │   ├── content.test.ts
+│   │   └── search.test.ts
+│   └── setup.ts
+├── playwright.config.ts
+└── vitest.config.ts
+```
+
+### Writing E2E Tests
+
+E2E tests use Gherkin syntax for human-readable scenarios:
+
+```gherkin
+Feature: Search
+  As a user I want to search for Bitcoin articles
+
+  Scenario: Hero search shows results
+    Given I am on the homepage
+    When I type "bitcoin" in the hero search field
+    Then I see search results in the dropdown
+    And the first result contains "Bitcoin"
+```
+
+### Data-TestIDs
+
+All interactive components have `data-testid` attributes for reliable test selectors:
+
+| Component | Test IDs |
+|-----------|----------|
+| Hero Section | `hero-title`, `hero-search-input`, `hero-search-dropdown`, `hero-search-result-{index}` |
+| Search Modal | `search-modal`, `search-modal-input`, `search-modal-close`, `search-result-{index}` |
+| Header | `header`, `header-logo`, `header-search-button`, `header-nav-topics` |
+| Article | `article-title`, `article-content`, `article-toc`, `article-back-button` |
+
+### CI/CD
+
+Tests run automatically on every push and pull request via GitHub Actions:
+
+1. **Lint & Type Check** - ESLint and TypeScript validation
+2. **Unit Tests** - Vitest unit test suite
+3. **E2E Tests** - Playwright browser tests
+4. **Build** - Production build verification
+
 ## 📈 Next Steps (Not Implemented Yet)
 
 ### PostHog Analytics
