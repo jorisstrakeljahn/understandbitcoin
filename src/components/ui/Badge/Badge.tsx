@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import styles from './Badge.module.css';
 
 export interface BadgeProps {
@@ -6,6 +6,7 @@ export interface BadgeProps {
   variant?: 'default' | 'accent' | 'success' | 'warning' | 'error' | 'outline';
   size?: 'sm' | 'md';
   className?: string;
+  style?: CSSProperties;
 }
 
 export function Badge({
@@ -13,6 +14,7 @@ export function Badge({
   variant = 'default',
   size = 'sm',
   className = '',
+  style,
 }: BadgeProps) {
   const classNames = [
     styles.badge,
@@ -23,5 +25,5 @@ export function Badge({
     .filter(Boolean)
     .join(' ');
 
-  return <span className={classNames}>{children}</span>;
+  return <span className={classNames} style={style}>{children}</span>;
 }
