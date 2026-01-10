@@ -1,0 +1,162 @@
+---
+slug: lightning-vs-onchain
+title: Lightning vs. On-Chain - When to Use Each
+summary: Bitcoin has two layers with different trade-offs. On-chain is for security and savings. Lightning is for speed and spending. Here's when to use each.
+tags:
+  - lightning
+  - on-chain
+  - transactions
+  - comparison
+  - practical
+topic: lightning
+level: intermediate
+type: explainer
+language: en
+lastUpdated: "2025-01-10"
+tldr:
+  - On-chain = settlement layer (security, finality, savings)
+  - Lightning = payment layer (speed, low cost, spending)
+  - Use on-chain for large amounts and long-term storage
+  - Use Lightning for daily transactions and small payments
+  - They're complementary, not competing
+whyPeopleAsk: People get confused about when to use Lightning vs on-chain Bitcoin. Both are "Bitcoin" but they serve different purposes.
+steelmanObjection: "If Lightning is faster and cheaper, why would anyone use on-chain? This two-layer system is confusing and defeats the purpose of simple money."
+whatIsTrue:
+  - Each layer has distinct advantages
+  - On-chain provides stronger settlement guarantees
+  - Lightning enables use cases on-chain can't support
+  - Using both appropriately maximizes Bitcoin's utility
+whatIsUncertain:
+  - Whether the on-chain/Lightning split will change over time
+  - How fees will evolve on each layer
+  - Whether additional layers will emerge
+relatedQuestions:
+  - what-is-lightning-network
+  - how-to-use-lightning-network
+  - what-are-lightning-channels
+sources:
+  - title: "The Lightning Network Whitepaper"
+    url: "https://lightning.network/lightning-network-paper.pdf"
+    type: primary
+    description: Original Lightning design document
+  - title: "Mastering the Lightning Network"
+    author: Andreas Antonopoulos
+    type: book
+    description: Comprehensive Lightning technical guide
+---
+
+## Two Layers, Two Purposes
+
+Bitcoin isn't a single monolithic system anymore. It's a layered architecture, and understanding when to use each layer is essential for using Bitcoin effectively.
+
+Think about your own financial life. You probably have a savings account and a checking account. Maybe a brokerage account for investments and a wallet for daily cash. Each serves a different purpose, and you move money between them based on what you need.
+
+Bitcoin works the same way now. On-chain is your vault - slow, secure, expensive to access, but maximally protected. Lightning is your wallet - fast, convenient, cheap, but appropriate for different amounts and use cases. Neither replaces the other. They're complementary layers of the same system.
+
+## What Makes Them Different
+
+The fundamental distinction comes down to how transactions are processed and what trade-offs that creates.
+
+On-chain transactions are recorded directly on Bitcoin's blockchain. Every full node in the world verifies and stores them. They're protected by the cumulative proof-of-work of all miners, making them essentially irreversible after a few confirmations. This comes with costs: transactions take about 10 minutes to confirm initially, fees can spike to tens of dollars during busy periods, and the permanent storage limits how many transactions can fit.
+
+Lightning transactions happen off-chain, through payment channels that eventually settle to Bitcoin. They're instant - settling in milliseconds rather than minutes. Fees are typically fractions of a cent. Capacity is effectively unlimited because transactions don't compete for blockchain space. The trade-off is a different security model: funds are secured by bilateral contracts and require some online availability to manage.
+
+| Dimension | On-Chain | Lightning |
+|-----------|----------|-----------|
+| Speed | 10 minutes to hours | Milliseconds |
+| Fees | $1 - $50+ (varies with demand) | Usually under $0.01 |
+| Finality model | Global consensus, immutable | Bilateral contract, eventually on-chain |
+| Minimum practical amount | ~$10+ due to fees | Fractions of a cent |
+| Maximum practical amount | Unlimited | Limited by channel capacity |
+| Privacy | Fully public, forever | More private by default |
+| Online requirement | None after confirmation | Periodic check-ins needed |
+
+## When On-Chain Is the Right Choice
+
+On-chain transactions provide the strongest possible settlement guarantees. For certain use cases, nothing else makes sense.
+
+Long-term savings belong on-chain. When you're storing wealth you won't touch for months or years, on-chain provides maximum security. The funds are protected by the full weight of Bitcoin's proof-of-work, verified by thousands of independent nodes worldwide, and stored on hardware wallets that keep keys completely offline. There's no counterparty risk, no channel to manage, no concern about being online. You can store your bitcoin, disconnect from the internet entirely, and return years later to find everything exactly as you left it.
+
+Large transactions should typically go on-chain. When you're moving significant value, the on-chain transaction fee becomes negligible as a percentage of the transfer. A $10 fee on a $100,000 transfer is 0.01% - less than any bank wire would cost. Meanwhile, you get the absolute strongest security Bitcoin offers. Lightning channels have capacity limits, and moving very large amounts can require multiple channels or specialized routing. For important transfers, on-chain simplicity often makes more sense.
+
+Cold storage demands on-chain. If you're using a hardware wallet and keeping keys completely offline, on-chain is the only option. Lightning requires some ability to interact with channels, which isn't possible from true cold storage. Your long-term stack should sit on-chain, with only spending money moved to Lightning as needed.
+
+When fees are low, on-chain becomes attractive even for smaller amounts. During bear markets or quiet periods, transaction fees might drop below a dollar. These are good times to consolidate coins, move funds from Lightning to cold storage, or handle transactions you'd normally do on Lightning.
+
+## When Lightning Makes More Sense
+
+Lightning shines for use cases that on-chain simply cannot support.
+
+Daily spending is Lightning's primary domain. Buying coffee, paying for subscriptions, splitting dinner with friends - these small, frequent transactions would be impractical on-chain. Fees would eat a significant percentage, and waiting for confirmations is annoying for casual purchases. Lightning handles these instantly and for fractions of a cent.
+
+Micropayments are Lightning's unique capability. Tipping content creators a few cents, streaming sats to podcasters in real time, paying per-article or per-minute - these use cases don't exist on-chain because the fees would exceed the payment amount. Lightning makes sub-cent payments economically viable for the first time in digital money's history.
+
+Frequent payments between regular contacts work better on Lightning. If you're regularly paying the same people or services, the efficiency compounds. Pay once to establish channels, then enjoy unlimited payments at minimal cost. The more frequently you transact, the more Lightning's economics favor you.
+
+Privacy-conscious transactions benefit from Lightning's structure. On-chain transactions are visible on the public blockchain forever. Lightning payments are visible only to participants in the routing path, and with onion routing, even they have limited visibility. Only channel opens and closes appear on-chain. For casual privacy - not perfect anonymity, but basic discretion - Lightning offers significant improvement.
+
+International remittances increasingly use Lightning. Sending money across borders traditionally involves correspondent banks, multi-day delays, and fees of 5-10% or more. Lightning enables instant, nearly-free transfers anywhere in the world. For people regularly sending money home to family, the savings are transformative.
+
+## A Practical Mental Model
+
+The traditional financial system has layers too, even if we don't think about them explicitly.
+
+Central bank settlement between major banks happens relatively rarely - large amounts, high security, slow processing. Interbank transfers are more common but still measured in hours. Wire transfers and ACH move faster still. Credit card payments feel instant to consumers but actually settle over days. Venmo and PayPal feel instant and handle tiny amounts.
+
+Bitcoin is developing analogous layers. On-chain is like central bank settlement - the final, irreversible foundation. Lightning is like the consumer payment layer - fast, convenient, handling the volume. Future layers may add additional capabilities.
+
+| Traditional Finance | Bitcoin Equivalent |
+|--------------------|-------------------|
+| Central bank settlement | On-chain transaction |
+| Wire transfer | On-chain transaction |
+| Credit card payment | Lightning |
+| Venmo/PayPal | Lightning |
+| Cash in pocket | Lightning |
+
+You wouldn't use wire transfers to buy coffee or store your life savings in your Venmo balance. Similarly, you shouldn't use on-chain for trivial payments or keep major wealth on Lightning.
+
+## How to Structure Your Bitcoin Holdings
+
+For most users, a reasonable structure looks something like this:
+
+The majority of your bitcoin - perhaps 80-90% - should sit in cold storage, on-chain. This is your savings account, your vault, your long-term stack. Use a hardware wallet. Keep it offline. Don't touch it unless you're making a significant change to your financial position.
+
+A smaller portion - maybe 5-15% - can stay in a hot wallet on-chain. This is your checking account, the bridge between savings and spending. It's more accessible than cold storage but still has on-chain security. Use it to refill Lightning as needed and to make larger purchases that don't fit Lightning's channels.
+
+A small amount - perhaps 5-10% at most - belongs on Lightning. This is your daily spending money, your pocket cash. Keep it convenient for payments but don't store significant wealth here. Refill from your hot wallet as you spend.
+
+These percentages aren't rules - they're guidelines. Someone who uses Bitcoin primarily for daily payments might keep more on Lightning. Someone focused purely on long-term savings might keep everything on-chain. Adjust to your actual usage patterns.
+
+## Moving Between Layers
+
+Modern wallets make moving between on-chain and Lightning reasonably seamless, though there are costs involved.
+
+To move from on-chain to Lightning, you send bitcoin to a Lightning-enabled wallet and let it handle the channel creation. Wallets like Phoenix do this automatically when you receive. The cost is the on-chain transaction fee plus potentially a small swap or channel-opening fee. The process takes one or a few blockchain confirmations - ten minutes to an hour typically.
+
+To move from Lightning to on-chain, you use a swap service or a built-in wallet feature. Pay via Lightning, receive on-chain. There's a small fee for the swap, plus the eventual on-chain transaction. Some wallets like Muun handle this transparently.
+
+For most users, these moves happen organically. You receive some bitcoin on-chain, move it to Lightning for spending, and occasionally move larger amounts to cold storage. The process becomes natural with a little experience.
+
+## The Honest Complexity
+
+There are genuine complications in the two-layer model that shouldn't be ignored.
+
+Lightning does require some understanding of channels and liquidity, even if modern wallets hide most of it. You might encounter situations where you can't receive because you lack inbound capacity, or payments fail because of routing issues. These aren't fatal problems, but they are friction that on-chain doesn't have.
+
+The security model is different. Lightning funds are secured by smart contracts and require being online periodically to protect against channel partner misbehavior. For small spending amounts, this is fine. For life savings, on-chain cold storage remains the gold standard.
+
+The separation of layers can be confusing, especially for newcomers. Having to think about which layer to use adds cognitive overhead that traditional payment apps don't require. Wallets like Muun try to eliminate this by handling the choice automatically, but underlying complexity exists.
+
+These are real trade-offs, not flaws to be dismissed. The Bitcoin ecosystem is actively working to reduce friction, and progress has been substantial. But today, some complexity remains.
+
+## The Bottom Line
+
+Bitcoin's two layers aren't a bug - they're thoughtful architecture, each optimized for different use cases.
+
+On-chain provides maximum security, global consensus, and permanent settlement. Use it for savings, large amounts, and long-term storage. Accept the slower speed and higher fees as the cost of these guarantees.
+
+Lightning provides speed, low cost, and new capabilities like micropayments. Use it for daily spending, small payments, and frequent transactions. Accept the different security model as appropriate for these amounts.
+
+Neither replaces the other. The most effective Bitcoin users move fluidly between layers, storing savings on-chain and spending from Lightning. This isn't confusing once you internalize the mental model - it's just specialization, each layer doing what it's best at.
+
+Vault for savings. Wallet for spending. The concepts are ancient. The technology is new. The combination is powerful.

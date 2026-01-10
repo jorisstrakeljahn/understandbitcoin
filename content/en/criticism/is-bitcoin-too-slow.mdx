@@ -1,0 +1,152 @@
+---
+slug: is-bitcoin-too-slow
+title: Is Bitcoin Too Slow?
+summary: Bitcoin processes about 7 transactions per second. Visa does 65,000. But this comparison misses the point entirely.
+tags:
+  - scalability
+  - transactions
+  - lightning
+  - criticism
+  - design
+topic: criticism
+level: beginner
+type: criticism
+language: en
+lastUpdated: "2025-01-10"
+tldr:
+  - Bitcoin's base layer handles ~7 transactions per second
+  - This is intentional, not a limitation to be fixed
+  - Lightning Network enables millions of transactions per second
+  - Bitcoin optimizes for security and decentralization, not throughput
+  - Different layers serve different purposes
+whyPeopleAsk: People hear Bitcoin processes fewer transactions than Visa and conclude it can't scale. This is one of the most common criticisms of Bitcoin.
+steelmanObjection: "A global payment system that can only handle 7 TPS is fundamentally broken. Lightning is complicated and requires being online. This isn't ready for mainstream adoption."
+whatIsTrue:
+  - Bitcoin's base layer is slow compared to payment networks
+  - This is a conscious design trade-off
+  - Lightning does add complexity
+  - User experience is still improving
+whatIsUncertain:
+  - How much throughput Lightning can ultimately achieve
+  - Whether other scaling solutions will emerge
+  - The right balance between layers
+relatedQuestions:
+  - what-is-lightning-network
+  - lightning-vs-onchain
+  - what-are-lightning-channels
+sources:
+  - title: "Bitcoin Whitepaper"
+    url: "https://bitcoin.org/bitcoin.pdf"
+    author: Satoshi Nakamoto
+    type: primary
+    description: Original design constraints
+  - title: "Lightning Network Whitepaper"
+    url: "https://lightning.network/lightning-network-paper.pdf"
+    type: primary
+    description: Scaling solution architecture
+---
+
+## 7 Transactions Per Second Sounds Terrible - Until You Understand Why
+
+Bitcoin's base layer processes about 7 transactions per second. Visa handles up to 65,000. By this metric, Bitcoin appears almost comically inadequate as a payment system. How could a supposedly revolutionary financial technology be 10,000 times slower than existing infrastructure?
+
+This comparison, repeated endlessly by critics, fundamentally misunderstands what Bitcoin is and what it optimizes for. It's like criticizing a bank vault for being less convenient than a cash register. They serve different purposes.
+
+Bitcoin's base layer isn't a payment processing network competing with Visa. It's a settlement layer - more comparable to the Federal Reserve's interbank settlement system than to your Mastercard. And it has a payment layer on top - Lightning - that handles the fast, cheap, everyday transactions.
+
+The "slowness" isn't a bug to be fixed. It's a conscious design choice with specific trade-offs that matter enormously.
+
+## The Design Choice That Critics Don't Understand
+
+Bitcoin could be faster. Technically, it's straightforward. Increase the block size to fit more transactions. Decrease the block time so blocks come more frequently. Relax some validation requirements to speed things up. Other cryptocurrencies have done exactly this.
+
+Bitcoin chose not to. The community considered these options extensively - the "Blocksize War" of 2015-2017 was essentially a years-long debate about this exact question. In the end, Bitcoin prioritized other properties over raw throughput.
+
+Here's what gets sacrificed when you chase transaction speed.
+
+Larger blocks mean more storage and bandwidth required to run a full node. Today, you can validate all of Bitcoin's history on a Raspberry Pi - a $50 computer. This matters because anyone can verify the rules are being followed, without trusting anyone else. If running a node required enterprise hardware and data center connections, only institutions could participate in consensus. Bitcoin would become the kind of centralized system it was designed to replace.
+
+Faster blocks mean less time for new blocks to propagate across the global network. Some nodes would see new blocks later than others, leading to more "orphan" blocks and giving large, well-connected mining operations systematic advantages. Again, centralization pressure.
+
+Easier validation means trust must be placed somewhere. If you can't fully validate, you must trust those who can. The whole point of Bitcoin is removing the need for trust.
+
+## The Blockchain Trilemma: Pick Two
+
+Blockchain systems face a fundamental constraint that academics call the "trilemma": you can optimize for any two of security, decentralization, and scalability, but the third suffers.
+
+Bitcoin chose security and decentralization at the expense of raw transaction throughput. Other cryptocurrencies made different choices - some have impressive TPS numbers but concentrated validation among a small set of nodes. The trade-off isn't theoretical; it's an engineering reality.
+
+Bitcoin's answer to the trilemma is layering. The base layer maximizes security and decentralization. Higher layers, built on top, can optimize for throughput and convenience while inheriting the base layer's security properties.
+
+## What Bitcoin's "Slowness" Actually Buys
+
+When you hear "7 transactions per second," consider what comes with those transactions.
+
+Each Bitcoin transaction is protected by enormous proof-of-work - currently over 500 exahashes per second of global mining power. After a few confirmations, reversing a transaction would require resources beyond what any realistic attacker could muster. The finality isn't probabilistic in any meaningful sense; it's as close to physically impossible as digital systems get.
+
+Every transaction is verified by thousands of independent nodes worldwide, each running open-source software they can inspect themselves. No trusted party stands between you and your money. No institution can freeze, reverse, or censor your transactions.
+
+The network has run continuously since January 2009 without a single hour of downtime. It works the same way whether you're in Switzerland or Sudan. No permission required. No account applications. No discrimination.
+
+These properties would be compromised by the changes required to match Visa's throughput on the base layer. The question isn't "why won't Bitcoin speed up?" It's "are these properties worth preserving at the cost of slower base-layer transactions?" Bitcoin's continued existence and growth suggest many people answer yes.
+
+## Lightning: Where the Speed Actually Happens
+
+The Lightning Network is Bitcoin's solution to the scaling dilemma. It's a second layer that handles fast, cheap payments while inheriting Bitcoin's security.
+
+Lightning transactions settle in milliseconds. Fees are typically fractions of a cent. Theoretical throughput is essentially unlimited because transactions don't compete for blockchain space - they happen off-chain, with only channel openings and closings touching the base layer.
+
+The mechanism is elegant. Two parties lock bitcoin into a shared channel, then exchange payments back and forth instantly. When they're done, they close the channel and settle the final balances on-chain. One blockchain transaction at opening, one at closing, unlimited payments in between.
+
+Routing allows payments between parties without direct channels. If you have a channel with Alice, and Alice has a channel with Bob, you can pay Bob through Alice. The network of channels forms a web that can route payments anywhere.
+
+Lightning is production-ready and growing rapidly. Millions of dollars flow through it daily. El Salvador uses it for nationwide payments. The experience, with modern wallets like Phoenix, is genuinely comparable to traditional payment apps - scan, tap, done.
+
+| Layer | Speed | Fees | Throughput | Best For |
+|-------|-------|------|------------|----------|
+| On-chain | 10+ minutes | $1-50+ | ~7 TPS | Settlement, large amounts |
+| Lightning | Milliseconds | < $0.01 | Millions TPS | Payments, daily use |
+
+## Traditional Finance Has Layers Too
+
+The comparison to Visa is misleading because it compares different layers of their respective systems.
+
+When you swipe your credit card, the payment feels instant to you. But actual settlement between banks takes days. Visa doesn't move money in real-time; it provides credit that is settled later through banking infrastructure. Behind the scenes, the financial system has multiple layers: central bank settlement (slow, infrequent, secure), interbank transfers (hours), card networks (seconds apparent, days actual), and consumer apps (instant experience, complex backend).
+
+Bitcoin is developing the same layered architecture, just without the legacy institutions. On-chain is like central bank settlement. Lightning is like card networks and consumer payment apps. The base layer doesn't need to be fast because higher layers handle velocity.
+
+## The Honest Steelman
+
+Let's take the criticism seriously.
+
+Lightning does add complexity. Users must understand channels, liquidity, and online requirements to some degree. The experience has improved dramatically, but it's still more complex than a centralized payment app that hides everything behind a simple interface.
+
+Not everyone can use on-chain if fees rise high enough. During peak demand, base-layer transactions might cost $50 or more, pricing out small-value transactions entirely. This is a real constraint that affects certain use cases.
+
+The layered model requires trust trade-offs. Lightning is non-custodial, but you need to be online periodically to protect your channels. Fedimint and similar protocols offer additional scaling but introduce community-based trust models.
+
+These are real limitations. Bitcoin isn't perfect. But the alternative - sacrificing decentralization and security for speed - creates problems that are arguably worse.
+
+## Correcting Common Misconceptions
+
+The claim that "Bitcoin can never scale" is already disproven. Lightning processes more value than many "faster" blockchains, and capacity continues growing. The scaling path exists and is working.
+
+The notion that "7 TPS means only 7 people can use Bitcoin per second" misunderstands how transactions work. One Bitcoin transaction can batch hundreds of individual payments. Exchanges consolidate thousands of user withdrawals into single transactions. And Lightning transactions don't touch the base layer at all.
+
+The argument that "other cryptos solved this problem" ignores the trade-offs involved. Higher TPS usually means fewer validators, larger node requirements, or reduced security guarantees. The throughput might be real, but so are the centralization costs.
+
+The suggestion to "just increase the block size" was considered and rejected after extensive debate. The Bitcoin community decided the costs to decentralization were too high. Reasonable people can disagree, but this was a conscious choice, not an oversight.
+
+## The Bottom Line
+
+Bitcoin is slow on purpose.
+
+The base layer is designed as a settlement system optimized for maximum security, maximum decentralization, and minimum required trust. Speed is delegated to higher layers that can achieve it without sacrificing these properties.
+
+Is 7 TPS enough? For a global settlement layer used for high-value transactions and long-term savings, yes. For buying coffee, no - that's what Lightning is for.
+
+The question isn't whether Bitcoin can match Visa's TPS on its base layer. The question is whether Bitcoin can provide a monetary system that offers something the current financial infrastructure cannot: sovereignty, censorship resistance, fixed supply, and permissionless global access.
+
+Speed is one dimension of a payment system. Security, decentralization, and resistance to control are others. Bitcoin chose to optimize for the properties that don't exist elsewhere, using layers to reclaim speed where needed.
+
+Whether that trade-off makes sense depends on what you value. For many people, it makes perfect sense. The "slowness" isn't a flaw - it's the price of something no fast, centralized system can offer.

@@ -1,0 +1,152 @@
+---
+slug: how-to-use-lightning-network
+title: How to Use the Lightning Network
+summary: Lightning enables instant, nearly free Bitcoin payments. Here's how to get started sending and receiving bitcoin at the speed of light.
+tags:
+  - lightning
+  - payments
+  - wallets
+  - getting started
+  - practical
+topic: lightning
+level: beginner
+type: explainer
+language: en
+lastUpdated: "2025-01-10"
+tldr:
+  - Download a Lightning wallet (Phoenix, Muun, or Wallet of Satoshi)
+  - Receive bitcoin via Lightning invoice or address
+  - Send payments by scanning QR codes or pasting invoices
+  - Transactions settle in seconds with near-zero fees
+  - Start small while learning, then scale up
+whyPeopleAsk: People hear Lightning is the solution to Bitcoin's scaling challenges but don't know how to actually use it. This is the practical getting-started guide.
+steelmanObjection: "Lightning is too complicated for regular people. If Bitcoin needs a second layer that requires technical knowledge, it'll never achieve mass adoption."
+whatIsTrue:
+  - Lightning has become much easier with modern wallets
+  - Some technical complexity is hidden from users
+  - Instant payments with near-zero fees work well
+  - Adoption is growing, especially in developing countries
+whatIsUncertain:
+  - How much further UX can be simplified
+  - Whether Lightning will be the dominant payment layer
+  - How regulation might affect Lightning wallets
+relatedQuestions:
+  - what-is-lightning-network
+  - lightning-vs-onchain
+  - what-are-lightning-channels
+sources:
+  - title: "Lightning Network Specification"
+    url: "https://github.com/lightning/bolts"
+    type: primary
+    description: Technical specification for Lightning
+  - title: "Phoenix Wallet"
+    url: "https://phoenix.acinq.co/"
+    type: article
+    description: User-friendly Lightning wallet
+---
+
+## From Theory to Practice in Ten Minutes
+
+You've heard about Lightning Network - Bitcoin's layer for instant payments and microscopic fees. You might have read explanations involving payment channels, routing, and HTLCs. But here's what you actually want to know: how do you use it?
+
+The good news is that using Lightning today is genuinely simple. Modern wallets have abstracted away the technical complexity. Getting started takes about ten minutes and feels very similar to using any payment app. By the end of this guide, you'll be ready to send and receive bitcoin at the speed of light.
+
+## Choosing Your First Lightning Wallet
+
+The most important decision is which wallet to start with. For beginners, ease of use matters more than advanced features.
+
+Phoenix, developed by ACINQ, is the wallet most commonly recommended for newcomers. It handles all the complex channel management automatically, gives you control of your own keys, and offers an experience that rivals traditional payment apps. When you receive your first payment, Phoenix automatically creates the channels needed behind the scenes. You don't need to understand what's happening - it just works.
+
+Muun offers an even simpler model by presenting a unified balance that works for both Lightning and on-chain payments. You don't have to think about which layer you're using. The wallet figures it out based on what you're paying. This simplicity comes with some trade-offs in how funds are managed internally, but for beginners, the straightforward experience is valuable.
+
+Wallet of Satoshi is the easiest option of all - download, create an account, and you're ready in seconds. The catch is that it's custodial, meaning the company holds your keys rather than you. For small amounts while learning, this is acceptable. For significant money, you'll want to graduate to self-custody.
+
+| Wallet | Custody Model | Ease of Use | Best For |
+|--------|---------------|-------------|----------|
+| Phoenix | Non-custodial | Very easy | Most beginners - recommended |
+| Muun | Non-custodial | Extremely easy | Those who want simplicity |
+| Wallet of Satoshi | Custodial | Simplest possible | Learning with small amounts |
+| Zeus | Non-custodial | Moderate | Those running their own node |
+| Breez | Non-custodial | Easy | Merchants and podcasters |
+
+For your first Lightning experience, download Phoenix. It's the best balance of control and convenience.
+
+## Getting Bitcoin Into Lightning
+
+Before you can spend on Lightning, you need some bitcoin there. You have several paths depending on your situation.
+
+If you already own bitcoin on-chain, you can send it to your Lightning wallet. Open your wallet, tap receive, and look for an on-chain option or Bitcoin address. Send some bitcoin there. The wallet will automatically handle the conversion to Lightning, which typically takes one blockchain confirmation and involves a small fee for the swap. Phoenix and Muun make this particularly seamless.
+
+If you're buying bitcoin specifically for Lightning use, some exchanges now support Lightning withdrawals directly. You buy, withdraw to a Lightning invoice or address, and it arrives in seconds. This skips the slower on-chain step entirely.
+
+Alternatively, you can receive Lightning payments from others. Open your wallet, tap receive, and share the Lightning invoice or Lightning address it generates. Many wallets now support reusable Lightning addresses that look like email addresses - for example, user@phoenix.acinq.co. These make receiving payments as simple as sharing your email.
+
+Start small. Send yourself $20 or $50 worth of bitcoin to learn the mechanics before handling larger amounts.
+
+## Sending Your First Payment
+
+With some Lightning balance, you're ready to send payments. The process will feel familiar if you've ever used Venmo or PayPal.
+
+When someone wants you to pay them on Lightning, they'll generate an invoice - a string of characters that encodes the amount, recipient, and other details. This invoice is usually presented as a QR code. Open your wallet, tap send or scan, point your camera at the QR code, review the amount, and confirm. The payment typically completes in under a second.
+
+Sometimes you'll receive an invoice as text rather than a QR code - a long string starting with "lnbc" followed by many characters. In this case, copy the invoice text, open your wallet, tap send, paste the invoice, and confirm. Same result, different input method.
+
+You can also pay Lightning addresses directly if the recipient has one. These look like email addresses: name@wallet.domain. Enter the address, specify the amount, and send. It's as easy as email.
+
+The experience is genuinely magical the first time. You tap confirm, and a second later the payment is complete. No waiting for confirmations. No wondering if it went through. The recipient has the bitcoin instantly, irrevocably, with no possibility of chargeback.
+
+## What to Expect
+
+Speed is the first thing you'll notice. Lightning payments settle in milliseconds to seconds. There's no concept of waiting for blockchain confirmations. The payment either succeeds or fails essentially instantly.
+
+Fees are the second revelation. Where on-chain transactions might cost several dollars during busy periods, Lightning fees are typically fractions of a cent - often literally less than one satoshi. You can send a dollar and pay less than a penny in fees. For micropayments, this changes what's economically possible.
+
+Reliability has improved dramatically over the years, though it's not perfect. Occasional routing failures still happen, especially for larger payments. Usually, simply retrying works. If a payment fails repeatedly, it might be a liquidity issue on the recipient's side or along the routing path. Try a smaller amount or wait a bit.
+
+## Things You Can Do With Lightning Today
+
+Lightning isn't just a technical curiosity - it's increasingly useful in the real world.
+
+Tipping content creators has become common on Lightning-enabled platforms. Podcasting 2.0 apps let you stream tiny payments to podcasters as you listen - value for value in real time. Social networks like Nostr have Lightning integration built in, making tipping authors as easy as liking a post.
+
+Online purchases are possible at a growing number of merchants who accept Lightning. Gift card services let you convert Lightning to store credit at major retailers. Some online services now offer Lightning as a payment option alongside credit cards.
+
+El Salvador made Bitcoin legal tender, and Lightning is how most in-country transactions happen. Parts of Latin America and Africa are seeing rapid Lightning adoption, particularly for remittances where traditional options are expensive and slow.
+
+Even if you're not planning daily Lightning use, having a wallet set up means you're ready when opportunities arise.
+
+## Troubleshooting Common Issues
+
+When a payment fails, don't panic. Lightning payments either complete fully or not at all - you won't lose money to a partial failure. The first step is simply to retry. Routing is probabilistic, and a failed first attempt often succeeds on the second try.
+
+"No route found" typically means there isn't a path with sufficient capacity between you and the recipient. This can happen with larger payments or less-connected recipients. Try a smaller amount, or wait and retry later when liquidity conditions might have changed.
+
+"Invoice expired" means you waited too long. Lightning invoices typically expire after an hour to prevent stale payment requests. Ask the recipient for a fresh invoice.
+
+If you can't receive payments, you probably lack inbound liquidity - there's no channel capacity pointed toward you. Spend some bitcoin first to create room for receiving, or use a wallet like Phoenix that automatically manages liquidity for you.
+
+## Backing Up and Staying Safe
+
+Lightning wallets still use seed phrases for backup, just like on-chain wallets. Write yours down during setup and store it securely. If your phone is lost or broken, you can recover your wallet from the seed phrase.
+
+Keep only spending money on Lightning. Think of it like cash in your pocket rather than savings in a vault. Larger amounts should stay on-chain in cold storage. Lightning is optimized for convenience and speed, not maximum security for long-term holdings.
+
+Be cautious of scams. Never share your seed phrase. Be skeptical of "free bitcoin" offers. Verify addresses before sending significant amounts. The usual cryptocurrency precautions apply.
+
+## Graduating to Advanced Use
+
+Once comfortable with basic Lightning, you might explore deeper.
+
+Running your own node gives you maximum sovereignty over your Lightning experience. Solutions like Umbrel, Start9, and RaspiBlitz make this accessible to non-experts, though it requires dedicated hardware and more technical comfort.
+
+Opening direct channels to frequently-used services can reduce routing fees and improve reliability. This requires more bitcoin for liquidity but creates more efficient payment paths.
+
+Building on Lightning opens possibilities if you're a developer or merchant. LNURL protocols simplify payment flows. Bolt11 and Bolt12 specifications define invoice formats. The ecosystem is actively developing, with new capabilities appearing regularly.
+
+## The Bottom Line
+
+Lightning is Bitcoin made fast and cheap. The technology is complex, but modern wallets hide that complexity effectively.
+
+Getting started is genuinely simple: download Phoenix, back up your seed phrase, receive some bitcoin, and start paying. Within ten minutes, you can be sending instant, nearly-free payments anywhere in the world.
+
+That's not a theoretical promise. It actually works, today, and millions of people are using it. The revolution in global payments isn't coming - for Lightning users, it's already here.

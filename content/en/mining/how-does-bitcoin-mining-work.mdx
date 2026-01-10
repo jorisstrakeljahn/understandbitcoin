@@ -1,0 +1,146 @@
+---
+slug: how-does-bitcoin-mining-work
+title: How Does Bitcoin Mining Work?
+summary: Mining is the process of securing the Bitcoin network by solving cryptographic puzzles. Miners compete to add new blocks to the blockchain and earn bitcoin rewards.
+tags:
+  - mining
+  - proof of work
+  - blockchain
+  - security
+  - decentralization
+topic: mining
+level: beginner
+type: explainer
+language: en
+lastUpdated: "2025-01-10"
+tldr:
+  - Miners compete to solve cryptographic puzzles
+  - The winner adds the next block and earns bitcoin
+  - This process secures the network against attacks
+  - Mining requires specialized hardware and significant electricity
+  - Difficulty adjusts every 2 weeks to maintain 10-minute block times
+whyPeopleAsk: People hear that Bitcoin uses "mining" but don't understand why. The term itself is misleading - it's not about digging. Understanding mining is key to understanding Bitcoin's security.
+steelmanObjection: "This sounds like a massive waste of energy just to solve arbitrary puzzles. Why not just use a normal database? The environmental cost can't be justified."
+whatIsTrue:
+  - Mining does consume significant energy
+  - This energy expenditure is what makes Bitcoin secure
+  - The process is competitive and decentralized
+  - Anyone can theoretically become a miner
+whatIsUncertain:
+  - Whether the energy trade-off is worth it (value judgment)
+  - How mining will evolve as rewards decrease
+  - The long-term environmental impact
+relatedQuestions:
+  - what-is-proof-of-work
+  - what-is-bitcoin-hashrate
+  - bitcoin-energy-consumption
+sources:
+  - title: "Bitcoin Whitepaper"
+    url: "https://bitcoin.org/bitcoin.pdf"
+    author: Satoshi Nakamoto
+    type: primary
+    description: Original description of the mining process
+  - title: "Mastering Bitcoin"
+    author: Andreas Antonopoulos
+    type: book
+    description: Technical deep-dive into mining mechanics
+---
+
+## Mining Has Nothing to Do With Pickaxes
+
+The word "mining" conjures images of digging through rock to extract precious metal. Bitcoin mining is nothing like that. It's a computational competition - a global race where participants spend electricity to prove they've done work, competing for the right to add the next page to Bitcoin's permanent record.
+
+Every ten minutes, approximately, someone wins this race. They add a new block of transactions to the blockchain, receive freshly minted bitcoin as a reward, and the race immediately starts again. This process has run continuously, 24 hours a day, 7 days a week, since January 2009. No holidays. No downtime. Just an endless cycle of competition that produces the most secure computer network in human history.
+
+The name "mining" stuck because of a superficial similarity to gold mining: you expend real resources (energy and hardware) to extract something valuable (new bitcoin) that enters circulation through this process. But the resemblance ends there. Bitcoin mining isn't about extraction at all - it's about security.
+
+## What Miners Actually Do
+
+A miner's job sounds simple when you break it down: collect pending transactions, bundle them into a block, and find a special number that makes the block valid. The first miner to find this number wins.
+
+The process begins with gathering. Thousands of transactions are broadcast to the Bitcoin network every minute - people sending bitcoin to each other, businesses receiving payments, exchanges processing withdrawals. Miners pick up these transactions from a shared pool, selecting which ones to include in their candidate block. They typically prioritize transactions with higher fees, since they'll collect those fees if they win.
+
+With transactions collected, the miner assembles a candidate block. This includes the transactions themselves, a reference to the previous block (linking this block to the chain), and a field called the nonce - a number the miner can change freely.
+
+Now comes the actual mining. The miner takes their candidate block and runs it through a cryptographic function called SHA-256. This produces a hash - a seemingly random string of characters. The hash must meet a specific condition: it must start with a certain number of zeros. This condition is called the difficulty target.
+
+Here's the catch: there's no way to calculate what nonce will produce a valid hash. The miner must guess, checking billions or trillions of different nonce values until finding one that works. Each guess costs a tiny amount of electricity. Multiply that by billions of guesses, and you understand why mining consumes so much power.
+
+When a miner finally finds a valid nonce, they broadcast their completed block to the network. Other nodes verify that everything is correct - the transactions are valid, the hash meets the target, the block follows all rules - and then add it to their copy of the blockchain. The winning miner receives the block reward plus all transaction fees. Everyone else throws away their work on that block and starts competing for the next one.
+
+## The Economics of Mining
+
+Miners earn bitcoin in two ways: the block subsidy and transaction fees.
+
+The block subsidy is new bitcoin created with each block, distributed to the winning miner. This is how all bitcoin enters circulation - not through a central bank printing currency, but through miners earning it by securing the network.
+
+The subsidy follows a predictable schedule, halving roughly every four years:
+
+| Year | Block Subsidy | Event |
+|------|--------------|-------|
+| 2009 | 50 BTC | Genesis block |
+| 2012 | 25 BTC | First halving |
+| 2016 | 12.5 BTC | Second halving |
+| 2020 | 6.25 BTC | Third halving |
+| 2024 | 3.125 BTC | Fourth halving |
+| 2028 | 1.5625 BTC | Fifth halving (projected) |
+
+This halving schedule means bitcoin is disinflationary by design. The supply approaching 21 million becomes increasingly scarce over time. By approximately 2140, all bitcoin will have been mined, and miners will earn only transaction fees.
+
+Transaction fees are the other income stream. Users attach fees to their transactions to incentivize miners to include them. Higher fees mean faster confirmation. During periods of high demand, fees can spike significantly; during quiet periods, transactions can confirm for mere cents.
+
+The combination creates an economic machine that aligns incentives beautifully. Miners expend real resources competing to add blocks. Winners are rewarded. The competition ensures no single party controls the blockchain. And the system funds itself without requiring taxes, subscriptions, or institutional support.
+
+## Why Difficulty Matters
+
+If mining just required finding any valid hash, and more miners joined the network, blocks would be found faster and faster. Bitcoin would inflate rapidly as blocks poured out every few seconds. The system would become unstable.
+
+Bitcoin solves this with difficulty adjustment. Every 2,016 blocks - roughly two weeks - the network recalculates how hard the mining puzzle should be. If blocks came faster than 10 minutes on average, difficulty increases. If they came slower, difficulty decreases. The target is always the same: one block every ten minutes, regardless of how much mining power exists.
+
+This self-regulation is elegant and powerful. When Bitcoin's price rises, mining becomes more profitable, more miners join, and difficulty increases to maintain the schedule. When price falls, some miners shut off, and difficulty drops to keep blocks flowing. The system adapts to any level of participation while maintaining predictable monetary policy.
+
+## From Laptops to Warehouses: The Hardware Evolution
+
+In Bitcoin's earliest days, mining happened on regular computers. Satoshi Nakamoto mined the first blocks on an ordinary CPU. Early adopters could mine bitcoin on their laptops while browsing the web.
+
+That era lasted perhaps two years. As Bitcoin became valuable, miners realized that graphics cards (GPUs), designed for parallel processing, could mine far more efficiently than CPUs. GPU mining dominated from roughly 2010 to 2013.
+
+Then came the ASICs - Application-Specific Integrated Circuits, chips designed solely for Bitcoin mining. These machines did one thing: compute SHA-256 hashes as fast as possible. They were orders of magnitude more efficient than GPUs.
+
+Today, all serious mining uses ASICs. The machines cost thousands of dollars, consume significant power, and become obsolete within a few years as more efficient models emerge. Mining has evolved from a hobbyist activity to an industrial operation. Large facilities house tens of thousands of machines, located wherever electricity is cheap and abundant.
+
+This evolution has implications for decentralization. Anyone could mine on a laptop in 2009. Today, profitable mining requires substantial capital investment. Critics worry this concentrates power; defenders note that thousands of independent mining operations still compete globally.
+
+## The Point of All This Energy
+
+Here's the question that nags at everyone who learns about mining: why?
+
+Why burn all this electricity just to find numbers that meet an arbitrary condition? Couldn't Bitcoin work without this apparently wasteful process?
+
+The answer lies in understanding what the energy expenditure actually produces: security.
+
+To attack Bitcoin - to rewrite its history, reverse transactions, or double-spend coins - an attacker would need to out-compute all honest miners combined. This requires controlling more than half the network's mining power, known as a 51% attack.
+
+Currently, Bitcoin's network runs at over 500 exahashes per second - more computation than any other purpose in human history. To attack it, you'd need to acquire or build more mining capacity than currently exists worldwide. That means billions of dollars in specialized hardware. It means securing massive electricity supply. It means ongoing operational costs that would dwarf any potential profit from the attack.
+
+The energy expenditure isn't arbitrary waste. It's converted into an economic barrier so high that attacking Bitcoin is essentially irrational. The same resource that makes mining expensive makes attacking expensive. The electricity becomes security.
+
+## How New Bitcoin Finds Its Way Into Circulation
+
+Every form of money needs a way to enter circulation. Gold comes from mines. Dollars come from central bank printers. Bitcoin comes from block rewards.
+
+This matters more than it might seem. Traditional currencies are issued by institutions that can create unlimited amounts at will. Insiders and connected parties typically get access to new money first, spending it before prices adjust. By the time new money reaches ordinary people, its value has already been diluted.
+
+Bitcoin's distribution works differently. New coins go to those who expend real resources earning them. Mining is open to anyone with electricity and hardware. The rules are transparent and unchangeable. No committee decides who gets new bitcoin - the competition decides.
+
+This isn't a claim that mining is perfectly egalitarian. Industrial operations have advantages over hobbyists. But compared to money printing controlled by central banks and benefiting connected financial institutions, Bitcoin's distribution is radically more open.
+
+## The Bottom Line
+
+Mining is the engine that powers Bitcoin. It creates new coins on a predictable schedule. It secures the network against attacks. It reaches consensus on which transactions are valid without requiring a central authority.
+
+The energy consumption is real and significant. But the energy isn't wasted - it's transformed into security properties that no other system provides. Whether this trade-off makes sense depends on how much you value what Bitcoin offers: a monetary system no government controls, a payment network resistant to censorship, sound money with a fixed supply.
+
+Every ten minutes, miners around the world compete. One wins. A new block is added. The chain grows by one. And Bitcoin continues operating exactly as it has since January 3, 2009 - without pause, without permission, without central control.
+
+That's mining.
