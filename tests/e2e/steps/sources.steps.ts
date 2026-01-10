@@ -33,8 +33,10 @@ Then('I see the sources grid', async ({ page }) => {
 });
 
 Then('I see at least {int} source card', async ({ page }, count: number) => {
-  const cards = page.locator('[class*="sourceCard"]');
-  await expect(cards).toHaveCount({ minimum: count });
+  const cards = page.locator('[data-testid^="source-card-"]');
+  await expect(cards.first()).toBeVisible({ timeout: 5000 });
+  const actualCount = await cards.count();
+  expect(actualCount).toBeGreaterThanOrEqual(count);
 });
 
 // === Sources Filter Actions ===

@@ -47,6 +47,7 @@ function BookCard({ source: book, locale, description, variant }: CardProps<Book
       target="_blank"
       rel="noopener noreferrer"
       className={`${styles.card} ${styles.bookCard} ${isCarousel ? styles.carousel : ''}`}
+      data-testid={`source-card-${book.id}`}
     >
       <div className={styles.coverContainer}>
         <div className={styles.bookCover}>
@@ -102,6 +103,7 @@ function VideoCard({ source: video, description, variant }: CardProps<VideoSourc
       target="_blank"
       rel="noopener noreferrer"
       className={`${styles.card} ${styles.videoCard} ${isCarousel ? styles.carousel : ''}`}
+      data-testid={`source-card-${video.id}`}
     >
       <div className={styles.thumbnailContainer}>
         <Image
@@ -145,6 +147,7 @@ function ArticleCard({ source: article, locale, description, variant }: CardProp
       target="_blank"
       rel="noopener noreferrer"
       className={`${styles.card} ${styles.articleCard} ${isCarousel ? styles.carousel : ''}`}
+      data-testid={`source-card-${article.id}`}
     >
       <div className={styles.articleHeader}>
         <div className={styles.articleIcon}>

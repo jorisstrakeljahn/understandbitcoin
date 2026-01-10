@@ -52,8 +52,9 @@ When('I type {string} in the hero search field', async ({ page }, query: string)
 
 When('I click on the first search result', async ({ page }) => {
   const firstResult = page.getByTestId('hero-search-result-0');
+  await expect(firstResult).toBeVisible({ timeout: 5000 });
   await firstResult.click();
-  await page.waitForLoadState('networkidle');
+  await page.waitForURL(/\/articles\//);
 });
 
 When('I click on the link {string}', async ({ page }, buttonText: string) => {

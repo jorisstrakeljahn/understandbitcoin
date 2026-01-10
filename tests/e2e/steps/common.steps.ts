@@ -23,7 +23,9 @@ Given('I am on the topics page', async ({ page }) => {
 // === Common URL Assertions (Then) ===
 
 Then('the URL contains {string}', async ({ page }, urlPart: string) => {
-  await expect(page).toHaveURL(new RegExp(urlPart));
+  // Escape special regex characters in the URL part
+  const escapedUrlPart = urlPart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  await expect(page).toHaveURL(new RegExp(escapedUrlPart));
 });
 
 Then('I should be on the homepage', async ({ page }) => {

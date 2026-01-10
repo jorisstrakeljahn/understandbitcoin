@@ -25,11 +25,11 @@ When('I click on the language toggle', async ({ page }) => {
 When('I click on the German language option', async ({ page }) => {
   const option = page.getByTestId('language-option-de');
   await option.click();
-  await page.waitForLoadState('networkidle');
+  await page.waitForURL(/\/de/);
 });
 
 When('I click on the English language option', async ({ page }) => {
   const option = page.getByTestId('language-option-en');
   await option.click();
-  await page.waitForLoadState('networkidle');
+  await page.waitForURL(/\/en/);
 });

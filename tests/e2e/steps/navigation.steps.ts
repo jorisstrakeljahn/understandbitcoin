@@ -46,8 +46,9 @@ When('I click on the {string} link in the header', async ({ page }, linkText: st
   }
   
   const link = page.getByTestId(testId);
+  await expect(link).toBeVisible({ timeout: 5000 });
   await link.click();
-  await page.waitForLoadState('networkidle');
+  await page.waitForURL(new RegExp(testId.replace('header-nav-', '')));
 });
 
 When('I click on the logo', async ({ page }) => {

@@ -33,18 +33,46 @@ Then('I see the hero search field', async ({ page }) => {
 });
 
 Then('I see the {string} button', async ({ page }, buttonText: string) => {
-  const button = page.getByRole('button', { name: buttonText }).or(
-    page.getByRole('link', { name: buttonText })
-  );
-  await expect(button).toBeVisible();
+  // Use specific testids for CTA buttons
+  const buttonMap: Record<string, string> = {
+    'Browse Topics': 'hero-cta-topics',
+    'Themen durchsuchen': 'hero-cta-topics',
+    'Read Criticism': 'hero-cta-criticism',
+    'Kritik lesen': 'hero-cta-criticism',
+  };
+  
+  const testId = buttonMap[buttonText];
+  if (testId) {
+    const button = page.getByTestId(testId);
+    await expect(button).toBeVisible();
+  } else {
+    const button = page.getByRole('button', { name: buttonText }).first();
+    await expect(button).toBeVisible();
+  }
 });
 
 // === Homepage Actions ===
 
 When('I click on {string}', async ({ page }, buttonText: string) => {
-  const button = page.getByRole('button', { name: buttonText }).or(
-    page.getByRole('link', { name: buttonText })
-  );
-  await button.click();
-  await page.waitForLoadState('networkidle');
+  // Use specific testids for CTA buttons - these are Links wrapping Buttons
+  const buttonMap: Record<string, { testId: string; urlPattern: RegExp }> = {
+    'Browse Topics': { testId: 'hero-cta-topics', urlPattern: /\/topics\/?$/ },
+    'Themen durchsuchen': { testId: 'hero-cta-topics', urlPattern: /\/topics\/?$/ },
+    'Read Criticism': { testId: 'hero-cta-criticism', urlPattern: /\/topics\/criticism/ },
+    'Kritik lesen': { testId: 'hero-cta-criticism', urlPattern: /\/topics\/criticism/ },
+  };
+  
+  const mapping = buttonMap[buttonText];
+  if (mapping) {
+    const link = page.getByTestId(mapping.testId);
+    await expect(link).toBeVisible();
+    await link.click();
+    await page.waitForURL(mapping.urlPattern);
+  } else {
+    const button = page.getByRole('button', { name: buttonText }).or(
+      page.getByRole('link', { name: buttonText })
+    ).first();
+    await button.click();
+    await page.waitForLoadState('networkidle');
+  }
 });

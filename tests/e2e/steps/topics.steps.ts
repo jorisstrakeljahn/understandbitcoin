@@ -19,7 +19,8 @@ Then('I see the topics grid', async ({ page }) => {
 
 Then('I see at least {int} topic cards', async ({ page }, count: number) => {
   const cards = page.locator('[data-testid^="topic-card-"]');
-  await expect(cards).toHaveCount({ minimum: count });
+  const actualCount = await cards.count();
+  expect(actualCount).toBeGreaterThanOrEqual(count);
 });
 
 // === Topic Detail Assertions ===
@@ -42,7 +43,8 @@ Then('I see the topic articles', async ({ page }) => {
 
 Then('I see at least {int} article', async ({ page }, count: number) => {
   const articles = page.locator('[class*="articleItem"]');
-  await expect(articles).toHaveCount({ minimum: count });
+  const actualCount = await articles.count();
+  expect(actualCount).toBeGreaterThanOrEqual(count);
 });
 
 Then('I see the topic breadcrumb', async ({ page }) => {

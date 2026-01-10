@@ -48,7 +48,8 @@ Then('I see the empty search state', async ({ page }) => {
 });
 
 Then('I see the no results message', async ({ page }) => {
-  const noResults = page.locator('[class*="noResults"]');
+  // Look for the main container with the no results text
+  const noResults = page.getByText('No results found');
   await expect(noResults).toBeVisible();
 });
 

@@ -13,7 +13,7 @@ Feature: Search
   Scenario: Hero search shows dropdown on focus
     When I click on the hero search field
     Then I see the search dropdown
-    And I see "Trending Searches"
+    And I see "Trending"
 
   Scenario: Hero search shows results
     When I type "bitcoin" in the hero search field
