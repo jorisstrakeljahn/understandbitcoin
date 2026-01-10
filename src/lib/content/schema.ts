@@ -55,7 +55,6 @@ export const FrontmatterSchema = z.object({
   tldr: z.array(z.string()).max(5).optional(),
   relatedQuestions: z.array(z.string()).optional().default([]),
   whyPeopleAsk: z.string().optional(),
-  steelmanObjection: z.string().optional(),
   whatIsTrue: z.array(z.string()).optional(),
   whatIsUncertain: z.array(z.string()).optional(),
 });

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { TopicBadge, Badge } from '@/components/ui';
-import { TLDRBox, SteelmanBox, SourcesList, KeyTakeaways } from '@/components/mdx';
+import { TLDRBox, SourcesList, KeyTakeaways } from '@/components/mdx';
 import { getContentBySlug, getAllContent, getRelatedContent, getTopicConfig, getLevelConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { extractHeadings } from '@/lib/mdx';
 import { ArticleSidebar } from '@/components/article/ArticleSidebar';
@@ -198,13 +198,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <h2 id="the-answer">{t('theAnswer')}</h2>
             <ArticleContent content={content} />
           </div>
-
-          {/* Steelman Objection */}
-          {frontmatter.steelmanObjection && (
-            <SteelmanBox>
-              <p>{frontmatter.steelmanObjection}</p>
-            </SteelmanBox>
-          )}
 
           {/* What's True / What's Uncertain */}
           {(frontmatter.whatIsTrue || frontmatter.whatIsUncertain) && (

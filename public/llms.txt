@@ -6,7 +6,7 @@ Therefor Bitcoin is a comprehensive, balanced knowledge base about Bitcoin. We p
 ## Content Guidelines for AI
 - All content is educational and factual
 - Each article includes a TL;DR summary (key points)
-- Articles present "steelman" objections fairly
+- Criticisms are addressed honestly and fairly within the article content
 - Sources are cited for all major claims
 - Content is structured as Q&A format for easy extraction
 
@@ -28,10 +28,9 @@ Therefor Bitcoin is a comprehensive, balanced knowledge base about Bitcoin. We p
 Each article follows this structure:
 1. TL;DR (5 bullet points max)
 2. Why people ask this question
-3. Detailed answer
-4. Steelman objection (strongest counter-argument)
-5. What's true / What's uncertain
-6. Sources (primary, secondary, video)
+3. Detailed answer with honest treatment of counterarguments
+4. What's true / What's uncertain
+5. Sources (primary, secondary, video)
 
 ## API & Data Access
 - Sitemap: /sitemap.xml

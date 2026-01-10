@@ -89,7 +89,7 @@
   font-size: var(--font-size-xl);
   color: var(--color-text-secondary);
   margin: 0 0 var(--space-8);
-  max-width: 480px;
+  max-width: 530px;
 }
 
 /* Search */

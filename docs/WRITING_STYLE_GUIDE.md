@@ -105,9 +105,9 @@ The phrase has become almost a cliché in Bitcoin circles. But the principle beh
 it is deadly serious, and history has proven it repeatedly.
 ```
 
-### 5. Steelman-Argumente ehrlich behandeln
+### 5. Kritik ehrlich behandeln
 
-Wir nehmen Kritik ernst und behandeln sie fair.
+Wir nehmen Kritik ernst und behandeln sie fair - direkt im Artikeltext.
 
 **Schlecht:**
 ```
@@ -117,10 +117,9 @@ the technology.
 
 **Gut:**
 ```
-Let's steelman the criticism honestly. Bitcoin does make certain crimes easier:
-cross-border ransomware payments, donations to sanctioned entities, pseudonymous
-value transfer. These are real issues that deserve attention. Dismissing them
-entirely is intellectually dishonest.
+Bitcoin does make certain crimes easier: cross-border ransomware payments,
+donations to sanctioned entities, pseudonymous value transfer. These are real
+issues that deserve attention. Dismissing them entirely is intellectually dishonest.
 
 But: The same properties that enable these crimes also enable donations to
 dissidents under authoritarian regimes, financial inclusion for the unbanked,
@@ -172,7 +171,7 @@ works for them.
 2. **Hauptteil** (3-6 Sections)
    - Logischer Aufbau, jede Section mit ansprechender Überschrift
    - Fließtext dominant, Tabellen wo sinnvoll
-   - Steelman-Argumente integriert
+   - Kritik und Gegenargumente fair behandelt
 
 3. **The Honest Assessment / Bottom Line** (1-2 Absätze)
    - Ehrliche Zusammenfassung der Trade-offs
@@ -183,7 +182,7 @@ works for them.
 
 - **Beginner-Artikel**: 800-1.500 Wörter
 - **Intermediate-Artikel**: 1.200-2.000 Wörter
-- **Kritik-Artikel**: 1.500-2.500 Wörter (brauchen Platz für Steelmen)
+- **Kritik-Artikel**: 1.500-2.500 Wörter (brauchen Platz für faire Gegenargumente)
 
 ## Tone of Voice
 
@@ -247,7 +246,7 @@ a lost seed phrase.
 - [ ] Beginnt mit einem Hook, nicht mit einer Definition
 - [ ] Überschriften sind ansprechend, nicht generisch
 - [ ] Bullet Points nur für Specs/Zusammenfassungen, nicht für Erklärungen
-- [ ] Mindestens ein Steelman-Argument fair behandelt
+- [ ] Kritik und Gegenargumente fair behandelt
 - [ ] Daten haben Quellen
 - [ ] Endet mit ehrlichem Assessment, nicht mit Marketing
 - [ ] Würde Naval Ravikant die Klarheit gutheißen?

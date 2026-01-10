@@ -4,9 +4,6 @@ export type { CalloutProps } from './Callout';
 export { TLDRBox } from './TLDRBox';
 export type { TLDRBoxProps } from './TLDRBox';
 
-export { SteelmanBox } from './SteelmanBox';
-export type { SteelmanBoxProps } from './SteelmanBox';
-
 export { SourcesList } from './SourcesList';
 export type { SourcesListProps } from './SourcesList';
 

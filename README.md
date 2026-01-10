@@ -17,7 +17,7 @@ A premium, modern "linkable in conversations" Q&A wiki where users land on a spe
 - **Premium editorial vibe**: Generous whitespace, strong typography, high contrast
 - **Mobile-first**: Big tap targets, sticky navigation, search-first UX
 - **Dark mode built-in**: Not an afterthought
-- **Trust cues**: Sources, steelman objections, last updated dates
+- **Trust cues**: Sources, last updated dates, balanced perspectives
 - **One accent color**: Bitcoin orange (#F7931A)
 
 ## 🚀 Quick Start
@@ -100,7 +100,6 @@ tldr: # Max 5 bullet points
   - Point one
   - Point two
 whyPeopleAsk: Why users search for this
-steelmanObjection: The strongest counter-argument
 whatIsTrue: [verified facts]
 whatIsUncertain: [debated points]
 sources:
@@ -121,7 +120,6 @@ sources:
 ### MDX Components
 
 - `<TLDRBox items={[...]} />` - Bullet-point summary box
-- `<SteelmanBox>...</SteelmanBox>` - Fair objection callout
 - `<Callout type="info|warning|success|error|tip">...</Callout>`
 - `<SourcesList sources={[...]} />`
 - `<KeyTakeaways items={[...]} />`
