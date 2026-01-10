@@ -159,7 +159,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   
   const isGerman = locale === 'de';
   
@@ -208,7 +208,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
 
   // Reset selection when results change
   useEffect(() => {
-    setSelectedIndex(0);
+    setSelectedIndex(-1);
   }, [results]);
 
   // Close dropdown when clicking outside
@@ -247,19 +247,20 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
         break;
       case 'ArrowUp':
         e.preventDefault();
-        setSelectedIndex((prev) => Math.max(prev - 1, 0));
+        setSelectedIndex((prev) => Math.max(prev - 1, -1));
         break;
       case 'Enter':
         e.preventDefault();
-        if (query.trim() && results[selectedIndex]) {
+        if (query.trim() && selectedIndex >= 0 && results[selectedIndex]) {
           const result = results[selectedIndex];
           trackSearchResultClick(query, result.slug, selectedIndex);
           router.push(`/${locale}/articles/${result.slug}`);
           setIsFocused(false);
-        } else if (!query.trim() && TRENDING_SEARCHES[selectedIndex]) {
+        } else if (!query.trim() && selectedIndex >= 0 && TRENDING_SEARCHES[selectedIndex]) {
           router.push(`/${locale}/articles/${TRENDING_SEARCHES[selectedIndex].slug}`);
           setIsFocused(false);
         } else if (query.trim()) {
+          // No selection - go to search results page
           router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
           setIsFocused(false);
         }
@@ -271,7 +272,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
     }
   };
 
-  const showDropdown = isFocused && (query.trim() || true); // Always show when focused
+  const showDropdown = isFocused; // Always show dropdown when focused
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
