@@ -45,136 +45,100 @@ sources:
     description: Economic analysis of Bitcoin's fixed supply
 ---
 
-## The Magic Number
+## The Number That Can Never Change
 
-There will only ever be 21 million bitcoins. This isn't a suggestion — it's enforced by the code that every Bitcoin node runs.
+There will only ever be 21 million bitcoins. This isn't a policy goal or a promise from executives - it's a rule enforced by the code that every Bitcoin node runs. No board meeting will ever vote to increase it. No emergency can justify expanding it. No government can demand it. The cap is as fixed as the laws of mathematics.
 
-When Satoshi Nakamoto designed Bitcoin, this cap was a deliberate choice. Unlike every government currency in the world, no one can create more Bitcoin on demand.
+When Satoshi Nakamoto designed Bitcoin, this limit was a deliberate choice that defines everything else about the system. Unlike every government currency in the world, no one can decide to create more bitcoin on demand. This single property - verifiable, unchangeable scarcity - is arguably Bitcoin's most important innovation.
 
-## Why 21 Million Specifically?
+## The Origin of Twenty-One Million
 
-Satoshi never explicitly explained the choice. The best guess, based on forum posts and code comments, is a combination of:
+Satoshi never explicitly explained why they chose 21 million. Based on forum posts and code comments, the number likely emerged from a combination of factors.
 
-### Mathematical Elegance
+The mathematics work out elegantly. Bitcoin's supply schedule starts with a block reward of 50 BTC, halving approximately every four years. When you sum the geometric series - 50 + 25 + 12.5 + 6.25 + ... - it converges to just under 21 million. The specific number wasn't chosen arbitrarily and then a schedule designed to reach it. Rather, the reward schedule was designed, and 21 million is what the math produces.
 
-Bitcoin's supply schedule:
-- **Block reward**: Started at 50 BTC
-- **Halving**: Every 210,000 blocks (≈4 years), reward cuts in half
-- **Total sum**: 50 + 25 + 12.5 + 6.25 + ... ≈ 21 million
+Divisibility was considered from the start. Each bitcoin divides into 100 million smaller units called satoshis. That means 21 million bitcoins equals 2.1 quadrillion satoshis - more than enough units for a global economy. If bitcoin became world money, the average person could still own hundreds of thousands of satoshis.
 
-The geometric series naturally converges to just under 21 million.
+Satoshi also seemed to think about unit psychology. In early forum posts, they discussed how 1 BTC might eventually be worth substantial amounts, making satoshis the natural unit for everyday transactions. Having a smaller number of bitcoins makes high per-unit prices possible, which may paradoxically make the currency feel more valuable.
 
-### Divisibility
+## Why No One Can Change the Cap
 
-21 million bitcoins × 100 million satoshis = 2.1 quadrillion units
+The 21 million limit exists in Bitcoin's code, which is open source. Anyone could modify their copy to allow more bitcoins. You could do it this afternoon if you wanted.
 
-That's enough for every human on Earth to own ~262,000 satoshis — plenty for a global economy.
+But your modified version wouldn't be Bitcoin. Here's why.
 
-### Unit Psychology
+For any rule change to actually take effect on the network, the majority of nodes must accept new blocks following the new rules. Miners must produce blocks following the new rules. Exchanges and users must value the resulting chain. If they don't agree, you've just created a fork that nobody uses.
 
-Satoshi seemed to consider how the unit would feel. In early posts, he discussed the possibility that 1 BTC could be worth considerable amounts, making satoshis the common unit for daily transactions.
+The economic incentives strongly oppose any supply increase. Every existing Bitcoin holder would see their stake diluted by inflation. These holders run nodes, operate mining pools, work at exchanges, and participate in governance. They have zero incentive to impoverish themselves by voting for inflation.
 
-## Can It Change?
+Bitcoin's history reinforces this. The network has survived contentious debates about block size and other rule changes. The supply cap has never been seriously challenged. Among the things the Bitcoin community considers sacred and unchangeable, 21 million is at the absolute top.
 
-Technically, the cap exists in the Bitcoin code, which is open source. Anyone could modify their copy to allow more than 21 million.
+## Is Twenty-One Million Enough?
 
-But that modified version wouldn't be Bitcoin. Here's why:
+Critics worry that 21 million coins is too few for a global currency. Nearly 8 billion people can't each own a whole bitcoin. Doesn't this make Bitcoin impractical as money?
 
-### Consensus Required
+The concern misunderstands how Bitcoin's divisibility works. Each bitcoin isn't an atomic unit - it breaks into 100 million satoshis. The total supply is really 2.1 quadrillion satoshis, not 21 million bitcoins.
 
-For any rule change to take effect, the majority of:
-- Full nodes (must accept new blocks)
-- Miners (must produce new blocks)
-- Exchanges and users (must value the new chain)
-
-...would all need to agree. If they don't, you've just created a fork that nobody uses.
-
-### Economic Incentives
-
-Who would agree to inflate their own holdings? Every Bitcoin holder has an interest in maintaining the cap. Changing it would be economic self-destruction for those who enforce the rules.
-
-### History
-
-Bitcoin has had contentious debates about other rule changes (block size, for example). The supply cap has never been seriously challenged — it's considered sacred.
-
-## Is 21 Million Enough?
-
-Critics worry 21 million is too few for a global currency. But Bitcoin doesn't work like physical gold.
-
-### Divisibility Solves Scarcity
-
-| Unit | Quantity | If 1 BTC = $1M |
-|------|----------|----------------|
+| Unit | Total Quantity | If 1 BTC = $1 Million |
+|------|---------------|----------------------|
 | Bitcoin | 21 million | $1,000,000 each |
 | Millibitcoin (mBTC) | 21 billion | $1,000 each |
 | Satoshi | 2.1 quadrillion | $0.01 each |
 
-Even if Bitcoin became global money, there are enough units. You'd just use satoshis instead of whole bitcoins.
+If Bitcoin became global money worth millions per coin, daily transactions would simply use satoshis rather than whole bitcoins. Buying coffee might cost 500 satoshis rather than 0.00000500 BTC. The unit shifts; the mathematics work fine.
 
-### Lightning Network
+On the Lightning Network, the divisibility extends even further. You can transact in millisatoshis - thousandths of a satoshi. The practical unit limitation is really no limitation at all.
 
-On Bitcoin's Lightning Network, you can send fractions of satoshis (millisatoshis). The unit limitation is really no limitation at all.
+## The Supply Schedule: Known Until 2140
 
-## The Supply Schedule
+Bitcoin's issuance follows a schedule anyone can verify and predict.
 
-Bitcoin's issuance follows a predictable schedule:
-
-| Date | Block Reward | Total Supply |
-|------|--------------|--------------|
-| 2009 | 50 BTC | 0 → 10.5M |
-| 2012 | 25 BTC | 10.5M → 15.75M |
-| 2016 | 12.5 BTC | 15.75M → 18.375M |
-| 2020 | 6.25 BTC | 18.375M → 19.6875M |
-| 2024 | 3.125 BTC | 19.6875M → ~20.3M |
+| Period | Block Reward | Total Supply |
+|--------|-------------|--------------|
+| 2009-2012 | 50 BTC | 0 → 10.5M |
+| 2012-2016 | 25 BTC | 10.5M → 15.75M |
+| 2016-2020 | 12.5 BTC | 15.75M → 18.375M |
+| 2020-2024 | 6.25 BTC | 18.375M → 19.6875M |
+| 2024-2028 | 3.125 BTC | 19.6875M → ~20.3M |
+| ... | ... | ... |
 | ~2140 | 0 BTC | ~21M (final) |
 
-Already, over 93% of all Bitcoin that will ever exist has been mined. The rate of new supply is now lower than gold's.
+Already, over 93% of all bitcoin that will ever exist has been mined. The rate of new supply is now lower than gold's production rate relative to existing stock. With each halving, Bitcoin becomes progressively "harder" - more resistant to supply inflation.
 
-## What Happens When All Are Mined?
+The predictability is unprecedented in monetary history. You can calculate exactly how much bitcoin will exist on any future date. No surprise announcements. No emergency quantitative easing. No late-night committee meetings deciding to change the rules. The schedule is fixed.
 
-Around 2140, the last satoshi will be mined. What happens to miner incentives?
+## When All Bitcoin Is Mined
 
-### Transaction Fees Take Over
+Around 2140, the last satoshi will be mined. What happens then?
 
-Miners already earn transaction fees in addition to block rewards. As block rewards shrink, fees become the primary incentive.
+Miners currently earn both block rewards (new bitcoins) and transaction fees from the transactions they include. As block rewards shrink with each halving, fees become a larger portion of miner revenue. Eventually, fees will be the only compensation for mining.
 
-If Bitcoin is widely used by 2140, fees should be sufficient to secure the network.
+Whether fees will be sufficient to secure the network is genuinely uncertain. Critics worry that without block subsidies, the economic incentive to mine may be insufficient. Proponents point out that if Bitcoin is widely used by 2140, the accumulated transaction fees should be substantial.
 
-### Security Questions
+Several factors make this transition manageable. Block rewards decline gradually, giving the fee market over a century to develop. The problem is visible far in advance, giving the ecosystem time to adapt. Everyone involved has strong incentives to solve any problems that emerge.
 
-Critics worry fees won't be enough. This is a legitimate unknown. But:
-- Block rewards decline gradually, giving the fee market time to develop
-- 2140 is over a century away — technology and usage patterns will evolve
-- The market has strong incentives to solve this problem
+The year 2140 is over a century away. Technology and usage patterns will evolve in ways we cannot predict. The Bitcoin of 2140 will likely be as different from today's as today's internet is from ARPANET.
 
-## Why Fixed Supply Matters
+## What Fixed Supply Actually Means
 
-The 21 million cap isn't arbitrary — it's the core of Bitcoin's value proposition:
+The 21 million cap isn't an arbitrary limitation - it's the core of Bitcoin's value proposition as money.
 
-### Digital Scarcity
+Before Bitcoin, anything digital could be copied infinitely at essentially zero cost. A JPEG, a song, a document - all trivially replicable. Bitcoin introduced genuine scarcity in the digital realm. A bitcoin cannot be copied any more than you can copy a physical gold coin. This is historically unprecedented.
 
-Before Bitcoin, digital things were infinitely copyable. The 21 million cap creates genuine scarcity in the digital realm.
+Fixed supply also means perfect predictability. You know exactly how much bitcoin exists now and how much will ever exist. No government official can surprise you by announcing a trillion-dollar stimulus package that dilutes your savings. No crisis can justify "temporary" money printing that becomes permanent. The monetary policy is known for the next century.
 
-### Predictability
+Every fiat currency can be inflated. The US dollar has lost over 96% of its purchasing power since 1913. The Euro, the Yen, the Pound - all can be and regularly are debased by their issuing authorities. Bitcoin cannot. This makes it "hard money" in the tradition of gold, but with a hardness guarantee that gold cannot match.
 
-You know exactly how much Bitcoin exists and will ever exist. No central bank can surprise you with money printing.
-
-### Sound Money
-
-Every fiat currency can be (and is) inflated. Bitcoin cannot. This makes it "hard money" like gold — but with a harder guarantee.
-
-### Verification
-
-Anyone running a node can verify the total supply at any time. This transparency is unprecedented in monetary history.
+Anyone running a node can verify the total supply at any moment. This transparency is unprecedented. You don't have to trust the Federal Reserve's accounting. You don't have to believe government statistics. You run software, and you know exactly how much bitcoin exists.
 
 ## The Honest Assessment
 
-The 21 million cap is:
-- **Fixed by code and consensus** — extremely difficult to change
-- **Sufficient for global use** — 2.1 quadrillion satoshis is plenty
-- **Unprecedented** — no money in history has been this provably scarce
-- **Experimental** — whether fixed-supply money works at scale is unproven
+The 21 million cap is remarkable but not without legitimate questions.
 
-Critics raise valid concerns about deflation and the long-term security model. But the cap is Bitcoin's defining feature — without it, Bitcoin would be just another inflationary currency.
+It is effectively unchangeable - protected by code and the self-interest of all participants. It provides more than enough units for global use through satoshi divisibility. It creates scarcity that no previous digital system achieved. It makes Bitcoin's monetary policy the most predictable in history.
 
-The world has unlimited currencies that can be printed without limit. It has one with a hard cap of 21 million.
+But whether fixed-supply money works at global scale is genuinely unproven. Mainstream economists argue that deflationary currencies discourage spending and economic growth. The long-term security model when block rewards end is uncertain. These are real questions without definitive answers.
+
+What's undeniable is that the cap makes Bitcoin fundamentally different from every other currency in existence. The world has unlimited currencies that central banks can create without limit. It has one with a hard cap of 21 million.
+
+That one might fail. It might succeed beyond imagining. But the experiment is worth running, and the cap is what makes the experiment meaningful.
