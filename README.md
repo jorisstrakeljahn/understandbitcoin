@@ -254,7 +254,7 @@ The project uses a comprehensive test suite with BDD-style E2E tests and unit te
 ### Running Tests
 
 ```bash
-# Run all tests
+# Run all tests (unit + E2E)
 pnpm test
 
 # Run unit tests only
@@ -263,8 +263,14 @@ pnpm test:unit
 # Run unit tests in watch mode
 pnpm test:unit:watch
 
-# Run E2E tests (headless)
+# Run E2E tests (headless) - Desktop + Mobile
 pnpm test:e2e
+
+# Run only Desktop tests
+pnpm exec playwright test --project=chromium
+
+# Run only Mobile tests
+pnpm exec playwright test --project=mobile
 
 # Run E2E tests with browser UI
 pnpm test:e2e:headed
@@ -272,6 +278,15 @@ pnpm test:e2e:headed
 # Run E2E tests with Playwright UI
 pnpm test:e2e:ui
 ```
+
+### Test Projects
+
+| Project | Device | Viewport | Tests |
+|---------|--------|----------|-------|
+| `chromium` | Desktop Chrome | 1280×720 | All tests (46) |
+| `mobile` | Pixel 5 | 393×851 | Excluding `@desktop-only` (41) |
+
+Tests tagged with `@desktop-only` are skipped on mobile because they test features not visible on mobile (e.g., header navigation links).
 
 ### Test Structure
 
@@ -324,6 +339,26 @@ Feature: Search
     Then I see search results in the dropdown
     And the first result contains "Bitcoin"
 ```
+
+### Test Tags
+
+Use tags to control which tests run on which devices:
+
+```gherkin
+# This test only runs on Desktop (chromium)
+@desktop-only
+Scenario: Header navigation is visible
+  Then I see the navigation links
+
+# This test runs on both Desktop and Mobile
+Scenario: Logo leads to homepage
+  When I click on the logo
+  Then I should be on the homepage
+```
+
+| Tag | Description |
+|-----|-------------|
+| `@desktop-only` | Skipped on mobile - tests desktop-specific features |
 
 ### Data-TestIDs
 

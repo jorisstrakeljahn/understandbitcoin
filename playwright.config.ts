@@ -22,16 +22,18 @@ export default defineConfig({
   },
 
   projects: [
+    // Desktop Tests - run all tests
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    // Mobile tests are disabled for now - many components have different behavior on mobile
-    // TODO: Add mobile-specific tests when needed
-    // {
-    //   name: 'mobile',
-    //   use: { ...devices['iPhone 13'] },
-    // },
+    // Mobile Tests - use Pixel 5 (Chromium-based, no WebKit needed)
+    // Skips tests tagged with @desktop-only
+    {
+      name: 'mobile',
+      use: { ...devices['Pixel 5'] },
+      grepInvert: /@desktop-only/,
+    },
   ],
 
   webServer: {

@@ -19,6 +19,8 @@ Feature: Language Switching
     When I click on the English language option
     Then the URL contains "/en"
 
+  # Uses header navigation links which are hidden on mobile
+  @desktop-only
   Scenario: Language persists on navigation
     Given I am on the German homepage
     When I click on the "Topics" link in the header

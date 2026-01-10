@@ -31,7 +31,7 @@ Feature: Search
     Then I am on the search results page
     And the URL contains "search?q=bitcoin"
 
-  # === Header Search Modal ===
+  # === Header Search Modal (works on both desktop and mobile) ===
 
   Scenario: Header search button opens modal
     When I click on the search button in the header
