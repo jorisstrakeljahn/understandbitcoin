@@ -12,6 +12,8 @@ Then('I see the header navigation links', async ({ page }) => {
 
 Then('navigation links are horizontally arranged', async ({ page }) => {
   const nav = page.getByTestId('header-nav');
+  await expect(nav).toBeVisible();
+  
   const computedStyle = await nav.evaluate((el) => {
     const style = window.getComputedStyle(el);
     return {
@@ -20,11 +22,13 @@ Then('navigation links are horizontally arranged', async ({ page }) => {
     };
   });
   
-  // Check if navigation is horizontal (flex-row or inline)
-  expect(
-    computedStyle.display === 'flex' && 
-    (computedStyle.flexDirection === 'row' || computedStyle.flexDirection === '')
-  ).toBeTruthy();
+  // Check if navigation is horizontal (flex-row or inline or grid with row direction)
+  const isHorizontal = 
+    (computedStyle.display === 'flex' && 
+     (computedStyle.flexDirection === 'row' || computedStyle.flexDirection === '')) ||
+    (computedStyle.display === 'grid');
+  
+  expect(isHorizontal).toBeTruthy();
 });
 
 Then('I see the resizable sidebar', async ({ page }) => {

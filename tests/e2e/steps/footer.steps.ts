@@ -51,7 +51,11 @@ Then('the footer disclaimer contains {string}', async ({ page }, text: string) =
 // === Footer Actions ===
 
 When('I click on a footer link that contains {string}', async ({ page }, linkText: string) => {
-  const link = page.locator(`[data-testid^="footer-link-"]`).filter({ hasText: linkText });
+  // Footer links use dynamic testids based on href
+  // Try to find link by text content or by href pattern
+  const link = page.locator(`[data-testid^="footer-link-"]`).filter({ hasText: new RegExp(linkText, 'i') }).or(
+    page.getByRole('link', { name: new RegExp(linkText, 'i') }).filter({ has: page.locator('[data-testid^="footer-link-"]') })
+  );
   await link.first().click();
   await page.waitForLoadState('networkidle');
 });

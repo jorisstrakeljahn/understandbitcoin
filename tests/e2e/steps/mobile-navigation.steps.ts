@@ -29,11 +29,9 @@ Then('I can type in the modal search field', async ({ page }) => {
 // === Mobile Navigation Actions ===
 
 When('I click on the hamburger menu button', async ({ page }) => {
-  // Look for hamburger menu button (usually has aria-label or specific testid)
-  const hamburger = page.getByRole('button', { name: /menu|navigation|open/i }).or(
-    page.locator('button[aria-label*="menu" i]')
-  ).or(page.locator('button[aria-label*="navigation" i]'));
-  await hamburger.first().click();
+  // Use the specific testid for mobile menu button
+  const hamburger = page.getByTestId('mobile-menu-button');
+  await hamburger.click();
   await page.waitForTimeout(300);
 });
 
