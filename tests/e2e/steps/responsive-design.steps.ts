@@ -1,7 +1,7 @@
 import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
 
-const { Given, Then } = createBdd();
+const { Then } = createBdd();
 
 // === Responsive Design Assertions ===
 
