@@ -36,10 +36,14 @@ When('I click on the hamburger menu button', async ({ page }) => {
 });
 
 When('I click on {string} in the mobile menu', async ({ page }, linkText: string) => {
-  const link = page.getByRole('link', { name: linkText }).or(
-    page.getByText(linkText)
-  );
-  await link.first().click();
+  // Mobile menu links are inside the drawer, not in header-nav
+  // Must search specifically inside the drawer component
+  const drawer = page.getByTestId('drawer');
+  await expect(drawer).toBeVisible({ timeout: 5000 });
+  
+  // Find the link inside the drawer
+  const link = drawer.getByRole('link', { name: linkText });
+  await link.click();
   await page.waitForLoadState('networkidle');
 });
 
