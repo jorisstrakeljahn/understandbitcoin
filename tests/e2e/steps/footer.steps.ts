@@ -31,11 +31,12 @@ Then('I see the footer links section', async ({ page }) => {
 });
 
 Then('I see footer link groups', async ({ page }) => {
-  const learnGroup = page.getByTestId('footer-link-group-learn');
-  const topicsGroup = page.getByTestId('footer-link-group-topics');
-  const aboutGroup = page.getByTestId('footer-link-group-about');
-  
-  await expect(learnGroup.or(topicsGroup).or(aboutGroup)).toBeVisible();
+  // Check that at least one footer link group exists
+  const linkGroups = page.locator('[data-testid^="footer-link-group-"]');
+  const count = await linkGroups.count();
+  expect(count).toBeGreaterThan(0);
+  // Verify the first one is visible
+  await expect(linkGroups.first()).toBeVisible();
 });
 
 Then('I see the footer disclaimer', async ({ page }) => {
@@ -52,10 +53,25 @@ Then('the footer disclaimer contains {string}', async ({ page }, text: string) =
 
 When('I click on a footer link that contains {string}', async ({ page }, linkText: string) => {
   // Footer links use dynamic testids based on href
-  // Try to find link by text content or by href pattern
-  const link = page.locator(`[data-testid^="footer-link-"]`).filter({ hasText: new RegExp(linkText, 'i') }).or(
-    page.getByRole('link', { name: new RegExp(linkText, 'i') }).filter({ has: page.locator('[data-testid^="footer-link-"]') })
-  );
-  await link.first().click();
+  // e.g. footer-link-topics, footer-link-sources
+  // First scroll footer into view
+  const footer = page.getByTestId('footer');
+  await footer.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  
+  // Map link text to testid suffix
+  const testIdSuffix = linkText.toLowerCase();
+  const link = page.getByTestId(`footer-link-${testIdSuffix}`);
+  
+  // If specific testid doesn't exist, try to find by text
+  const linkCount = await link.count();
+  if (linkCount > 0) {
+    await link.click();
+  } else {
+    // Fallback: find any footer link containing the text
+    const fallbackLink = page.locator('[data-testid^="footer-link-"]').filter({ hasText: new RegExp(linkText, 'i') }).first();
+    await fallbackLink.click();
+  }
+  
   await page.waitForLoadState('networkidle');
 });

@@ -22,11 +22,11 @@ export default defineConfig({
   },
 
   projects: [
-    // Desktop Tests - run all tests except @skip
+    // Desktop Tests - run all tests except @skip and @mobile-only
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      grepInvert: /@skip/,
+      grepInvert: /@skip|@mobile-only/,
     },
     // Mobile Tests - use Pixel 5 (Chromium-based, no WebKit needed)
     // Skips tests tagged with @desktop-only or @skip

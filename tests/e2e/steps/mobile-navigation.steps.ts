@@ -44,9 +44,10 @@ When('I click on {string} in the mobile menu', async ({ page }, linkText: string
 });
 
 When('I click on a navigation link in the mobile menu', async ({ page }) => {
-  const link = page.locator('[data-testid^="header-nav-"]').or(
-    page.getByRole('link').filter({ hasText: /topics|criticism|sources/i })
-  ).first();
+  // Mobile menu links are inside the drawer, not in header-nav
+  // Look for any link inside the drawer that matches navigation patterns
+  const drawer = page.getByTestId('drawer');
+  const link = drawer.getByRole('link').filter({ hasText: /topics|criticism|sources/i }).first();
   await link.click();
   await page.waitForLoadState('networkidle');
 });
