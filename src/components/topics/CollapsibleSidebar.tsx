@@ -37,44 +37,46 @@ export function CollapsibleSidebar({ topics, locale, documentationLabel }: Colla
   };
 
   return (
-    <nav className={styles.sidebarNav}>
-      <div className={styles.sidebarHeader}>
+    <nav className={styles.sidebarNav} data-testid="collapsible-sidebar">
+      <div className={styles.sidebarHeader} data-testid="collapsible-sidebar-header">
         <span className={styles.sidebarTitle}>{documentationLabel}</span>
       </div>
       
-      <div className={styles.fileTree}>
+      <div className={styles.fileTree} data-testid="collapsible-sidebar-tree">
         {topics.map(({ key: topicKey, label, articles }) => {
           const isExpanded = expandedTopics.has(topicKey);
           const hasArticles = articles.length > 0;
           
           return (
-            <div key={topicKey} className={styles.treeSection}>
+            <div key={topicKey} className={styles.treeSection} data-testid={`collapsible-sidebar-topic-${topicKey}`}>
               <div className={styles.treeFolderWrapper}>
                 {hasArticles && (
                   <button
                     className={`${styles.toggleButton} ${isExpanded ? styles.expanded : ''}`}
                     onClick={() => toggleTopic(topicKey)}
                     aria-label={isExpanded ? 'Collapse' : 'Expand'}
+                    data-testid={`collapsible-sidebar-toggle-${topicKey}`}
                   >
                     <ChevronRight size={12} />
                   </button>
                 )}
-                <Link href={`/${locale}/topics/${topicKey}`} className={styles.treeFolder}>
+                <Link href={`/${locale}/topics/${topicKey}`} className={styles.treeFolder} data-testid={`collapsible-sidebar-topic-link-${topicKey}`}>
                   <TopicIcon topic={topicKey} size={14} />
                   <span className={styles.treeFolderName}>{label}</span>
                   {hasArticles && (
-                    <span className={styles.treeCount}>{articles.length}</span>
+                    <span className={styles.treeCount} data-testid={`collapsible-sidebar-topic-count-${topicKey}`}>{articles.length}</span>
                   )}
                 </Link>
               </div>
               
               {hasArticles && isExpanded && (
-                <ul className={styles.treeFiles}>
+                <ul className={styles.treeFiles} data-testid={`collapsible-sidebar-articles-${topicKey}`}>
                   {articles.map((article) => (
                     <li key={article.slug}>
                       <Link 
                         href={`/${locale}/articles/${article.slug}`}
                         className={styles.treeFile}
+                        data-testid={`collapsible-sidebar-article-${article.slug}`}
                       >
                         <FileText size={12} />
                         <span className={styles.treeFileName}>

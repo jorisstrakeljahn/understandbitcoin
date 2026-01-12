@@ -29,6 +29,7 @@ export function MobileNav({ headings }: MobileNavProps) {
         className={styles.toggleButton}
         onClick={() => setIsOpen(true)}
         aria-label="Open table of contents"
+        data-testid="mobile-nav-toggle"
       >
         <List size={18} />
         On this page
@@ -41,17 +42,19 @@ export function MobileNav({ headings }: MobileNavProps) {
         title="On This Page"
         position="right"
       >
-        <nav className={styles.nav}>
-          <ul className={styles.list}>
+        <nav className={styles.nav} data-testid="mobile-nav">
+          <ul className={styles.list} data-testid="mobile-nav-list">
             {headings.map((heading) => (
               <li
                 key={heading.id}
                 className={`${styles.item} ${heading.level === 3 ? styles.nested : ''}`}
+                data-testid={`mobile-nav-item-${heading.id}`}
               >
                 <a
                   href={`#${heading.id}`}
                   className={styles.link}
                   onClick={() => setIsOpen(false)}
+                  data-testid={`mobile-nav-link-${heading.id}`}
                 >
                   {heading.text}
                 </a>

@@ -45,6 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={classNames}
         disabled={disabled || isLoading}
+        data-testid={props['data-testid'] || 'button'}
         {...props}
       >
         {isLoading && (

@@ -121,6 +121,7 @@ export function ResizableSidebar({
       ref={sidebarRef}
       className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}
       style={{ width: isCollapsed ? '48px' : `${width}px` }}
+      data-testid="resizable-sidebar"
     >
       {/* Collapse Toggle Button */}
       <button
@@ -128,12 +129,13 @@ export function ResizableSidebar({
         onClick={() => setIsCollapsed(!isCollapsed)}
         aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         title={isCollapsed ? 'Expand' : 'Collapse'}
+        data-testid="resizable-sidebar-toggle"
       >
         {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
       </button>
 
       {/* Content */}
-      <div className={`${styles.content} ${isCollapsed ? styles.contentHidden : ''}`}>
+      <div className={`${styles.content} ${isCollapsed ? styles.contentHidden : ''}`} data-testid="resizable-sidebar-content">
         {children}
       </div>
 
@@ -142,6 +144,7 @@ export function ResizableSidebar({
         <div
           className={`${styles.resizer} ${isResizing ? styles.resizerActive : ''}`}
           onMouseDown={handleMouseDown}
+          data-testid="resizable-sidebar-resizer"
         >
           <div className={styles.resizerHandle} />
         </div>

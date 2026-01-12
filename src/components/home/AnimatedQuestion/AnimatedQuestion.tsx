@@ -90,13 +90,14 @@ export function AnimatedQuestion({ questions, interval = 4000, locale = 'en' }: 
   if (!currentQuestion) return null;
 
   return (
-    <Link href={`/${locale}/articles/${currentQuestion.slug}`} className={styles.questionLink}>
-      <span className={styles.questionText}>
+    <Link href={`/${locale}/articles/${currentQuestion.slug}`} className={styles.questionLink} data-testid="animated-question-link">
+      <span className={styles.questionText} data-testid="animated-question-text">
         {displayText}
         <motion.span
           className={styles.cursor}
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+          data-testid="animated-question-cursor"
         >
           |
         </motion.span>

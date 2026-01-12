@@ -179,10 +179,12 @@ export function SearchInput({
     <div 
       ref={containerRef}
       className={`${styles.container} ${styles[variant]} ${className}`}
+      data-testid={`search-input-${variant}`}
     >
       {/* Search Input */}
       <motion.div 
         className={styles.inputWrapper}
+        data-testid="search-input-wrapper"
         animate={{
           scale: isFocused ? 1.02 : 1,
           boxShadow: isFocused 
@@ -219,6 +221,7 @@ export function SearchInput({
           autoCapitalize="off"
           spellCheck="false"
           autoFocus={autoFocus}
+          data-testid="search-input-field"
         />
 
         {/* Loading indicator */}
@@ -247,6 +250,7 @@ export function SearchInput({
               exit={{ opacity: 0, scale: 0.8 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              data-testid="search-input-clear-button"
             >
               ×
             </motion.button>
@@ -263,15 +267,16 @@ export function SearchInput({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
+            data-testid="search-input-dropdown"
           >
             {query.trim() ? (
               // Search Results
               <>
-                <div className={styles.sectionHeader}>
+                <div className={styles.sectionHeader} data-testid="search-results-header">
                   <Sparkles size={14} />
                   <span>{isGerman ? 'Ergebnisse' : 'Results'}</span>
                 </div>
-                <div className={styles.resultsList}>
+                <div className={styles.resultsList} data-testid="search-results-list">
                   {results.map((result, index) => (
                     <motion.div
                       key={result.slug}
@@ -284,6 +289,7 @@ export function SearchInput({
                         className={`${styles.resultItem} ${selectedIndex === index ? styles.selected : ''}`}
                         onClick={() => handleResultClick(result.slug, index)}
                         onMouseEnter={() => setSelectedIndex(index)}
+                        data-testid={`search-result-${index}`}
                       >
                         <div className={styles.resultIcon}>
                           <TopicIcon topic={result.topic} size={18} />
@@ -324,6 +330,7 @@ export function SearchInput({
                     href={`/${locale}/search?q=${encodeURIComponent(query)}`}
                     className={styles.viewAllLink}
                     onClick={() => onResultClick?.()}
+                    data-testid="search-view-all-results"
                   >
                     {isGerman ? 'Alle Ergebnisse anzeigen' : 'View all results'}
                     <ArrowRight size={14} />
@@ -333,11 +340,11 @@ export function SearchInput({
             ) : (
               // Trending Searches (empty state)
               <>
-                <div className={styles.sectionHeader}>
+                <div className={styles.sectionHeader} data-testid="search-trending-header">
                   <TrendingUp size={14} />
                   <span>{isGerman ? 'Beliebte Suchen' : 'Trending'}</span>
                 </div>
-                <div className={styles.trendingList}>
+                <div className={styles.trendingList} data-testid="search-trending-list">
                   {TRENDING_SEARCHES.map((item, index) => (
                     <motion.div
                       key={item.slug}
@@ -350,6 +357,7 @@ export function SearchInput({
                         className={`${styles.trendingItem} ${selectedIndex === index ? styles.selected : ''}`}
                         onClick={() => onResultClick?.()}
                         onMouseEnter={() => setSelectedIndex(index)}
+                        data-testid={`search-trending-item-${index}`}
                       >
                         <Search size={14} className={styles.trendingIcon} />
                         <span>{isGerman ? item.queryDe : item.query}</span>

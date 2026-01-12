@@ -30,12 +30,13 @@ export function InlineTerm({ term, children, definition }: InlineTermProps) {
   const glossaryDefinition = definition || GLOSSARY[term.toLowerCase()];
 
   return (
-    <span className={styles.wrapper}>
+    <span className={styles.wrapper} data-testid={`inline-term-${term.toLowerCase()}`}>
       <button
         className={styles.term}
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-describedby={glossaryDefinition ? `term-${term}` : undefined}
+        data-testid={`inline-term-button-${term.toLowerCase()}`}
       >
         {children}
         <span className={styles.indicator}>?</span>
@@ -45,9 +46,10 @@ export function InlineTerm({ term, children, definition }: InlineTermProps) {
           id={`term-${term}`}
           className={styles.popover}
           role="tooltip"
+          data-testid={`inline-term-popover-${term.toLowerCase()}`}
         >
-          <span className={styles.popoverTerm}>{term}</span>
-          <span className={styles.popoverDefinition}>{glossaryDefinition}</span>
+          <span className={styles.popoverTerm} data-testid={`inline-term-popover-term-${term.toLowerCase()}`}>{term}</span>
+          <span className={styles.popoverDefinition} data-testid={`inline-term-popover-definition-${term.toLowerCase()}`}>{glossaryDefinition}</span>
         </span>
       )}
     </span>

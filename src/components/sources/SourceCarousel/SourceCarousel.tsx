@@ -35,17 +35,17 @@ export function SourceCarousel({ sources, locale = 'en', title, subtitle }: Sour
   const duplicatedSources = [...shuffledSources, ...shuffledSources, ...shuffledSources];
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="source-carousel">
       {(title || subtitle) && (
-        <div className={styles.header}>
-          {title && <h2 className={styles.title}>{title}</h2>}
-          {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+        <div className={styles.header} data-testid="source-carousel-header">
+          {title && <h2 className={styles.title} data-testid="source-carousel-title">{title}</h2>}
+          {subtitle && <p className={styles.subtitle} data-testid="source-carousel-subtitle">{subtitle}</p>}
         </div>
       )}
       
-      <div className={styles.carouselContainer}>
-        <div className={styles.carousel}>
-          <div className={styles.track}>
+      <div className={styles.carouselContainer} data-testid="source-carousel-container">
+        <div className={styles.carousel} data-testid="source-carousel-track-wrapper">
+          <div className={styles.track} data-testid="source-carousel-track">
             {duplicatedSources.map((source, index) => (
               <SourceCard 
                 key={`${source.id}-${index}`} 

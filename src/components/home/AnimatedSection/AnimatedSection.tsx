@@ -31,6 +31,7 @@ export function AnimatedSection({
         delay,
         ease: [0.25, 0.1, 0.25, 1],
       }}
+      data-testid="animated-section"
     >
       {children}
     </motion.section>

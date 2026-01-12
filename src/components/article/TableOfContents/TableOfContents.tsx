@@ -48,13 +48,14 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   }
 
   return (
-    <nav className={styles.toc}>
-      <h4 className={styles.title}>{t('onThisPage')}</h4>
-      <ul className={styles.list}>
+    <nav className={styles.toc} data-testid="table-of-contents">
+      <h4 className={styles.title} data-testid="table-of-contents-title">{t('onThisPage')}</h4>
+      <ul className={styles.list} data-testid="table-of-contents-list">
         {headings.map((heading) => (
           <li
             key={heading.id}
             className={`${styles.item} ${heading.level === 3 ? styles.nested : ''}`}
+            data-testid={`table-of-contents-item-${heading.id}`}
           >
             <a
               href={`#${heading.id}`}
@@ -66,6 +67,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
                 });
                 setActiveId(heading.id);
               }}
+              data-testid={`table-of-contents-link-${heading.id}`}
             >
               {heading.text}
             </a>

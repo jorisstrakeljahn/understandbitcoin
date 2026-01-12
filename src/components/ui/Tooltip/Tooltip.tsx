@@ -47,12 +47,14 @@ export function Tooltip({
       onMouseLeave={hideTooltip}
       onFocus={showTooltip}
       onBlur={hideTooltip}
+      data-testid="tooltip-wrapper"
     >
       {children}
       {isVisible && (
         <span
           className={`${styles.tooltip} ${styles[position]}`}
           role="tooltip"
+          data-testid="tooltip"
         >
           {content}
           <span className={styles.arrow} />

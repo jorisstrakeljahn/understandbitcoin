@@ -27,27 +27,27 @@ export function Footer() {
   };
 
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} data-testid="footer">
       <div className={styles.container}>
         <div className={styles.grid}>
           {/* Brand */}
-          <div className={styles.brand}>
-            <Link href={`/${locale}`} className={styles.logo}>
+          <div className={styles.brand} data-testid="footer-brand">
+            <Link href={`/${locale}`} className={styles.logo} data-testid="footer-logo">
               <span className={styles.logoIcon}>₿</span>
               <span className={styles.logoText}>Therefor Bitcoin</span>
             </Link>
-            <p className={styles.tagline}>{t('tagline')}</p>
-            <p className={styles.mission}>{t('mission')}</p>
+            <p className={styles.tagline} data-testid="footer-tagline">{t('tagline')}</p>
+            <p className={styles.mission} data-testid="footer-mission">{t('mission')}</p>
           </div>
 
           {/* Links */}
-          <div className={styles.links}>
-            <div className={styles.linkGroup}>
+          <div className={styles.links} data-testid="footer-links">
+            <div className={styles.linkGroup} data-testid="footer-link-group-learn">
               <h4 className={styles.linkGroupTitle}>{t('learn')}</h4>
               <ul className={styles.linkList}>
                 {FOOTER_LINKS.learn.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className={styles.link}>
+                    <Link href={link.href} className={styles.link} data-testid={`footer-link-${link.href.split('/').pop()}`}>
                       {link.label}
                     </Link>
                   </li>
@@ -55,12 +55,12 @@ export function Footer() {
               </ul>
             </div>
 
-            <div className={styles.linkGroup}>
+            <div className={styles.linkGroup} data-testid="footer-link-group-topics">
               <h4 className={styles.linkGroupTitle}>{t('topics')}</h4>
               <ul className={styles.linkList}>
                 {FOOTER_LINKS.topics.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className={styles.link}>
+                    <Link href={link.href} className={styles.link} data-testid={`footer-link-${link.href.split('/').pop()}`}>
                       {link.label}
                     </Link>
                   </li>
@@ -68,12 +68,12 @@ export function Footer() {
               </ul>
             </div>
 
-            <div className={styles.linkGroup}>
+            <div className={styles.linkGroup} data-testid="footer-link-group-about">
               <h4 className={styles.linkGroupTitle}>{t('about')}</h4>
               <ul className={styles.linkList}>
                 {FOOTER_LINKS.about.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className={styles.link}>
+                    <Link href={link.href} className={styles.link} data-testid={`footer-link-${link.href.split('/').pop()}`}>
                       {link.label}
                     </Link>
                   </li>
@@ -84,11 +84,11 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className={styles.bottom}>
-          <p className={styles.copyright}>
+        <div className={styles.bottom} data-testid="footer-bottom">
+          <p className={styles.copyright} data-testid="footer-copyright">
             © {new Date().getFullYear()} Therefor Bitcoin. {t('copyright')}
           </p>
-          <p className={styles.disclaimer}>
+          <p className={styles.disclaimer} data-testid="footer-disclaimer">
             {locale === 'de' ? 'Nur Bildungsinhalte. Keine Finanzberatung.' : 'Educational content only. Not financial advice.'}
           </p>
         </div>

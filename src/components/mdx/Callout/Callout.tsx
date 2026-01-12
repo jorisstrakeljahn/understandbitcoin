@@ -23,13 +23,13 @@ export function Callout({ type = 'info', title, children }: CalloutProps) {
   const IconComponent = ICONS[type];
   
   return (
-    <aside className={`${styles.callout} ${styles[type]}`} role="note">
-      <div className={styles.icon}>
+    <aside className={`${styles.callout} ${styles[type]}`} role="note" data-testid={`callout-${type}`}>
+      <div className={styles.icon} data-testid={`callout-${type}-icon`}>
         <IconComponent size={20} />
       </div>
-      <div className={styles.content}>
-        {title && <p className={styles.title}>{title}</p>}
-        <div className={styles.body}>{children}</div>
+      <div className={styles.content} data-testid={`callout-${type}-content`}>
+        {title && <p className={styles.title} data-testid={`callout-${type}-title`}>{title}</p>}
+        <div className={styles.body} data-testid={`callout-${type}-body`}>{children}</div>
       </div>
     </aside>
   );

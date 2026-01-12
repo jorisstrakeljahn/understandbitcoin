@@ -40,9 +40,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .join(' ');
 
     return (
-      <div className={wrapperClasses}>
+      <div className={wrapperClasses} data-testid={props['data-testid'] ? `${props['data-testid']}-wrapper` : 'input-wrapper'}>
         {label && (
-          <label htmlFor={inputId} className={styles.label}>
+          <label htmlFor={inputId} className={styles.label} data-testid={props['data-testid'] ? `${props['data-testid']}-label` : 'input-label'}>
             {label}
           </label>
         )}
@@ -54,17 +54,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className={styles.input}
             aria-invalid={!!error}
             aria-describedby={error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
+            data-testid={props['data-testid'] || 'input'}
             {...props}
           />
           {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
         </div>
         {error && (
-          <p id={`${inputId}-error`} className={styles.error} role="alert">
+          <p id={`${inputId}-error`} className={styles.error} role="alert" data-testid={props['data-testid'] ? `${props['data-testid']}-error` : 'input-error'}>
             {error}
           </p>
         )}
         {hint && !error && (
-          <p id={`${inputId}-hint`} className={styles.hint}>
+          <p id={`${inputId}-hint`} className={styles.hint} data-testid={props['data-testid'] ? `${props['data-testid']}-hint` : 'input-hint'}>
             {hint}
           </p>
         )}

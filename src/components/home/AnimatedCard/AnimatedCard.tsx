@@ -31,6 +31,7 @@ export function AnimatedCard({
         ease: [0.25, 0.1, 0.25, 1],
       }}
       style={{ height: '100%', ...style }}
+      data-testid="animated-card"
     >
       {children}
     </motion.div>

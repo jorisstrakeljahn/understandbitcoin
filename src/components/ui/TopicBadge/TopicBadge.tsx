@@ -21,7 +21,7 @@ export function TopicBadge({
   ...props 
 }: TopicBadgeProps) {
   return (
-    <Badge variant={variant} {...props}>
+    <Badge variant={variant} {...props} data-testid={`topic-badge-${topic}`}>
       <TopicIcon topic={topic} size={iconSize} />
       <span className={styles.label}>{label}</span>
     </Badge>

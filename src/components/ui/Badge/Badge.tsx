@@ -25,5 +25,5 @@ export function Badge({
     .filter(Boolean)
     .join(' ');
 
-  return <span className={classNames} style={style}>{children}</span>;
+  return <span className={classNames} style={style} data-testid="badge">{children}</span>;
 }

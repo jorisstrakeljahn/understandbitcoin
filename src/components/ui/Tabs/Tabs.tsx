@@ -29,7 +29,7 @@ export function Tabs({ children, defaultValue, className = '' }: TabsProps) {
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      <div className={`${styles.tabs} ${className}`}>{children}</div>
+      <div className={`${styles.tabs} ${className}`} data-testid="tabs">{children}</div>
     </TabsContext.Provider>
   );
 }
@@ -41,7 +41,7 @@ export interface TabListProps {
 
 export function TabList({ children, className = '' }: TabListProps) {
   return (
-    <div className={`${styles.tabList} ${className}`} role="tablist">
+    <div className={`${styles.tabList} ${className}`} role="tablist" data-testid="tabs-list">
       {children}
     </div>
   );
@@ -64,6 +64,7 @@ export function TabTrigger({ value, children, className = '' }: TabTriggerProps)
       aria-selected={isActive}
       tabIndex={isActive ? 0 : -1}
       onClick={() => setActiveTab(value)}
+      data-testid={`tab-trigger-${value}`}
     >
       {children}
     </button>
@@ -86,6 +87,7 @@ export function TabContent({ value, children, className = '' }: TabContentProps)
       className={`${styles.tabContent} ${className}`}
       role="tabpanel"
       tabIndex={0}
+      data-testid={`tab-content-${value}`}
     >
       {children}
     </div>

@@ -30,12 +30,13 @@ export function ArticleListItem({
     <Link 
       href={`/${locale}/articles/${slug}`}
       className={`${styles.item} ${isCompact ? styles.compact : ''} ${className}`}
+      data-testid={`article-list-item-${slug}`}
     >
       <FileText size={isCompact ? 12 : 14} className={styles.icon} />
-      <div className={styles.content}>
-        <span className={styles.title}>{title}</span>
+      <div className={styles.content} data-testid={`article-list-item-content-${slug}`}>
+        <span className={styles.title} data-testid={`article-list-item-title-${slug}`}>{title}</span>
         {!isCompact && summary && (
-          <span className={styles.summary}>{summary}</span>
+          <span className={styles.summary} data-testid={`article-list-item-summary-${slug}`}>{summary}</span>
         )}
       </div>
     </Link>
