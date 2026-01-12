@@ -10,6 +10,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   hint?: string;
   label?: string;
   fullWidth?: boolean;
+  'data-testid'?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
