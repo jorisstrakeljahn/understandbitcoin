@@ -45,6 +45,15 @@ Then('I am on a topic page', async ({ page }) => {
   await expect(page).toHaveURL(/\/topics\//);
 });
 
+Then('the article title is visible', async ({ page }) => {
+  const title = page.getByTestId('article-title');
+  await expect(title).toBeVisible();
+});
+
+Then('I should be on a topic page', async ({ page }) => {
+  await expect(page).toHaveURL(/\/en\/topics\/[a-z]+/);
+});
+
 // === Article Actions ===
 
 When('I click on the back button', async ({ page }) => {
