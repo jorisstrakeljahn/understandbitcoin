@@ -1,11 +1,13 @@
 import Link from 'next/link';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { Button, Badge } from '@/components/ui';
 import { type Topic } from '@/lib/content/schema';
 import { getAllContent, getTopicConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { getFeaturedSources, getSourcesCount } from '@/lib/sources/loader';
 import { Source } from '@/lib/sources/types';
+import { siteConfig } from '@/lib/config';
+import { WebsiteJsonLd, FAQJsonLd } from '@/components/seo';
 import { 
   HelpCircle, 
   Coins, 
@@ -20,6 +22,47 @@ import styles from './page.module.css';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: HomePageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+  
+  const title = t('title');
+  const description = t('description');
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${siteConfig.url}/${locale}`,
+      languages: {
+        'en': `${siteConfig.url}/en`,
+        'de': `${siteConfig.url}/de`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteConfig.url}/${locale}`,
+      siteName: siteConfig.name,
+      type: 'website',
+      images: [
+        {
+          url: `${siteConfig.url}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${siteConfig.url}/og-image.png`],
+    },
+  };
 }
 
 const POPULAR_ARTICLES = [
@@ -138,8 +181,40 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
     },
   ];
 
+  // FAQ items for structured data
+  const homeFaqItems = [
+    {
+      question: isGerman ? 'Was ist Bitcoin?' : 'What is Bitcoin?',
+      answer: isGerman 
+        ? 'Bitcoin ist eine digitale Währung, die ohne Banken oder Regierungen funktioniert – mithilfe von Kryptografie und einem globalen Netzwerk aus Computern.'
+        : 'Bitcoin is a digital currency that works without banks or governments – using cryptography and a global network of computers.',
+    },
+    {
+      question: isGerman ? 'Wer hat Bitcoin erfunden?' : 'Who created Bitcoin?',
+      answer: isGerman
+        ? 'Bitcoin wurde von einer Person oder Gruppe unter dem Pseudonym Satoshi Nakamoto entwickelt, die 2011 verschwand und bis heute nie identifiziert wurde.'
+        : 'Bitcoin was created by a person or group under the pseudonym Satoshi Nakamoto, who disappeared in 2011 and has never been identified.',
+    },
+    {
+      question: isGerman ? 'Ist Bitcoin sicher?' : 'Is Bitcoin safe?',
+      answer: isGerman
+        ? 'Das Bitcoin-Netzwerk selbst hat noch nie einen erfolgreichen Hack erlebt. Die Sicherheit hängt davon ab, wie Sie Ihre Bitcoin aufbewahren.'
+        : 'The Bitcoin network itself has never been successfully hacked. Safety depends on how you store your Bitcoin.',
+    },
+  ];
+
   return (
     <div className={styles.page}>
+      {/* JSON-LD Structured Data */}
+      <WebsiteJsonLd
+        url={`https://thereforbitcoin.com/${locale}`}
+        name="Therefor Bitcoin"
+        description={isGerman 
+          ? 'Eine umfassende, ausgewogene Wissensdatenbank über Bitcoin. Klare Antworten, faire Einwände und Primärquellen.'
+          : 'A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources.'}
+      />
+      <FAQJsonLd questions={homeFaqItems} />
+
       {/* Hero Section with Animated Questions */}
       <HeroSection questions={questions} locale={locale} stats={stats} />
 

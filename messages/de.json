@@ -155,5 +155,20 @@
       "title": "Stabiles Geld",
       "description": "Österreichische Schule und Geldtheorie."
     }
+  },
+  "about": {
+    "title": "Über uns",
+    "description": "Erfahre mehr über Therefor Bitcoin und die Mission hinter diesem Projekt.",
+    "subtitle": "Die Geschichte hinter Therefor Bitcoin",
+    "whoAmI": "Wer steckt dahinter?",
+    "whyThisProject": "Warum dieses Projekt?",
+    "ourValues": "Unsere Werte",
+    "openSource": "Open Source",
+    "contact": "Kontakt"
+  },
+  "contribute": {
+    "title": "Mitwirken",
+    "description": "Hilf mit, Bitcoin-Wissen für alle zugänglich zu machen.",
+    "subtitle": "Jeder kann zum Projekt beitragen — auch du!"
   }
 }

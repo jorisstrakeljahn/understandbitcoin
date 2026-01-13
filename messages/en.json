@@ -155,5 +155,20 @@
       "title": "Sound Money",
       "description": "Austrian economics and monetary theory."
     }
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Learn more about Therefor Bitcoin and the mission behind this project.",
+    "subtitle": "The story behind Therefor Bitcoin",
+    "whoAmI": "Who's behind this?",
+    "whyThisProject": "Why this project?",
+    "ourValues": "Our Values",
+    "openSource": "Open Source",
+    "contact": "Contact"
+  },
+  "contribute": {
+    "title": "Contribute",
+    "description": "Help make Bitcoin knowledge accessible to everyone.",
+    "subtitle": "Everyone can contribute to the project — including you!"
   }
 }
