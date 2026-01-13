@@ -1,0 +1,17 @@
+{
+  "name": "Therefor Bitcoin",
+  "short_name": "TB",
+  "description": "Clear answers about Bitcoin. Fair objections. Primary sources.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#f7931a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
