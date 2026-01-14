@@ -15,7 +15,10 @@ interface SendEmailResult {
 }
 
 export async function sendContactEmail(input: SendEmailInput): Promise<SendEmailResult> {
-  const { formType, locale, fields, userEmail } = input;
+  const { formType, locale, fields } = input;
+  
+  // Normalize email: trim whitespace and convert empty strings to undefined
+  const userEmail = input.userEmail?.trim() || undefined;
 
   // Basic validation
   if (!formType || !locale || !fields) {
@@ -39,7 +42,7 @@ export async function sendContactEmail(input: SendEmailInput): Promise<SendEmail
   }
 
   // Validate email format if provided
-  if (userEmail && userEmail.trim() !== '') {
+  if (userEmail) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(userEmail)) {
       return {
