@@ -187,17 +187,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <TLDRBox items={frontmatter.tldr} />
           )}
 
-          {/* Why People Ask */}
-          {frontmatter.whyPeopleAsk && (
-            <section className={styles.whySection}>
-              <h2 id="why-people-ask">{t('whyPeopleAsk')}</h2>
-              <p>{frontmatter.whyPeopleAsk}</p>
-            </section>
-          )}
-
           {/* Main Content */}
           <div className={styles.content} data-testid="article-content">
-            <h2 id="the-answer">{t('theAnswer')}</h2>
             <ArticleContent content={content} />
           </div>
 
