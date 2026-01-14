@@ -16,9 +16,8 @@ import {
   Bitcoin,
   TrendingUp
 } from '@/components/icons';
-import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
+import { HeroSection, AnimatedSection, AnimatedCard, TrackedEntryPointLink, TrackedPopularArticleLink, TrackedCTALink } from '@/components/home';
 import { SourceCarousel } from '@/components/sources';
-import { trackEntryPointClick, trackPopularArticleClick, trackCTAClick } from '@/lib/analytics';
 import styles from './page.module.css';
 
 interface HomePageProps {
@@ -232,11 +231,11 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
               const IconComponent = entry.icon;
               return (
                 <AnimatedCard key={entry.id} delay={index * 0.1}>
-                  <Link
+                  <TrackedEntryPointLink
                     href={entry.href}
+                    entryPointId={entry.id}
                     className={styles.entryPoint}
                     style={{ '--entry-color': entry.color } as React.CSSProperties}
-                    onClick={() => trackEntryPointClick(entry.id)}
                   >
                     <span className={styles.entryIcon}>
                       <IconComponent size={28} />
@@ -246,7 +245,7 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
                     <span className={styles.entryArrow}>
                       <ArrowRight size={18} />
                     </span>
-                  </Link>
+                  </TrackedEntryPointLink>
                 </AnimatedCard>
               );
             })}
@@ -269,10 +268,12 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
           <div className={styles.popularArticles}>
             {POPULAR_ARTICLES.map((article, index) => (
               <AnimatedCard key={article.slug} delay={index * 0.1}>
-                <Link
+                <TrackedPopularArticleLink
                   href={`/${locale}/articles/${article.slug}?ref=home`}
+                  slug={article.slug}
+                  topic={article.topic}
+                  position={index}
                   className={styles.popularArticle}
-                  onClick={() => trackPopularArticleClick(article.slug, article.topic, index)}
                 >
                   <div className={styles.popularArticleMeta}>
                     <Badge variant="accent">
@@ -291,7 +292,7 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
                   <span className={styles.popularArticleLink}>
                     {t('home.readAnswer')} <ArrowRight size={14} />
                   </span>
-                </Link>
+                </TrackedPopularArticleLink>
               </AnimatedCard>
             ))}
           </div>
@@ -319,14 +320,15 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
           <p className={styles.ctaSubtitle}>
             {t('home.readySubtitle')}
           </p>
-          <Link 
+          <TrackedCTALink 
             href={`/${locale}/topics`}
-            onClick={() => trackCTAClick('explore_topics', 'homepage_bottom')}
+            buttonName="explore_topics"
+            location="homepage_bottom"
           >
             <Button size="lg" variant="primary">
               {t('home.exploreTopics')}
             </Button>
-          </Link>
+          </TrackedCTALink>
         </div>
       </AnimatedSection>
     </div>
