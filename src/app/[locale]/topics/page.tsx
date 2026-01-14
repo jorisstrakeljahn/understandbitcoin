@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Topic } from '@/lib/content/schema';
 import { getAllContent, getAllTopicsFromConfig } from '@/lib/content/loader';
