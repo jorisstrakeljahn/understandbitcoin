@@ -66,11 +66,18 @@ When('I click on a footer link that contains {string}', async ({ page }, linkTex
   // If specific testid doesn't exist, try to find by text
   const linkCount = await link.count();
   if (linkCount > 0) {
-    await link.click();
+    // Use Promise.all to wait for navigation + click simultaneously
+    await Promise.all([
+      page.waitForURL(new RegExp(testIdSuffix), { timeout: 10000 }),
+      link.click(),
+    ]);
   } else {
     // Fallback: find any footer link containing the text
     const fallbackLink = page.locator('[data-testid^="footer-link-"]').filter({ hasText: new RegExp(linkText, 'i') }).first();
-    await fallbackLink.click();
+    await Promise.all([
+      page.waitForURL(new RegExp(testIdSuffix), { timeout: 10000 }),
+      fallbackLink.click(),
+    ]);
   }
   
   await page.waitForLoadState('networkidle');
