@@ -38,16 +38,6 @@ export async function sendContactEmail(input: SendEmailInput): Promise<SendEmail
     }
   }
 
-  // Translation form requires email
-  if (formType === 'translation' && (!userEmail || userEmail.trim() === '')) {
-    return {
-      success: false,
-      error: locale === 'de' 
-        ? 'Bitte gib deine E-Mail-Adresse an' 
-        : 'Please provide your email address',
-    };
-  }
-
   // Validate email format if provided
   if (userEmail && userEmail.trim() !== '') {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -103,8 +93,6 @@ function getRequiredFields(formType: FormType): string[] {
       return ['problem'];
     case 'improvement':
       return ['article', 'suggestion'];
-    case 'translation':
-      return ['language'];
     default:
       return [];
   }

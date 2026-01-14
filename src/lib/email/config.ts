@@ -18,7 +18,7 @@ export const emailConfig = {
   replyToDefault: 'noreply@thereforbitcoin.com',
 } as const;
 
-export type FormType = 'article-suggestion' | 'bug-report' | 'improvement' | 'translation';
+export type FormType = 'article-suggestion' | 'bug-report' | 'improvement';
 
 export const formTypeLabels: Record<FormType, { de: string; en: string }> = {
   'article-suggestion': {
@@ -32,9 +32,5 @@ export const formTypeLabels: Record<FormType, { de: string; en: string }> = {
   'improvement': {
     de: 'Verbesserungsvorschlag',
     en: 'Improvement Suggestion',
-  },
-  'translation': {
-    de: 'Übersetzungsangebot',
-    en: 'Translation Offer',
   },
 };

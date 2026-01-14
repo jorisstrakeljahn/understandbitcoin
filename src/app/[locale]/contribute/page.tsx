@@ -5,7 +5,6 @@ import {
   FileText, 
   AlertCircle, 
   Code, 
-  Languages, 
   ArrowRight,
   Check,
   X
@@ -65,14 +64,6 @@ export default async function ContributePage({ params }: ContributePageProps) {
         ? 'Bessere Formulierungen oder zusätzliche Quellen?'
         : 'Better wording or additional sources?',
     },
-    {
-      id: 'translation',
-      icon: Languages,
-      title: isGerman ? 'Übersetzen' : 'Translate',
-      description: isGerman
-        ? 'Hilf uns, in weiteren Sprachen verfügbar zu sein.'
-        : 'Help us become available in more languages.',
-    },
   ];
 
   const dosAndDonts = {
@@ -118,7 +109,7 @@ export default async function ContributePage({ params }: ContributePageProps) {
                     <p className={styles.formDescription}>{form.description}</p>
                   </div>
                   <ContactForm 
-                    formType={form.id as 'article-suggestion' | 'bug-report' | 'improvement' | 'translation'} 
+                    formType={form.id as 'article-suggestion' | 'bug-report' | 'improvement'} 
                     locale={locale} 
                   />
                 </TabContent>

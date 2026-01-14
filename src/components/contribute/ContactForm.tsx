@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button, Input, Textarea, Select } from '@/components/ui';
+import { Button, Input, Textarea } from '@/components/ui';
 import { Check, AlertCircle, Send } from '@/components/icons';
 import { sendContactEmail } from '@/app/actions/send-email';
 import type { FormType } from '@/lib/email';
@@ -17,20 +17,6 @@ interface FormState {
   status: 'idle' | 'loading' | 'success' | 'error';
   message?: string;
 }
-
-const LANGUAGE_OPTIONS = [
-  { value: 'es', label: 'Español' },
-  { value: 'fr', label: 'Français' },
-  { value: 'it', label: 'Italiano' },
-  { value: 'pt', label: 'Português' },
-  { value: 'nl', label: 'Nederlands' },
-  { value: 'pl', label: 'Polski' },
-  { value: 'ru', label: 'Русский' },
-  { value: 'zh', label: '中文' },
-  { value: 'ja', label: '日本語' },
-  { value: 'ko', label: '한국어' },
-  { value: 'other', label: 'Other / Andere' },
-];
 
 export function ContactForm({ formType, locale }: ContactFormProps) {
   const t = useTranslations('contribute.form');
@@ -182,34 +168,13 @@ export function ContactForm({ formType, locale }: ContactFormProps) {
         </>
       )}
       
-      {formType === 'translation' && (
-        <>
-          <Select
-            name="language"
-            label={t('languageLabel')}
-            placeholder={t('languagePlaceholder')}
-            options={LANGUAGE_OPTIONS}
-            required
-            fullWidth
-          />
-          <Textarea
-            name="message"
-            label={t('messageLabel')}
-            placeholder={t('messagePlaceholder')}
-            hint={t('optionalHint')}
-            fullWidth
-          />
-        </>
-      )}
-      
       <div className={styles.emailField}>
         <Input
           name="email"
           type="email"
           label={t('emailLabel')}
           placeholder={t('emailPlaceholder')}
-          hint={formType === 'translation' ? t('emailRequiredHint') : t('emailOptionalHint')}
-          required={formType === 'translation'}
+          hint={t('emailOptionalHint')}
           fullWidth
         />
       </div>

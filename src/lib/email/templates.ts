@@ -25,9 +25,6 @@ export function generateSubject(data: EmailTemplateData): string {
     case 'improvement':
       primaryValue = data.fields.article || '';
       break;
-    case 'translation':
-      primaryValue = data.fields.language || '';
-      break;
   }
   
   // Truncate if too long
@@ -80,15 +77,6 @@ export function generateTextBody(data: EmailTemplateData): string {
       body += `${data.fields.article || '-'}\n\n`;
       body += isGerman ? 'Verbesserungsvorschlag:\n' : 'Suggestion:\n';
       body += `${data.fields.suggestion || '-'}\n\n`;
-      break;
-      
-    case 'translation':
-      body += isGerman ? 'Sprache:\n' : 'Language:\n';
-      body += `${data.fields.language || '-'}\n\n`;
-      if (data.fields.message) {
-        body += isGerman ? 'Nachricht:\n' : 'Message:\n';
-        body += `${data.fields.message}\n\n`;
-      }
       break;
   }
   
@@ -156,19 +144,6 @@ export function generateHtmlBody(data: EmailTemplateData): string {
         label: isGerman ? 'Verbesserungsvorschlag' : 'Suggestion',
         value: data.fields.suggestion || '-',
       });
-      break;
-      
-    case 'translation':
-      fields.push({
-        label: isGerman ? 'Sprache' : 'Language',
-        value: data.fields.language || '-',
-      });
-      if (data.fields.message) {
-        fields.push({
-          label: isGerman ? 'Nachricht' : 'Message',
-          value: data.fields.message,
-        });
-      }
       break;
   }
   
