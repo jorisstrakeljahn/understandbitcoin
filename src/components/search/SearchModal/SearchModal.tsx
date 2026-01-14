@@ -214,6 +214,8 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               <input
                 ref={inputRef}
                 type="text"
+                id="search-modal"
+                name="search-modal"
                 className={styles.input}
                 placeholder={isGerman ? 'Artikel, Themen, Begriffe suchen...' : 'Search articles, topics, terms...'}
                 data-testid="search-modal-input"

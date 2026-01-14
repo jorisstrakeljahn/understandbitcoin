@@ -39,9 +39,19 @@ const nextConfig: NextConfig = {
 
   // Headers for security and caching
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
+    
     // Content Security Policy
-    // Adjust these values based on your needs
-    const cspDirectives = [
+    // More permissive in development for HMR and debugging
+    const cspDirectives = isDev ? [
+      "default-src 'self'",
+      // Scripts: self + inline + eval (for HMR) + PostHog
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://eu.i.posthog.com https://eu-assets.i.posthog.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https: http:",
+      "font-src 'self' https://fonts.gstatic.com",
+      "connect-src 'self' ws: wss: https://eu.i.posthog.com https://eu-assets.i.posthog.com",
+    ] : [
       "default-src 'self'",
       // Scripts: self + inline (for Next.js) + PostHog
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://eu.i.posthog.com https://eu-assets.i.posthog.com",

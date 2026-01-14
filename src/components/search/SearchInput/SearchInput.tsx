@@ -207,6 +207,8 @@ export function SearchInput({
         <input
           ref={inputRef}
           type="text"
+          id="search-input"
+          name="search-input"
           className={styles.input}
           placeholder={placeholder || t('searchPlaceholder')}
           value={query}

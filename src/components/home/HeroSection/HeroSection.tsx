@@ -338,6 +338,8 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
             <input
               ref={inputRef}
               type="text"
+              id="hero-search"
+              name="hero-search"
               className={styles.searchInput}
               placeholder={t('searchPlaceholder')}
               aria-label="Search"
