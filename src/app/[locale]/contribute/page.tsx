@@ -1,17 +1,17 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Button } from '@/components/ui';
 import { 
   FileText, 
   AlertCircle, 
   Code, 
   Languages, 
-  ArrowRight, 
-  ExternalLink,
+  ArrowRight,
   Check,
   X
 } from '@/components/icons';
+import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui';
+import { ContactForm } from '@/components/contribute';
 import styles from './contribute.module.css';
 
 interface ContributePageProps {
@@ -40,42 +40,38 @@ export default async function ContributePage({ params }: ContributePageProps) {
   const t = await getTranslations({ locale, namespace: 'contribute' });
   const isGerman = locale === 'de';
 
-  const contributions = [
+  const formTypes = [
     {
+      id: 'article-suggestion',
       icon: FileText,
-      title: isGerman ? 'Artikel vorschlagen' : 'Suggest Articles',
+      title: isGerman ? 'Artikel vorschlagen' : 'Suggest Article',
       description: isGerman
-        ? 'Hast du eine Frage, die noch nicht beantwortet wurde? Schlage ein neues Thema vor.'
-        : 'Have a question that hasn\'t been answered? Suggest a new topic.',
-      href: 'https://github.com/jorisstrakeljahn/thereforbitcoin/issues/new?template=article_suggestion.md',
-      label: isGerman ? 'Vorschlagen' : 'Suggest',
+        ? 'Hast du eine Frage, die noch nicht beantwortet wurde?'
+        : 'Have a question that hasn\'t been answered yet?',
     },
     {
+      id: 'bug-report',
       icon: AlertCircle,
-      title: isGerman ? 'Fehler melden' : 'Report Issues',
+      title: isGerman ? 'Fehler melden' : 'Report Issue',
       description: isGerman
-        ? 'Hast du einen Fehler gefunden? Ist eine Information nicht korrekt?'
-        : 'Found a bug? Is some information incorrect?',
-      href: 'https://github.com/jorisstrakeljahn/thereforbitcoin/issues/new?template=bug_report.md',
-      label: isGerman ? 'Melden' : 'Report',
+        ? 'Hast du einen Fehler gefunden oder ist etwas falsch?'
+        : 'Found a bug or something incorrect?',
     },
     {
+      id: 'improvement',
       icon: Code,
-      title: isGerman ? 'Inhalte verbessern' : 'Improve Content',
+      title: isGerman ? 'Inhalt verbessern' : 'Improve Content',
       description: isGerman
-        ? 'Du hast bessere Formulierungen oder zusätzliche Quellen?'
-        : 'Have better wording or additional sources?',
-      href: 'https://github.com/jorisstrakeljahn/thereforbitcoin/pulls',
-      label: isGerman ? 'Bearbeiten' : 'Edit',
+        ? 'Bessere Formulierungen oder zusätzliche Quellen?'
+        : 'Better wording or additional sources?',
     },
     {
+      id: 'translation',
       icon: Languages,
       title: isGerman ? 'Übersetzen' : 'Translate',
       description: isGerman
-        ? 'Sprichst du eine andere Sprache? Hilf uns, global zu werden.'
-        : 'Speak another language? Help us go global.',
-      href: 'https://github.com/jorisstrakeljahn/thereforbitcoin/issues/new?template=translation.md',
-      label: isGerman ? 'Übersetzen' : 'Translate',
+        ? 'Hilf uns, in weiteren Sprachen verfügbar zu sein.'
+        : 'Help us become available in more languages.',
     },
   ];
 
@@ -97,84 +93,37 @@ export default async function ContributePage({ params }: ContributePageProps) {
         </header>
 
         <div className={styles.content}>
-          {/* Contribution Cards */}
+          {/* Form Tabs */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>
-              {isGerman ? 'Wie du beitragen kannst' : 'Ways to Contribute'}
+              {isGerman ? 'Wie möchtest du beitragen?' : 'How would you like to contribute?'}
             </h2>
-            <div className={styles.contributionGrid}>
-              {contributions.map((item) => {
-                const IconComponent = item.icon;
-                return (
-                  <a 
-                    key={item.title}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.contributionCard}
-                  >
-                    <div className={styles.cardIcon}>
-                      <IconComponent size={20} />
-                    </div>
-                    <div className={styles.cardContent}>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <span className={styles.cardAction}>
-                      {item.label} <ExternalLink size={14} />
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Submit Suggestion */}
-          <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>
-              {isGerman ? 'Artikelvorschlag einreichen' : 'Submit Article Suggestion'}
-            </h2>
-            <div className={styles.suggestionBox}>
-              <p className={styles.suggestionIntro}>
-                {isGerman
-                  ? 'Möchtest du einen Artikel vorschlagen? Teile uns folgende Informationen mit:'
-                  : 'Want to suggest an article? Share the following information:'}
-              </p>
-              <ul className={styles.suggestionList}>
-                <li>
-                  <strong>{isGerman ? 'Thema/Frage' : 'Topic/Question'}:</strong>{' '}
-                  {isGerman ? 'Was soll behandelt werden?' : 'What should be covered?'}
-                </li>
-                <li>
-                  <strong>{isGerman ? 'Relevanz' : 'Relevance'}:</strong>{' '}
-                  {isGerman ? 'Warum ist das wichtig?' : 'Why is this important?'}
-                </li>
-                <li>
-                  <strong>{isGerman ? 'Zielgruppe' : 'Target audience'}:</strong>{' '}
-                  {isGerman ? 'Anfänger, Fortgeschrittene oder Experten?' : 'Beginner, intermediate, or advanced?'}
-                </li>
-                <li>
-                  <strong>{isGerman ? 'Quellen' : 'Sources'}:</strong>{' '}
-                  {isGerman ? 'Kennst du bereits gute Quellen?' : 'Know any good sources?'}
-                </li>
-              </ul>
-              <div className={styles.suggestionActions}>
-                <a href={`mailto:hello@thereforbitcoin.com?subject=${isGerman ? 'Artikelvorschlag' : 'Article Suggestion'}`}>
-                  <Button variant="outline" rightIcon={<ArrowRight size={16} />}>
-                    {isGerman ? 'Per E-Mail senden' : 'Send via Email'}
-                  </Button>
-                </a>
-                <a 
-                  href="https://github.com/jorisstrakeljahn/thereforbitcoin/issues/new?template=article_suggestion.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="ghost" rightIcon={<ExternalLink size={16} />}>
-                    GitHub Issue
-                  </Button>
-                </a>
-              </div>
-            </div>
+            
+            <Tabs defaultValue="article-suggestion" className={styles.tabs}>
+              <TabList className={styles.tabList}>
+                {formTypes.map((form) => {
+                  const IconComponent = form.icon;
+                  return (
+                    <TabTrigger key={form.id} value={form.id} className={styles.tabTrigger}>
+                      <IconComponent size={18} />
+                      <span className={styles.tabLabel}>{form.title}</span>
+                    </TabTrigger>
+                  );
+                })}
+              </TabList>
+              
+              {formTypes.map((form) => (
+                <TabContent key={form.id} value={form.id} className={styles.tabContent}>
+                  <div className={styles.formHeader}>
+                    <p className={styles.formDescription}>{form.description}</p>
+                  </div>
+                  <ContactForm 
+                    formType={form.id as 'article-suggestion' | 'bug-report' | 'improvement' | 'translation'} 
+                    locale={locale} 
+                  />
+                </TabContent>
+              ))}
+            </Tabs>
           </section>
 
           {/* Writing Guidelines */}

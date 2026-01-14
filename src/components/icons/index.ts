@@ -63,6 +63,7 @@ export {
   Languages,
   Filter,
   ChevronLeft,
+  Send,
 } from 'lucide-react';
 
 export type { LucideProps as IconProps } from 'lucide-react';

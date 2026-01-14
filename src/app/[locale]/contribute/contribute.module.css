@@ -63,120 +63,83 @@
   margin: 0;
 }
 
-/* Contribution Grid */
-.contributionGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
-}
-
-@media (min-width: 640px) {
-  .contributionGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.contributionCard {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-5);
+/* Tabs */
+.tabs {
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
-  text-decoration: none;
-  transition: all var(--duration-fast) var(--ease-out);
+  overflow: hidden;
 }
 
-.contributionCard:hover {
-  border-color: var(--color-border);
-  background: var(--color-bg-elevated);
-}
-
-.cardIcon {
+.tabList {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: var(--space-2);
   background: var(--color-bg-tertiary);
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
-.contributionCard:hover .cardIcon {
-  color: var(--color-accent);
-  background: var(--color-accent-muted);
-}
-
-.cardContent h3 {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  margin: 0 0 var(--space-1);
-}
-
-.cardContent p {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  margin: 0;
-  line-height: var(--line-height-relaxed);
-}
-
-.cardAction {
+.tabTrigger {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-muted);
-  margin-top: auto;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
   transition: all var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
 }
 
-.contributionCard:hover .cardAction {
-  color: var(--color-accent);
-  gap: var(--space-2);
-}
-
-/* Suggestion Box */
-.suggestionBox {
-  padding: var(--space-6);
+.tabTrigger:hover {
+  color: var(--color-text-primary);
   background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
 }
 
-.suggestionIntro {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  margin: 0 0 var(--space-4);
+.tabTrigger[data-state="active"] {
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-sm);
 }
 
-.suggestionList {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+.tabLabel {
+  display: none;
 }
 
-.suggestionList li {
+@media (min-width: 640px) {
+  .tabLabel {
+    display: inline;
+  }
+}
+
+@media (min-width: 768px) {
+  .tabList {
+    flex-wrap: nowrap;
+  }
+  
+  .tabTrigger {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.tabContent {
+  padding: var(--space-6);
+}
+
+.formHeader {
+  margin-bottom: var(--space-5);
+}
+
+.formDescription {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
-  padding-left: var(--space-4);
-  border-left: 2px solid var(--color-border);
-}
-
-.suggestionList strong {
-  color: var(--color-text-primary);
-}
-
-.suggestionActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
+  margin: 0;
 }
 
 /* Guidelines Grid */

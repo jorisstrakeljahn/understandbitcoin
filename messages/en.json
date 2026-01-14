@@ -169,6 +169,35 @@
   "contribute": {
     "title": "Contribute",
     "description": "Help make Bitcoin knowledge accessible to everyone.",
-    "subtitle": "Everyone can contribute to the project — including you!"
+    "subtitle": "Everyone can contribute to the project — including you!",
+    "form": {
+      "topicLabel": "Topic / Question",
+      "topicPlaceholder": "What topic should be covered?",
+      "detailsLabel": "Details",
+      "detailsPlaceholder": "Why is this important? What should we know?",
+      "problemLabel": "What's the problem?",
+      "problemPlaceholder": "Describe the issue you found",
+      "urlLabel": "Article URL",
+      "urlPlaceholder": "https://thereforbitcoin.com/...",
+      "additionalDetailsLabel": "Additional details",
+      "additionalDetailsPlaceholder": "Any other information that might help",
+      "articleLabel": "Which article?",
+      "articlePlaceholder": "Article title or URL",
+      "suggestionLabel": "Your suggestion",
+      "suggestionPlaceholder": "What would you improve and why?",
+      "languageLabel": "Which language?",
+      "languagePlaceholder": "Select a language",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us about your experience with this language",
+      "emailLabel": "Your email",
+      "emailPlaceholder": "you@example.com",
+      "emailOptionalHint": "Optional — only if you'd like us to respond",
+      "emailRequiredHint": "Required so we can coordinate with you",
+      "optionalHint": "Optional",
+      "submitButton": "Send",
+      "successTitle": "Thank you!",
+      "successMessage": "Your submission has been received. We'll review it soon.",
+      "sendAnother": "Send another"
+    }
   }
 }

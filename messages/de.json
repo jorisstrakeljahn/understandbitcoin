@@ -169,6 +169,35 @@
   "contribute": {
     "title": "Mitwirken",
     "description": "Hilf mit, Bitcoin-Wissen für alle zugänglich zu machen.",
-    "subtitle": "Jeder kann zum Projekt beitragen — auch du!"
+    "subtitle": "Jeder kann zum Projekt beitragen — auch du!",
+    "form": {
+      "topicLabel": "Thema / Frage",
+      "topicPlaceholder": "Welches Thema soll behandelt werden?",
+      "detailsLabel": "Details",
+      "detailsPlaceholder": "Warum ist das wichtig? Was sollten wir wissen?",
+      "problemLabel": "Was ist das Problem?",
+      "problemPlaceholder": "Beschreibe das Problem, das du gefunden hast",
+      "urlLabel": "Artikel-URL",
+      "urlPlaceholder": "https://thereforbitcoin.com/...",
+      "additionalDetailsLabel": "Weitere Details",
+      "additionalDetailsPlaceholder": "Weitere Informationen, die hilfreich sein könnten",
+      "articleLabel": "Welcher Artikel?",
+      "articlePlaceholder": "Artikeltitel oder URL",
+      "suggestionLabel": "Dein Vorschlag",
+      "suggestionPlaceholder": "Was würdest du verbessern und warum?",
+      "languageLabel": "Welche Sprache?",
+      "languagePlaceholder": "Wähle eine Sprache",
+      "messageLabel": "Nachricht",
+      "messagePlaceholder": "Erzähl uns von deiner Erfahrung mit dieser Sprache",
+      "emailLabel": "Deine E-Mail",
+      "emailPlaceholder": "du@beispiel.de",
+      "emailOptionalHint": "Optional — nur wenn du eine Antwort möchtest",
+      "emailRequiredHint": "Erforderlich, damit wir uns mit dir abstimmen können",
+      "optionalHint": "Optional",
+      "submitButton": "Absenden",
+      "successTitle": "Vielen Dank!",
+      "successMessage": "Deine Nachricht ist angekommen. Wir werden sie bald prüfen.",
+      "sendAnother": "Weitere senden"
+    }
   }
 }

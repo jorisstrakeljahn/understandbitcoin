@@ -18,3 +18,9 @@ export type { TabsProps, TabListProps, TabTriggerProps, TabContentProps } from '
 
 export { TopicBadge } from './TopicBadge';
 export type { TopicBadgeProps } from './TopicBadge';
+
+export { Textarea } from './Textarea';
+export type { TextareaProps } from './Textarea';
+
+export { Select } from './Select';
+export type { SelectProps, SelectOption } from './Select';
