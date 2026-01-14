@@ -10,6 +10,7 @@ import { ArticleSidebar } from '@/components/article/ArticleSidebar';
 import { MobileNav } from '@/components/article/MobileNav';
 import { ResizableSidebar } from '@/components/article/ResizableSidebar';
 import { CollapsibleTOC } from '@/components/article/CollapsibleTOC';
+import { ArticleTracker, TrackedRelatedArticles } from '@/components/article/ArticleTracker';
 import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
 import { HelpCircle, ArrowLeft } from '@/components/icons';
 import { siteConfig } from '@/lib/config';
@@ -147,6 +148,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </ResizableSidebar>
 
         {/* Main Content */}
+        <ArticleTracker slug={slug} topic={frontmatter.topic} level={frontmatter.level}>
         <article className={styles.article}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
@@ -233,21 +235,24 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {relatedArticles.length > 0 && (
             <section className={styles.relatedSection}>
               <h2 id="related-questions">{t('relatedQuestions')}</h2>
-              <div className={styles.relatedGrid}>
-                {relatedArticles.map((related) => (
-                  <Link
-                    key={related.slug}
-                    href={`/${locale}/articles/${related.slug}`}
-                    className={styles.relatedCard}
-                  >
-                    <h3>{related.title}</h3>
-                    <p>{related.summary}</p>
-                    <span className={styles.relatedMeta}>
-                      {tTopics(related.level)}
-                    </span>
-                  </Link>
-                ))}
-              </div>
+              <TrackedRelatedArticles
+                currentSlug={slug}
+                articles={relatedArticles.map(r => ({
+                  slug: r.slug,
+                  title: r.title,
+                  summary: r.summary,
+                  level: r.level
+                }))}
+                locale={locale}
+                levelLabels={{
+                  beginner: tTopics('beginner'),
+                  intermediate: tTopics('intermediate'),
+                  advanced: tTopics('advanced')
+                }}
+                className={styles.relatedGrid}
+                cardClassName={styles.relatedCard}
+                metaClassName={styles.relatedMeta}
+              />
             </section>
           )}
 
@@ -258,9 +263,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </Link>
           </nav>
         </article>
+        </ArticleTracker>
 
         {/* Right Sidebar - TOC (Collapsible) */}
-        <CollapsibleTOC headings={headings} />
+        <CollapsibleTOC headings={headings} slug={slug} />
       </div>
     </div>
   );

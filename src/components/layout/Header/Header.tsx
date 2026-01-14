@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from '@/lib/hooks/useTheme';
-import { trackThemeToggle, trackLanguageSwitch } from '@/lib/analytics';
+import { trackThemeToggle, trackLanguageSwitch, trackMobileMenuOpen } from '@/lib/analytics';
 import { SearchModal } from '@/components/search/SearchModal';
 import { Drawer } from '@/components/ui';
 import { Menu, Search, Sun, Moon, Bitcoin, Globe } from '@/components/icons';
@@ -41,7 +41,10 @@ export function Header() {
           {/* Mobile menu button */}
           <button
             className={styles.menuButton}
-            onClick={() => setIsNavOpen(true)}
+            onClick={() => {
+              trackMobileMenuOpen();
+              setIsNavOpen(true);
+            }}
             aria-label={t('openNavigation')}
             data-testid="mobile-menu-button"
           >

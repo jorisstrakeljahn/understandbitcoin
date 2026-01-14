@@ -3,6 +3,7 @@
 import { useState, useEffect, useSyncExternalStore, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { trackTableOfContentsClick } from '@/lib/analytics';
 import styles from './CollapsibleTOC.module.css';
 
 interface Heading {
@@ -13,6 +14,7 @@ interface Heading {
 
 interface CollapsibleTOCProps {
   headings: Heading[];
+  slug?: string;
   storageKey?: string;
 }
 
@@ -41,7 +43,7 @@ function useLocalStorageState(key: string, defaultValue: boolean): [boolean, (va
   return [value, setValue];
 }
 
-export function CollapsibleTOC({ headings, storageKey = 'toc-collapsed' }: CollapsibleTOCProps) {
+export function CollapsibleTOC({ headings, slug = '', storageKey = 'toc-collapsed' }: CollapsibleTOCProps) {
   const t = useTranslations('article');
   const [activeId, setActiveId] = useState<string>('');
   const [isCollapsed, setIsCollapsed] = useLocalStorageState(storageKey, false);
@@ -101,6 +103,9 @@ export function CollapsibleTOC({ headings, storageKey = 'toc-collapsed' }: Colla
                 className={`${styles.link} ${activeId === heading.id ? styles.active : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
+                  if (slug) {
+                    trackTableOfContentsClick(slug, heading.id);
+                  }
                   document.getElementById(heading.id)?.scrollIntoView({
                     behavior: 'smooth',
                   });

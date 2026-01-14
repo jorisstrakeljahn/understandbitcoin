@@ -18,6 +18,7 @@ import {
 } from '@/components/icons';
 import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
 import { SourceCarousel } from '@/components/sources';
+import { trackEntryPointClick, trackPopularArticleClick, trackCTAClick } from '@/lib/analytics';
 import styles from './page.module.css';
 
 interface HomePageProps {
@@ -235,6 +236,7 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
                     href={entry.href}
                     className={styles.entryPoint}
                     style={{ '--entry-color': entry.color } as React.CSSProperties}
+                    onClick={() => trackEntryPointClick(entry.id)}
                   >
                     <span className={styles.entryIcon}>
                       <IconComponent size={28} />
@@ -268,8 +270,9 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
             {POPULAR_ARTICLES.map((article, index) => (
               <AnimatedCard key={article.slug} delay={index * 0.1}>
                 <Link
-                  href={`/${locale}/articles/${article.slug}`}
+                  href={`/${locale}/articles/${article.slug}?ref=home`}
                   className={styles.popularArticle}
+                  onClick={() => trackPopularArticleClick(article.slug, article.topic, index)}
                 >
                   <div className={styles.popularArticleMeta}>
                     <Badge variant="accent">
@@ -316,7 +319,10 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
           <p className={styles.ctaSubtitle}>
             {t('home.readySubtitle')}
           </p>
-          <Link href={`/${locale}/topics`}>
+          <Link 
+            href={`/${locale}/topics`}
+            onClick={() => trackCTAClick('explore_topics', 'homepage_bottom')}
+          >
             <Button size="lg" variant="primary">
               {t('home.exploreTopics')}
             </Button>

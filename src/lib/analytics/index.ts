@@ -32,4 +32,9 @@ export {
   trackSourceTabChange,
   // Navigation
   trackCTAClick,
+  // Additional UI
+  trackFooterLinkClick,
+  trackTableOfContentsClick,
+  trackMobileMenuOpen,
+  track404PageView,
 } from './events';

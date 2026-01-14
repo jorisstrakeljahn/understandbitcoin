@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
+import { trackFooterLinkClick } from '@/lib/analytics';
 import styles from './Footer.module.css';
 
 export function Footer() {
@@ -47,7 +48,12 @@ export function Footer() {
               <ul className={styles.linkList}>
                 {FOOTER_LINKS.learn.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className={styles.link} data-testid={`footer-link-${link.href.split('/').pop()}`}>
+                    <Link 
+                      href={link.href} 
+                      className={styles.link} 
+                      data-testid={`footer-link-${link.href.split('/').pop()}`}
+                      onClick={() => trackFooterLinkClick(link.href, 'learn')}
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -60,7 +66,12 @@ export function Footer() {
               <ul className={styles.linkList}>
                 {FOOTER_LINKS.topics.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className={styles.link} data-testid={`footer-link-${link.href.split('/').pop()}`}>
+                    <Link 
+                      href={link.href} 
+                      className={styles.link} 
+                      data-testid={`footer-link-${link.href.split('/').pop()}`}
+                      onClick={() => trackFooterLinkClick(link.href, 'topics')}
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -73,7 +84,12 @@ export function Footer() {
               <ul className={styles.linkList}>
                 {FOOTER_LINKS.about.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className={styles.link} data-testid={`footer-link-${link.href.split('/').pop()}`}>
+                    <Link 
+                      href={link.href} 
+                      className={styles.link} 
+                      data-testid={`footer-link-${link.href.split('/').pop()}`}
+                      onClick={() => trackFooterLinkClick(link.href, 'about')}
+                    >
                       {link.label}
                     </Link>
                   </li>

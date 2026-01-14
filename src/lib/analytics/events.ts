@@ -254,3 +254,44 @@ function getTimeBucket(seconds: number): string {
   if (seconds < 300) return '2-5min';
   return '>5min';
 }
+
+// ============================================
+// ADDITIONAL UI EVENTS
+// ============================================
+
+/**
+ * Track footer link clicks
+ */
+export function trackFooterLinkClick(href: string, section: string) {
+  capture('footer_link_click', {
+    href,
+    section,
+    link_name: href.split('/').pop(),
+  });
+}
+
+/**
+ * Track table of contents clicks
+ */
+export function trackTableOfContentsClick(slug: string, headingId: string) {
+  capture('toc_click', {
+    slug,
+    heading_id: headingId,
+  });
+}
+
+/**
+ * Track mobile menu open
+ */
+export function trackMobileMenuOpen() {
+  capture('mobile_menu_open', {});
+}
+
+/**
+ * Track 404 page view
+ */
+export function track404PageView(attemptedUrl: string) {
+  capture('404_page_view', {
+    attempted_url: attemptedUrl,
+  });
+}
