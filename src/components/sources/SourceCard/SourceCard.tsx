@@ -18,27 +18,24 @@ interface SourceCardProps {
 }
 
 export function SourceCard({ source, locale = 'en', variant = 'default' }: SourceCardProps) {
-  const description = source.description[locale as keyof typeof source.description] || source.description.en;
-
   if (source.type === 'book') {
-    return <BookCard source={source} locale={locale} description={description} variant={variant} />;
+    return <BookCard source={source} locale={locale} variant={variant} />;
   }
 
   if (source.type === 'video') {
-    return <VideoCard source={source} locale={locale} description={description} variant={variant} />;
+    return <VideoCard source={source} locale={locale} variant={variant} />;
   }
 
-  return <ArticleCard source={source} locale={locale} description={description} variant={variant} />;
+  return <ArticleCard source={source} locale={locale} variant={variant} />;
 }
 
 interface CardProps<T extends Source> {
   source: T;
   locale: string;
-  description: string;
   variant: SourceCardVariant;
 }
 
-function BookCard({ source: book, locale, description, variant }: CardProps<BookSource>) {
+function BookCard({ source: book, locale, variant }: CardProps<BookSource>) {
   const affiliateLink = getAffiliateLink(book, locale);
   const isCarousel = variant === 'carousel';
   
@@ -87,7 +84,6 @@ function BookCard({ source: book, locale, description, variant }: CardProps<Book
           </span>
           <span className={styles.year}>{book.year}</span>
         </div>
-        {!isCarousel && <p className={styles.description}>{description}</p>}
         {affiliateLink && (
           <span className={styles.linkHint}>
             Amazon <ExternalLink size={12} />
@@ -98,7 +94,7 @@ function BookCard({ source: book, locale, description, variant }: CardProps<Book
   );
 }
 
-function VideoCard({ source: video, description, variant }: CardProps<VideoSource>) {
+function VideoCard({ source: video, variant }: CardProps<VideoSource>) {
   const thumbnail = getYouTubeThumbnail(video.youtubeId, 'high');
   const youtubeUrl = `https://www.youtube.com/watch?v=${video.youtubeId}`;
   const isCarousel = variant === 'carousel';
@@ -143,13 +139,12 @@ function VideoCard({ source: video, description, variant }: CardProps<VideoSourc
           <span className={styles.channel}>{video.channel}</span>
           <span className={styles.year}>{video.year}</span>
         </div>
-        {!isCarousel && <p className={styles.description}>{description}</p>}
       </div>
     </a>
   );
 }
 
-function ArticleCard({ source: article, locale, description, variant }: CardProps<ArticleSource>) {
+function ArticleCard({ source: article, locale, variant }: CardProps<ArticleSource>) {
   const isCarousel = variant === 'carousel';
   
   const handleClick = () => {
@@ -184,7 +179,6 @@ function ArticleCard({ source: article, locale, description, variant }: CardProp
           </span>
           <span className={styles.year}>{article.year}</span>
         </div>
-        {!isCarousel && <p className={styles.description}>{description}</p>}
         <span className={styles.linkHint}>
           {locale === 'de' ? 'Lesen' : 'Read'} <ExternalLink size={12} />
         </span>
