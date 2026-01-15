@@ -15,20 +15,13 @@
   },
   "footer": {
     "tagline": "Klare Antworten. Faire Einwände. Primärquellen.",
-    "mission": "Eine freie, quelloffene Wissensdatenbank, die Menschen hilft Bitcoin zu verstehen — daher Bitcoin.",
-    "learn": "Lernen",
-    "allTopics": "Alle Themen",
+    "allTopics": "Themen",
     "sources": "Quellen",
-    "topics": "Themen",
-    "bitcoinBasics": "Bitcoin Grundlagen",
-    "security": "Sicherheit",
-    "lightning": "Lightning",
-    "economics": "Wirtschaft",
-    "about": "Über uns",
     "criticism": "Kritik",
-    "aboutUs": "Über uns",
     "contribute": "Mitwirken",
-    "copyright": "Alle Inhalte sind frei verwendbar mit Quellenangabe."
+    "aboutUs": "Über uns",
+    "copyright": "Alle Inhalte sind frei verwendbar mit Quellenangabe.",
+    "disclaimer": "Nur Bildungsinhalte. Keine Finanzberatung."
   },
   "home": {
     "heroTitle": "Therefor Bitcoin",

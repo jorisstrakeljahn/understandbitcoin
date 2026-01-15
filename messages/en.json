@@ -15,20 +15,13 @@
   },
   "footer": {
     "tagline": "Clear answers. Fair objections. Primary sources.",
-    "mission": "A free, open-source knowledge base helping people understand Bitcoin — therefore Bitcoin.",
-    "learn": "Learn",
-    "allTopics": "All Topics",
+    "allTopics": "Topics",
     "sources": "Sources",
-    "topics": "Topics",
-    "bitcoinBasics": "Bitcoin Basics",
-    "security": "Security",
-    "lightning": "Lightning",
-    "economics": "Economics",
-    "about": "About",
     "criticism": "Criticism",
-    "aboutUs": "About Us",
     "contribute": "Contribute",
-    "copyright": "All content is free to use with attribution."
+    "aboutUs": "About",
+    "copyright": "All content is free to use with attribution.",
+    "disclaimer": "Educational content only. Not financial advice."
   },
   "home": {
     "heroTitle": "Therefor Bitcoin",

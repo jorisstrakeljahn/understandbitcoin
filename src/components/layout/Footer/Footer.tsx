@@ -9,28 +9,18 @@ export function Footer() {
   const t = useTranslations('footer');
   const locale = useLocale();
 
-  const FOOTER_LINKS = {
-    learn: [
-      { href: `/${locale}/topics`, label: t('allTopics') },
-      { href: `/${locale}/sources`, label: t('sources') },
-    ],
-    topics: [
-      { href: `/${locale}/topics/basics`, label: t('bitcoinBasics') },
-      { href: `/${locale}/topics/security`, label: t('security') },
-      { href: `/${locale}/topics/lightning`, label: t('lightning') },
-      { href: `/${locale}/topics/economics`, label: t('economics') },
-    ],
-    about: [
-      { href: `/${locale}/topics/criticism`, label: t('criticism') },
-      { href: `/${locale}/about`, label: t('aboutUs') },
-      { href: `/${locale}/contribute`, label: t('contribute') },
-    ],
-  };
+  const FOOTER_LINKS = [
+    { href: `/${locale}/topics`, label: t('allTopics'), id: 'topics' },
+    { href: `/${locale}/sources`, label: t('sources'), id: 'sources' },
+    { href: `/${locale}/topics/criticism`, label: t('criticism'), id: 'criticism' },
+    { href: `/${locale}/contribute`, label: t('contribute'), id: 'contribute' },
+    { href: `/${locale}/about`, label: t('aboutUs'), id: 'about' },
+  ];
 
   return (
     <footer className={styles.footer} data-testid="footer">
       <div className={styles.container}>
-        <div className={styles.grid}>
+        <div className={styles.content}>
           {/* Brand */}
           <div className={styles.brand} data-testid="footer-brand">
             <Link href={`/${locale}`} className={styles.logo} data-testid="footer-logo">
@@ -38,65 +28,26 @@ export function Footer() {
               <span className={styles.logoText}>Therefor Bitcoin</span>
             </Link>
             <p className={styles.tagline} data-testid="footer-tagline">{t('tagline')}</p>
-            <p className={styles.mission} data-testid="footer-mission">{t('mission')}</p>
           </div>
 
-          {/* Links */}
-          <div className={styles.links} data-testid="footer-links">
-            <div className={styles.linkGroup} data-testid="footer-link-group-learn">
-              <h4 className={styles.linkGroupTitle}>{t('learn')}</h4>
-              <ul className={styles.linkList}>
-                {FOOTER_LINKS.learn.map((link) => (
-                  <li key={link.href}>
-                    <Link 
-                      href={link.href} 
-                      className={styles.link} 
-                      data-testid={`footer-link-${link.href.split('/').pop()}`}
-                      onClick={() => trackFooterLinkClick(link.href, 'learn')}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={styles.linkGroup} data-testid="footer-link-group-topics">
-              <h4 className={styles.linkGroupTitle}>{t('topics')}</h4>
-              <ul className={styles.linkList}>
-                {FOOTER_LINKS.topics.map((link) => (
-                  <li key={link.href}>
-                    <Link 
-                      href={link.href} 
-                      className={styles.link} 
-                      data-testid={`footer-link-${link.href.split('/').pop()}`}
-                      onClick={() => trackFooterLinkClick(link.href, 'topics')}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={styles.linkGroup} data-testid="footer-link-group-about">
-              <h4 className={styles.linkGroupTitle}>{t('about')}</h4>
-              <ul className={styles.linkList}>
-                {FOOTER_LINKS.about.map((link) => (
-                  <li key={link.href}>
-                    <Link 
-                      href={link.href} 
-                      className={styles.link} 
-                      data-testid={`footer-link-${link.href.split('/').pop()}`}
-                      onClick={() => trackFooterLinkClick(link.href, 'about')}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {/* Navigation Links */}
+          <nav className={styles.nav} data-testid="footer-nav">
+            {FOOTER_LINKS.map((link, index) => (
+              <span key={link.id} className={styles.navItem}>
+                <Link
+                  href={link.href}
+                  className={styles.link}
+                  data-testid={`footer-link-${link.id}`}
+                  onClick={() => trackFooterLinkClick(link.href, 'main')}
+                >
+                  {link.label}
+                </Link>
+                {index < FOOTER_LINKS.length - 1 && (
+                  <span className={styles.separator}>·</span>
+                )}
+              </span>
+            ))}
+          </nav>
         </div>
 
         {/* Bottom */}
@@ -105,7 +56,7 @@ export function Footer() {
             © {new Date().getFullYear()} Therefor Bitcoin. {t('copyright')}
           </p>
           <p className={styles.disclaimer} data-testid="footer-disclaimer">
-            {locale === 'de' ? 'Nur Bildungsinhalte. Keine Finanzberatung.' : 'Educational content only. Not financial advice.'}
+            {t('disclaimer')}
           </p>
         </div>
       </div>
