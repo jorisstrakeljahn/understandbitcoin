@@ -48,7 +48,10 @@
     "browseLibrary": "Browse library",
     "readyTitle": "Ready to understand Bitcoin?",
     "readySubtitle": "Explore well-researched, balanced content on sound money.",
-    "exploreTopics": "Explore Topics"
+    "exploreTopics": "Explore Topics",
+    "articlesLabel": "Articles",
+    "sourcesLabel": "Sources",
+    "topicsLabel": "Topics"
   },
   "topics": {
     "documentation": "Documentation",
@@ -98,6 +101,10 @@
     "primarySources": "Primary Sources",
     "secondarySources": "Secondary Sources",
     "videoSources": "Video Sources",
+    "books": "Books",
+    "articles": "Articles",
+    "podcasts": "Podcasts",
+    "by": "by",
     "relatedQuestions": "Related Questions",
     "backTo": "Back to",
     "lastUpdated": "Last updated",

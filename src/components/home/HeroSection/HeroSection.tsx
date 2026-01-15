@@ -507,21 +507,21 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
             <span className={styles.trustNumber}>
               {formatStat(stats?.articles ?? 50, true, 10)}
             </span>
-            <span className={styles.trustLabel}>{locale === 'de' ? 'Artikel' : 'Articles'}</span>
+            <span className={styles.trustLabel}>{t('articlesLabel')}</span>
           </div>
           <div className={styles.trustDivider} />
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>
               {formatStat(stats?.sources ?? 100, true, 10)}
             </span>
-            <span className={styles.trustLabel}>{locale === 'de' ? 'Quellen' : 'Sources'}</span>
+            <span className={styles.trustLabel}>{t('sourcesLabel')}</span>
           </div>
           <div className={styles.trustDivider} />
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>
               {formatStat(stats?.topics ?? 7)}
             </span>
-            <span className={styles.trustLabel}>{locale === 'de' ? 'Themen' : 'Topics'}</span>
+            <span className={styles.trustLabel}>{t('topicsLabel')}</span>
           </div>
         </motion.div>
       </motion.div>

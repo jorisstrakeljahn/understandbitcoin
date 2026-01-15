@@ -48,7 +48,10 @@
     "browseLibrary": "Bibliothek durchsuchen",
     "readyTitle": "Bereit Bitcoin zu verstehen?",
     "readySubtitle": "Entdecke gut recherchierte, ausgewogene Inhalte über stabiles Geld.",
-    "exploreTopics": "Themen erkunden"
+    "exploreTopics": "Themen erkunden",
+    "articlesLabel": "Artikel",
+    "sourcesLabel": "Quellen",
+    "topicsLabel": "Themen"
   },
   "topics": {
     "documentation": "Dokumentation",
@@ -98,6 +101,10 @@
     "primarySources": "Primärquellen",
     "secondarySources": "Sekundärquellen",
     "videoSources": "Video-Quellen",
+    "books": "Bücher",
+    "articles": "Artikel",
+    "podcasts": "Podcasts",
+    "by": "von",
     "relatedQuestions": "Verwandte Fragen",
     "backTo": "Zurück zu",
     "lastUpdated": "Zuletzt aktualisiert",
