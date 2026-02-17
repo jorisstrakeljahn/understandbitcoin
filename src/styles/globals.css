@@ -52,8 +52,8 @@ body {
 
 /* ---- Typography ---- */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: var(--font-weight-bold);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text-primary);
@@ -90,13 +90,13 @@ p {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-text-primary);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
-  color: var(--color-accent-hover);
+  color: var(--color-text-secondary);
 }
 
 /* Only underline prose/text links, not navigation */
@@ -138,7 +138,7 @@ li {
 }
 
 li::marker {
-  color: var(--color-accent);
+  color: var(--color-text-muted);
 }
 
 /* ---- Code ---- */
@@ -170,7 +170,7 @@ pre code {
 
 /* ---- Blockquote ---- */
 blockquote {
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid var(--color-border);
   padding-left: var(--space-4);
   margin: var(--space-6) 0;
   font-style: italic;

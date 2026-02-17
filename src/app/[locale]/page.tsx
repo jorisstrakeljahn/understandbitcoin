@@ -118,47 +118,6 @@ export default async function HomePage({ params }: HomePageProps) {
           })}
         </div>
 
-        {/* Quick Start */}
-        <section className={styles.quickStart}>
-          <h2 className={styles.quickStartTitle}>
-            {isGerman ? 'Wo anfangen?' : 'Where to Start?'}
-          </h2>
-          <div className={styles.quickStartContent}>
-            <div className={styles.quickStartItem}>
-              <span className={styles.quickStartNumber}>1</span>
-              <div>
-                <h3>{isGerman ? 'Neu bei Bitcoin?' : 'New to Bitcoin?'}</h3>
-                <p>
-                  {isGerman
-                    ? 'Starte mit den Bitcoin Grundlagen. Dort findest du Antworten auf die häufigsten Fragen.'
-                    : 'Start with Bitcoin Basics. There you\'ll find answers to the most common questions.'}
-                </p>
-              </div>
-            </div>
-            <div className={styles.quickStartItem}>
-              <span className={styles.quickStartNumber}>2</span>
-              <div>
-                <h3>{isGerman ? 'Skeptisch?' : 'Skeptical?'}</h3>
-                <p>
-                  {isGerman
-                    ? 'Schau dir Kritik & Bedenken an. Alle Einwände werden fair und mit Primärquellen behandelt.'
-                    : 'Check out Criticism & Concerns. All objections are addressed fairly with primary sources.'}
-                </p>
-              </div>
-            </div>
-            <div className={styles.quickStartItem}>
-              <span className={styles.quickStartNumber}>3</span>
-              <div>
-                <h3>{isGerman ? 'Tiefer einsteigen?' : 'Going deeper?'}</h3>
-                <p>
-                  {isGerman
-                    ? 'Stabiles Geld und Geldpolitik erklären den wirtschaftlichen Hintergrund.'
-                    : 'Sound Money and Monetary Economics explain the economic background.'}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );

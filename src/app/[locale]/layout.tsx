@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Inter, Libre_Baskerville, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';
 import { Header, Footer } from '@/components/layout';
@@ -11,14 +11,6 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
-  preload: true,
-});
-
-const libreBaskerville = Libre_Baskerville({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-  variable: '--font-serif',
   preload: true,
 });
 
@@ -59,7 +51,7 @@ export default async function LocaleLayout({
     <html 
       lang={locale} 
       suppressHydrationWarning
-      className={`${inter.variable} ${libreBaskerville.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         {/* Preconnect to external domains for faster loading */}

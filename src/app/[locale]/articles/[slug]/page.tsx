@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { TopicBadge, Badge } from '@/components/ui';
-import { TLDRBox, SourcesList, KeyTakeaways, MDXContent } from '@/components/mdx';
+import { TLDRBox, SourcesList, MDXContent } from '@/components/mdx';
 import { stripFrontmatter } from '@/lib/mdx';
 import { getContentBySlug, getAllContent, getRelatedContent, getTopicConfig, getLevelConfig, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { extractHeadings } from '@/lib/mdx';
@@ -11,7 +11,7 @@ import { MobileNav } from '@/components/article/MobileNav';
 import { ResizableSidebar } from '@/components/article/ResizableSidebar';
 import { CollapsibleTOC } from '@/components/article/CollapsibleTOC';
 import { ArticleJsonLd, FAQJsonLd, BreadcrumbJsonLd } from '@/components/seo';
-import { HelpCircle, ArrowLeft } from '@/components/icons';
+import { ArrowLeft } from '@/components/icons';
 import { siteConfig } from '@/lib/config';
 import styles from './article.module.css';
 
@@ -101,8 +101,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // Prepare JSON-LD data
   const articleUrl = `${BASE_URL}/${locale}/articles/${slug}`;
   const breadcrumbItems = [
-    { name: locale === 'de' ? 'Startseite' : 'Home', url: `${BASE_URL}/${locale}` },
-    { name: tTopics('documentation'), url: `${BASE_URL}/${locale}` },
+    { name: locale === 'de' ? 'Start' : 'Home', url: `${BASE_URL}/${locale}` },
     { name: topic.label, url: `${BASE_URL}/${locale}/topics/${frontmatter.topic}` },
     { name: frontmatter.title, url: articleUrl },
   ];
@@ -150,8 +149,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <article className={styles.article}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
-            <Link href={`/${locale}`}>{tTopics('documentation')}</Link>
-            <span>&gt;</span>
             <Link href={`/${locale}/topics/${frontmatter.topic}`}>{topic.label}</Link>
             <span>&gt;</span>
             <span>{frontmatter.title}</span>
@@ -190,30 +187,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <MDXContent source={stripFrontmatter(content)} />
           </div>
 
-          {/* What's True / What's Uncertain */}
-          {(frontmatter.whatIsTrue || frontmatter.whatIsUncertain) && (
-            <section className={styles.truthSection}>
-              <h2 id="truth-and-uncertainty">{t('truthAndUncertainty')}</h2>
-              <div className={styles.truthGrid}>
-                {frontmatter.whatIsTrue && frontmatter.whatIsTrue.length > 0 && (
-                  <KeyTakeaways items={frontmatter.whatIsTrue} />
-                )}
-                {frontmatter.whatIsUncertain && frontmatter.whatIsUncertain.length > 0 && (
-                  <div className={styles.uncertainBox}>
-                    <h4 className={styles.uncertainTitle}>
-                      <HelpCircle size={18} />
-                      {t('stillUncertain')}
-                    </h4>
-                    <ul>
-                      {frontmatter.whatIsUncertain.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
 
           {/* Sources */}
           {frontmatter.sources && frontmatter.sources.length > 0 && (

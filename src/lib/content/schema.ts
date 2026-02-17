@@ -54,8 +54,6 @@ export const FrontmatterSchema = z.object({
   sources: z.array(SourceSchema).optional().default([]),
   tldr: z.array(z.string()).max(5).optional(),
   relatedQuestions: z.array(z.string()).optional().default([]),
-  whatIsTrue: z.array(z.string()).optional(),
-  whatIsUncertain: z.array(z.string()).optional(),
 });
 
 export type Frontmatter = z.infer<typeof FrontmatterSchema>;
