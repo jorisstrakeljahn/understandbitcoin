@@ -10,9 +10,6 @@ export function Footer() {
 
   const FOOTER_LINKS = [
     { href: `/${locale}`, label: t('allTopics'), id: 'topics' },
-    { href: `/${locale}/sources`, label: t('sources'), id: 'sources' },
-    { href: `/${locale}/topics/criticism`, label: t('criticism'), id: 'criticism' },
-    { href: `/${locale}/contribute`, label: t('contribute'), id: 'contribute' },
     { href: `/${locale}/about`, label: t('aboutUs'), id: 'about' },
   ];
 

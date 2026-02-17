@@ -1,13 +1,11 @@
 {
   "metadata": {
     "title": "Therefor Bitcoin - Klare Antworten über Bitcoin",
-    "description": "Eine umfassende, ausgewogene Wissensdatenbank über Bitcoin. Klare Antworten, faire Einwände und Primärquellen."
+    "description": "Eine persönliche Wissenssammlung über Bitcoin. Klare Antworten, faire Kritik und Primärquellen."
   },
   "header": {
     "start": "Start",
-    "topics": "Themen",
-    "criticism": "Kritik",
-    "sources": "Quellen",
+    "about": "Über uns",
     "openSearch": "Suche öffnen",
     "openNavigation": "Navigationsmenü öffnen",
     "switchToDark": "Zum Dunkelmodus wechseln",
@@ -15,11 +13,8 @@
     "changeLanguage": "Sprache ändern"
   },
   "footer": {
-    "tagline": "Klare Antworten. Faire Einwände. Primärquellen.",
+    "tagline": "Klare Antworten. Faire Kritik. Primärquellen.",
     "allTopics": "Themen",
-    "sources": "Quellen",
-    "criticism": "Kritik",
-    "contribute": "Mitwirken",
     "aboutUs": "Über uns",
     "copyright": "Alle Inhalte sind frei verwendbar mit Quellenangabe.",
     "disclaimer": "Nur Bildungsinhalte. Keine Finanzberatung."
@@ -30,7 +25,7 @@
   },
   "topics": {
     "documentation": "Dokumentation",
-    "subtitle": "Wähle ein Thema aus der Sidebar oder entdecke die Übersicht unten. Jeder Artikel bietet klare Antworten mit Primärquellen.",
+    "subtitle": "Wähle ein Thema oder entdecke die Übersicht unten. Jeder Artikel bietet klare Antworten mit Primärquellen.",
     "allTopics": "Alle Themen",
     "articles": "Artikel",
     "beginner": "Beginner",
@@ -92,24 +87,6 @@
     "placeholder": "Suchen...",
     "all": "Alle"
   },
-  "sources": {
-    "title": "Quellenbibliothek",
-    "subtitle": "Bücher, Videos und Artikel zum Verständnis von Bitcoin",
-    "comingSoon": "Demnächst verfügbar",
-    "description": "Wir kuratieren eine Bibliothek hochwertiger Quellen über Bitcoin. Jede Quelle wird kategorisiert, zusammengefasst und mit relevanten Artikeln verknüpft.",
-    "categories": "Kategorien",
-    "whitepapers": "Whitepapers & Technisches",
-    "academic": "Akademische Forschung",
-    "books": "Bücher",
-    "videos": "Videos",
-    "articles": "Artikel",
-    "all": "Alle",
-    "allLevels": "Alle Stufen",
-    "browseAll": "Alle Quellen durchsuchen",
-    "noResults": "Keine Quellen mit diesen Filtern gefunden",
-    "resetFilters": "Filter zurücksetzen",
-    "affiliateDisclaimer": "Einige Buchlinks sind Affiliate-Links. Käufe unterstützen dieses Projekt ohne zusätzliche Kosten für dich."
-  },
   "common": {
     "loading": "Laden...",
     "error": "Ein Fehler ist aufgetreten",
@@ -118,41 +95,7 @@
   },
   "about": {
     "title": "Über uns",
-    "description": "Erfahre mehr über Therefor Bitcoin und die Mission hinter diesem Projekt.",
-    "subtitle": "Die Geschichte hinter Therefor Bitcoin",
-    "whoAmI": "Wer steckt dahinter?",
-    "whyThisProject": "Warum dieses Projekt?",
-    "ourValues": "Unsere Werte",
-    "openSource": "Open Source",
-    "contact": "Kontakt"
-  },
-  "contribute": {
-    "title": "Mitwirken",
-    "description": "Hilf mit, Bitcoin-Wissen für alle zugänglich zu machen.",
-    "subtitle": "Jeder kann zum Projekt beitragen — auch du!",
-    "form": {
-      "topicLabel": "Thema / Frage",
-      "topicPlaceholder": "Welches Thema soll behandelt werden?",
-      "detailsLabel": "Details",
-      "detailsPlaceholder": "Warum ist das wichtig? Was sollten wir wissen?",
-      "problemLabel": "Was ist das Problem?",
-      "problemPlaceholder": "Beschreibe das Problem, das du gefunden hast",
-      "urlLabel": "Artikel-URL",
-      "urlPlaceholder": "https://thereforbitcoin.com/...",
-      "additionalDetailsLabel": "Weitere Details",
-      "additionalDetailsPlaceholder": "Weitere Informationen, die hilfreich sein könnten",
-      "articleLabel": "Welcher Artikel?",
-      "articlePlaceholder": "Artikeltitel oder URL",
-      "suggestionLabel": "Dein Vorschlag",
-      "suggestionPlaceholder": "Was würdest du verbessern und warum?",
-      "emailLabel": "Deine E-Mail",
-      "emailPlaceholder": "du@beispiel.de",
-      "emailOptionalHint": "Optional — nur wenn du eine Antwort möchtest",
-      "optionalHint": "Optional",
-      "submitButton": "Absenden",
-      "successTitle": "Vielen Dank!",
-      "successMessage": "Deine Nachricht ist angekommen. Wir werden sie bald prüfen.",
-      "sendAnother": "Weitere senden"
-    }
+    "description": "Erfahre mehr über Therefor Bitcoin und die Person dahinter.",
+    "subtitle": "Die Geschichte hinter Therefor Bitcoin"
   }
 }

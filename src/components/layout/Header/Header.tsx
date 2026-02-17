@@ -22,8 +22,7 @@ export function Header() {
 
   const NAV_LINKS = [
     { href: `/${locale}`, label: t('start'), testId: 'header-nav-start' },
-    { href: `/${locale}/topics/criticism`, label: t('criticism'), testId: 'header-nav-criticism' },
-    { href: `/${locale}/sources`, label: t('sources'), testId: 'header-nav-sources' },
+    { href: `/${locale}/about`, label: t('about'), testId: 'header-nav-about' },
   ];
 
   // Get the path without locale for language switching

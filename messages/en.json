@@ -1,13 +1,11 @@
 {
   "metadata": {
     "title": "Therefor Bitcoin - Clear Answers About Bitcoin",
-    "description": "A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources."
+    "description": "A personal knowledge base about Bitcoin. Clear answers, fair criticism, and primary sources."
   },
   "header": {
     "start": "Start",
-    "topics": "Topics",
-    "criticism": "Criticism",
-    "sources": "Sources",
+    "about": "About",
     "openSearch": "Open search",
     "openNavigation": "Open navigation menu",
     "switchToDark": "Switch to dark mode",
@@ -15,11 +13,8 @@
     "changeLanguage": "Change language"
   },
   "footer": {
-    "tagline": "Clear answers. Fair objections. Primary sources.",
+    "tagline": "Clear answers. Fair criticism. Primary sources.",
     "allTopics": "Topics",
-    "sources": "Sources",
-    "criticism": "Criticism",
-    "contribute": "Contribute",
     "aboutUs": "About",
     "copyright": "All content is free to use with attribution.",
     "disclaimer": "Educational content only. Not financial advice."
@@ -30,7 +25,7 @@
   },
   "topics": {
     "documentation": "Documentation",
-    "subtitle": "Select a topic from the sidebar or explore the overview below. Each article provides clear answers with primary sources.",
+    "subtitle": "Select a topic or explore the overview below. Each article provides clear answers with primary sources.",
     "allTopics": "All Topics",
     "articles": "articles",
     "beginner": "Beginner",
@@ -92,24 +87,6 @@
     "placeholder": "Search...",
     "all": "All"
   },
-  "sources": {
-    "title": "Source Library",
-    "subtitle": "Books, videos, and articles curated for understanding Bitcoin",
-    "comingSoon": "Coming Soon",
-    "description": "We're curating a library of high-quality sources about Bitcoin. Each source will be categorized, summarized, and linked to relevant articles.",
-    "categories": "Categories",
-    "whitepapers": "Whitepapers & Technical",
-    "academic": "Academic Research",
-    "books": "Books",
-    "videos": "Videos",
-    "articles": "Articles",
-    "all": "All",
-    "allLevels": "All Levels",
-    "browseAll": "Browse all sources",
-    "noResults": "No sources found with these filters",
-    "resetFilters": "Reset filters",
-    "affiliateDisclaimer": "Some book links are affiliate links. Purchases support this project at no extra cost to you."
-  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
@@ -117,42 +94,8 @@
     "backHome": "Back to home"
   },
   "about": {
-    "title": "About Us",
-    "description": "Learn more about Therefor Bitcoin and the mission behind this project.",
-    "subtitle": "The story behind Therefor Bitcoin",
-    "whoAmI": "Who's behind this?",
-    "whyThisProject": "Why this project?",
-    "ourValues": "Our Values",
-    "openSource": "Open Source",
-    "contact": "Contact"
-  },
-  "contribute": {
-    "title": "Contribute",
-    "description": "Help make Bitcoin knowledge accessible to everyone.",
-    "subtitle": "Everyone can contribute to the project — including you!",
-    "form": {
-      "topicLabel": "Topic / Question",
-      "topicPlaceholder": "What topic should be covered?",
-      "detailsLabel": "Details",
-      "detailsPlaceholder": "Why is this important? What should we know?",
-      "problemLabel": "What's the problem?",
-      "problemPlaceholder": "Describe the issue you found",
-      "urlLabel": "Article URL",
-      "urlPlaceholder": "https://thereforbitcoin.com/...",
-      "additionalDetailsLabel": "Additional details",
-      "additionalDetailsPlaceholder": "Any other information that might help",
-      "articleLabel": "Which article?",
-      "articlePlaceholder": "Article title or URL",
-      "suggestionLabel": "Your suggestion",
-      "suggestionPlaceholder": "What would you improve and why?",
-      "emailLabel": "Your email",
-      "emailPlaceholder": "you@example.com",
-      "emailOptionalHint": "Optional — only if you'd like us to respond",
-      "optionalHint": "Optional",
-      "submitButton": "Send",
-      "successTitle": "Thank you!",
-      "successMessage": "Your submission has been received. We'll review it soon.",
-      "sendAnother": "Send another"
-    }
+    "title": "About",
+    "description": "Learn more about Therefor Bitcoin and the person behind it.",
+    "subtitle": "The story behind Therefor Bitcoin"
   }
 }
