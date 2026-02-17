@@ -1,12 +1,10 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 import { Inter, Libre_Baskerville, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/config';
 import { Header, Footer } from '@/components/layout';
-import { PostHogProvider } from '@/components/analytics';
 
 // Optimized font loading with next/font
 const inter = Inter({
@@ -67,7 +65,6 @@ export default async function LocaleLayout({
         {/* Preconnect to external domains for faster loading */}
         <link rel="preconnect" href="https://i.ytimg.com" />
         <link rel="preconnect" href="https://img.youtube.com" />
-        <link rel="dns-prefetch" href="https://eu.i.posthog.com" />
         
         {/* Theme initialization script to prevent flash */}
         <script
@@ -87,16 +84,12 @@ export default async function LocaleLayout({
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <Suspense fallback={null}>
-            <PostHogProvider>
-              <a href="#main-content" className="skip-link">
-                {locale === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content'}
-              </a>
-              <Header />
-              <main id="main-content">{children}</main>
-              <Footer />
-            </PostHogProvider>
-          </Suspense>
+          <a href="#main-content" className="skip-link">
+            {locale === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content'}
+          </a>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

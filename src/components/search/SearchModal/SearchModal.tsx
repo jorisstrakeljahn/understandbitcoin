@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import { Search, Bitcoin, HelpCircle, Zap, Sparkles, TrendingUp, ArrowRight, X } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
 import styles from './SearchModal.module.css';
@@ -58,7 +57,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const lastTrackedQuery = useRef<string>('');
+
 
   // Keyboard shortcut to open (⌘K)
   useEffect(() => {
@@ -106,12 +105,6 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         const data = await response.json();
         const searchResults = data.results || [];
         setResults(searchResults);
-        
-        // Track search query
-        if (searchQuery.trim() !== lastTrackedQuery.current) {
-          lastTrackedQuery.current = searchQuery.trim();
-          trackSearch(searchQuery.trim(), searchResults.length);
-        }
       }
     } catch {
       setResults([]);
@@ -154,7 +147,6 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         e.preventDefault();
         if (query.trim() && results[selectedIndex]) {
           const result = results[selectedIndex];
-          trackSearchResultClick(query, result.slug, selectedIndex);
           router.push(`/${locale}/articles/${result.slug}`);
           onClose();
         } else if (!query.trim() && TRENDING_SEARCHES[selectedIndex]) {
@@ -283,10 +275,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               href={`/${locale}/articles/${result.slug}`}
                               className={`${styles.result} ${index === selectedIndex ? styles.selected : ''}`}
                               data-testid={`search-result-${index}`}
-                              onClick={() => {
-                                trackSearchResultClick(query, result.slug, index);
-                                onClose();
-                              }}
+                              onClick={onClose}
                               onMouseEnter={() => setSelectedIndex(index)}
                             >
                               <div className={styles.resultIcon}>

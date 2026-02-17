@@ -16,7 +16,7 @@ import {
   Bitcoin,
   TrendingUp
 } from '@/components/icons';
-import { HeroSection, AnimatedSection, AnimatedCard, TrackedEntryPointLink, TrackedPopularArticleLink, TrackedCTALink } from '@/components/home';
+import { HeroSection, AnimatedSection, AnimatedCard } from '@/components/home';
 import { SourceCarousel } from '@/components/sources';
 import styles from './page.module.css';
 
@@ -231,9 +231,8 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
               const IconComponent = entry.icon;
               return (
                 <AnimatedCard key={entry.id} delay={index * 0.1}>
-                  <TrackedEntryPointLink
+                  <Link
                     href={entry.href}
-                    entryPointId={entry.id}
                     className={styles.entryPoint}
                     style={{ '--entry-color': entry.color } as React.CSSProperties}
                   >
@@ -245,7 +244,7 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
                     <span className={styles.entryArrow}>
                       <ArrowRight size={18} />
                     </span>
-                  </TrackedEntryPointLink>
+                  </Link>
                 </AnimatedCard>
               );
             })}
@@ -268,11 +267,8 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
           <div className={styles.popularArticles}>
             {POPULAR_ARTICLES.map((article, index) => (
               <AnimatedCard key={article.slug} delay={index * 0.1}>
-                <TrackedPopularArticleLink
-                  href={`/${locale}/articles/${article.slug}?ref=home`}
-                  slug={article.slug}
-                  topic={article.topic}
-                  position={index}
+                <Link
+                  href={`/${locale}/articles/${article.slug}`}
                   className={styles.popularArticle}
                 >
                   <div className={styles.popularArticleMeta}>
@@ -292,7 +288,7 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
                   <span className={styles.popularArticleLink}>
                     {t('home.readAnswer')} <ArrowRight size={14} />
                   </span>
-                </TrackedPopularArticleLink>
+                </Link>
               </AnimatedCard>
             ))}
           </div>
@@ -320,15 +316,11 @@ function HomePageContent({ locale, questions, topicLabels, featuredSources, stat
           <p className={styles.ctaSubtitle}>
             {t('home.readySubtitle')}
           </p>
-          <TrackedCTALink 
-            href={`/${locale}/topics`}
-            buttonName="explore_topics"
-            location="homepage_bottom"
-          >
+          <Link href={`/${locale}/topics`}>
             <Button size="lg" variant="primary">
               {t('home.exploreTopics')}
             </Button>
-          </TrackedCTALink>
+          </Link>
         </div>
       </AnimatedSection>
     </div>

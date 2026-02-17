@@ -45,35 +45,23 @@ const nextConfig: NextConfig = {
     // More permissive in development for HMR and debugging
     const cspDirectives = isDev ? [
       "default-src 'self'",
-      // Scripts: self + inline + eval (for HMR) + PostHog
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://eu.i.posthog.com https://eu-assets.i.posthog.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https: http:",
       "font-src 'self' https://fonts.gstatic.com",
-      "connect-src 'self' ws: wss: https://eu.i.posthog.com https://eu-assets.i.posthog.com",
+      "connect-src 'self' ws: wss:",
     ] : [
       "default-src 'self'",
-      // Scripts: self + inline (for Next.js) + PostHog
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://eu.i.posthog.com https://eu-assets.i.posthog.com",
-      // Styles: self + inline (for CSS-in-JS and inline styles)
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",
-      // Images: self + data URIs + external image sources
       "img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://covers.openlibrary.org https://m.media-amazon.com",
-      // Fonts: self + Google Fonts
       "font-src 'self' https://fonts.gstatic.com",
-      // API connections: self + PostHog
-      "connect-src 'self' https://eu.i.posthog.com https://eu-assets.i.posthog.com",
-      // Frames: none (deny all iframes)
+      "connect-src 'self'",
       "frame-src 'none'",
-      // Objects: none (no Flash, etc.)
       "object-src 'none'",
-      // Base URI: self only
       "base-uri 'self'",
-      // Form actions: self only
       "form-action 'self'",
-      // Frame ancestors: none (equivalent to X-Frame-Options: DENY)
       "frame-ancestors 'none'",
-      // Upgrade insecure requests in production
       "upgrade-insecure-requests",
     ];
 

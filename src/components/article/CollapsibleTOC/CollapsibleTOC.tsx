@@ -3,7 +3,6 @@
 import { useState, useEffect, useSyncExternalStore, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { trackTableOfContentsClick } from '@/lib/analytics';
 import styles from './CollapsibleTOC.module.css';
 
 interface Heading {
@@ -103,9 +102,6 @@ export function CollapsibleTOC({ headings, slug = '', storageKey = 'toc-collapse
                 className={`${styles.link} ${activeId === heading.id ? styles.active : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  if (slug) {
-                    trackTableOfContentsClick(slug, heading.id);
-                  }
                   document.getElementById(heading.id)?.scrollIntoView({
                     behavior: 'smooth',
                   });

@@ -6,7 +6,6 @@ import { ExternalLink, Play, BookOpen, FileText, Clock, User } from 'lucide-reac
 import { Source, BookSource, VideoSource, ArticleSource } from '@/lib/sources/types';
 import { getYouTubeThumbnail, getAffiliateLink } from '@/lib/sources/utils';
 import { Badge } from '@/components/ui';
-import { trackSourceClick } from '@/lib/analytics';
 import styles from './SourceCard.module.css';
 
 type SourceCardVariant = 'default' | 'compact' | 'carousel';
@@ -39,10 +38,6 @@ function BookCard({ source: book, locale, variant }: CardProps<BookSource>) {
   const affiliateLink = getAffiliateLink(book, locale);
   const isCarousel = variant === 'carousel';
   
-  const handleClick = () => {
-    trackSourceClick(book.id, 'book', book.title);
-  };
-  
   return (
     <a
       href={affiliateLink || '#'}
@@ -50,7 +45,6 @@ function BookCard({ source: book, locale, variant }: CardProps<BookSource>) {
       rel="noopener noreferrer"
       className={`${styles.card} ${styles.bookCard} ${isCarousel ? styles.carousel : ''}`}
       data-testid={`source-card-${book.id}`}
-      onClick={handleClick}
     >
       <div className={styles.coverContainer}>
         <div className={styles.bookCover}>
@@ -99,10 +93,6 @@ function VideoCard({ source: video, variant }: CardProps<VideoSource>) {
   const youtubeUrl = `https://www.youtube.com/watch?v=${video.youtubeId}`;
   const isCarousel = variant === 'carousel';
 
-  const handleClick = () => {
-    trackSourceClick(video.id, 'video', video.title);
-  };
-
   return (
     <a
       href={youtubeUrl}
@@ -110,7 +100,6 @@ function VideoCard({ source: video, variant }: CardProps<VideoSource>) {
       rel="noopener noreferrer"
       className={`${styles.card} ${styles.videoCard} ${isCarousel ? styles.carousel : ''}`}
       data-testid={`source-card-${video.id}`}
-      onClick={handleClick}
     >
       <div className={styles.thumbnailContainer}>
         <Image
@@ -147,10 +136,6 @@ function VideoCard({ source: video, variant }: CardProps<VideoSource>) {
 function ArticleCard({ source: article, locale, variant }: CardProps<ArticleSource>) {
   const isCarousel = variant === 'carousel';
   
-  const handleClick = () => {
-    trackSourceClick(article.id, 'article', article.title);
-  };
-  
   return (
     <a
       href={article.url}
@@ -158,7 +143,6 @@ function ArticleCard({ source: article, locale, variant }: CardProps<ArticleSour
       rel="noopener noreferrer"
       className={`${styles.card} ${styles.articleCard} ${isCarousel ? styles.carousel : ''}`}
       data-testid={`source-card-${article.id}`}
-      onClick={handleClick}
     >
       <div className={styles.articleHeader}>
         <div className={styles.articleIcon}>

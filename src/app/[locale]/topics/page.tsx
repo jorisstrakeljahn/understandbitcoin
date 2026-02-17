@@ -2,7 +2,8 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Topic } from '@/lib/content/schema';
 import { getAllContent, getAllTopicsFromConfig } from '@/lib/content/loader';
 import { TopicIcon, ArrowRight } from '@/components/icons';
-import { CollapsibleSidebar, TrackedTopicLink } from '@/components/topics';
+import Link from 'next/link';
+import { CollapsibleSidebar } from '@/components/topics';
 import styles from './topics.module.css';
 
 interface TopicsPageProps {
@@ -70,11 +71,9 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
                 const articles = articlesByTopic[topic.id as Topic] || [];
                 
                 return (
-                  <TrackedTopicLink 
+                  <Link 
                     key={topic.id} 
                     href={`/${locale}/topics/${topic.id}`}
-                    topic={topic.id}
-                    source="home"
                     className={styles.topicCard}
                     data-testid={`topic-card-${topic.id}`}
                   >
@@ -97,7 +96,7 @@ export default async function TopicsPage({ params }: TopicsPageProps) {
                     <span className={styles.topicCardLink}>
                       {locale === 'de' ? 'Thema erkunden' : 'Explore topic'} <ArrowRight size={14} />
                     </span>
-                  </TrackedTopicLink>
+                  </Link>
                 );
               })}
             </div>

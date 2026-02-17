@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ArrowRight, Sparkles, TrendingUp } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
 import { Badge } from '@/components/ui';
-import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import styles from './SearchInput.module.css';
 
 interface SearchResult {
@@ -65,7 +64,7 @@ export function SearchInput({
   
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastTrackedQuery = useRef<string>('');
+
 
   // Click outside handler
   useEffect(() => {
@@ -95,12 +94,6 @@ export function SearchInput({
         const data = await response.json();
         const searchResults = data.results || [];
         setResults(searchResults);
-        
-        // Track search query
-        if (searchQuery.trim() !== lastTrackedQuery.current && searchQuery.trim().length >= 3) {
-          lastTrackedQuery.current = searchQuery.trim();
-          trackSearch(searchQuery.trim(), searchResults.length);
-        }
       }
     } catch {
       setResults([]);
@@ -135,7 +128,6 @@ export function SearchInput({
         e.preventDefault();
         if (query.trim() && selectedIndex >= 0 && results[selectedIndex]) {
           const result = results[selectedIndex];
-          trackSearchResultClick(query, result.slug, selectedIndex);
           router.push(`/${locale}/articles/${result.slug}`);
           onResultClick?.();
         } else if (!query.trim() && selectedIndex >= 0 && TRENDING_SEARCHES[selectedIndex]) {
@@ -160,10 +152,7 @@ export function SearchInput({
     setSelectedIndex(-1);
   };
 
-  const handleResultClick = (slug: string, index: number) => {
-    if (query.trim()) {
-      trackSearchResultClick(query, slug, index);
-    }
+  const handleResultClick = () => {
     onResultClick?.();
   };
 
@@ -289,7 +278,7 @@ export function SearchInput({
                       <Link
                         href={`/${locale}/articles/${result.slug}`}
                         className={`${styles.resultItem} ${selectedIndex === index ? styles.selected : ''}`}
-                        onClick={() => handleResultClick(result.slug, index)}
+                        onClick={handleResultClick}
                         onMouseEnter={() => setSelectedIndex(index)}
                         data-testid={`search-result-${index}`}
                       >

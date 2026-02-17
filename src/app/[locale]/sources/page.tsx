@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FileText, BookOpen, Video, Filter, ArrowRight } from '@/components/icons';
 import { getAllBooks, getAllVideos, getAllArticles } from '@/lib/sources/loader';
 import { Source } from '@/lib/sources/types';
-import { SourceCard, SourcesTracker, TrackedFilterLink } from '@/components/sources';
+import { SourceCard } from '@/components/sources';
 import { Badge } from '@/components/ui';
 import styles from './sources.module.css';
 
@@ -97,7 +97,6 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
   const currentLevel = level || 'all';
 
   return (
-    <SourcesTracker activeTab={currentType}>
     <div className={styles.page} data-testid="sources-page">
       <div className={styles.container}>
         <header className={styles.header}>
@@ -112,11 +111,9 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
               const IconComponent = category.icon;
               const isActive = currentType === category.id;
               return (
-                <TrackedFilterLink
+                <Link
                   key={category.id}
                   href={`/${locale}/sources?type=${category.id}&level=${currentLevel}`}
-                  fromTab={currentType}
-                  toTab={category.id}
                   className={`${styles.categoryTab} ${isActive ? styles.categoryTabActive : ''}`}
                   data-testid={`sources-filter-${category.id}`}
                 >
@@ -125,7 +122,7 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
                   <Badge variant={isActive ? 'accent' : 'default'} className={styles.countBadge}>
                     {category.count}
                   </Badge>
-                </TrackedFilterLink>
+                </Link>
               );
             })}
           </div>
@@ -135,15 +132,13 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
             {LEVELS.map((lvl) => {
               const isActive = currentLevel === lvl.id;
               return (
-                <TrackedFilterLink
+                <Link
                   key={lvl.id}
                   href={`/${locale}/sources?type=${currentType}&level=${lvl.id}`}
-                  fromTab={currentLevel}
-                  toTab={lvl.id}
                   className={`${styles.levelChip} ${isActive ? styles.levelChipActive : ''}`}
                 >
                   {lvl.label}
-                </TrackedFilterLink>
+                </Link>
               );
             })}
           </div>
@@ -171,6 +166,5 @@ export default async function SourcesPage({ params, searchParams }: SourcesPageP
         </footer>
       </div>
     </div>
-    </SourcesTracker>
   );
 }

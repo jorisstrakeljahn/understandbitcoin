@@ -4,7 +4,6 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Topic } from '@/lib/content/schema';
 import { getContentByTopic, getAllContent, getTopicConfig, getAllTopicsFromConfig, getContentConfig } from '@/lib/content/loader';
 import { TopicIcon, ChevronRight, FileText } from '@/components/icons';
-import { TopicTracker, TrackedTopicLink } from '@/components/topics';
 import styles from './topic.module.css';
 
 interface TopicPageProps {
@@ -64,7 +63,6 @@ export default async function TopicPage({ params }: TopicPageProps) {
   };
 
   return (
-    <TopicTracker topic={topic}>
     <div className={styles.page}>
       <div className={styles.layout}>
         {/* Sidebar - File Tree Style */}
@@ -83,10 +81,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
                 
                 return (
                   <div key={topicItem.id} className={`${styles.treeSection} ${isActive ? styles.treeSectionActive : ''}`}>
-                    <TrackedTopicLink 
+                    <Link 
                       href={`/${locale}/topics/${topicItem.id}`} 
-                      topic={topicItem.id}
-                      source="sidebar"
                       className={`${styles.treeFolder} ${isActive ? styles.treeFolderActive : ''}`}
                     >
                       <TopicIcon topic={topicItem.id as Topic} size={14} />
@@ -94,7 +90,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                       {topicArticles.length > 0 && (
                         <span className={styles.treeCount}>{topicArticles.length}</span>
                       )}
-                    </TrackedTopicLink>
+                    </Link>
                     
                     {/* Show articles for active topic */}
                     {isActive && topicArticles.length > 0 && (
@@ -242,6 +238,5 @@ export default async function TopicPage({ params }: TopicPageProps) {
         </main>
       </div>
     </div>
-    </TopicTracker>
   );
 }

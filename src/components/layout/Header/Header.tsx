@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from '@/lib/hooks/useTheme';
-import { trackThemeToggle, trackLanguageSwitch, trackMobileMenuOpen } from '@/lib/analytics';
 import { SearchModal } from '@/components/search/SearchModal';
 import { Drawer } from '@/components/ui';
 import { Menu, Search, Sun, Moon, Bitcoin, Globe } from '@/components/icons';
@@ -41,10 +40,7 @@ export function Header() {
           {/* Mobile menu button */}
           <button
             className={styles.menuButton}
-            onClick={() => {
-              trackMobileMenuOpen();
-              setIsNavOpen(true);
-            }}
+            onClick={() => setIsNavOpen(true)}
             aria-label={t('openNavigation')}
             data-testid="mobile-menu-button"
           >
@@ -100,12 +96,7 @@ export function Header() {
                       href={getPathWithLocale(loc)}
                       className={`${styles.languageOption} ${loc === locale ? styles.languageActive : ''}`}
                       data-testid={`language-option-${loc}`}
-                      onClick={() => {
-                        if (loc !== locale) {
-                          trackLanguageSwitch(locale, loc);
-                        }
-                        setIsLangOpen(false);
-                      }}
+                      onClick={() => setIsLangOpen(false)}
                     >
                       <span>{localeNames[loc]}</span>
                     </Link>
@@ -117,12 +108,7 @@ export function Header() {
             {/* Theme Toggle */}
             <button
               className={styles.themeToggle}
-              onClick={() => {
-                const from = resolvedTheme as 'light' | 'dark';
-                const to = from === 'dark' ? 'light' : 'dark';
-                trackThemeToggle(from, to);
-                toggleTheme();
-              }}
+              onClick={toggleTheme}
               aria-label={resolvedTheme === 'dark' ? t('switchToLight') : t('switchToDark')}
               data-testid="theme-toggle"
               data-theme={resolvedTheme}
@@ -162,12 +148,7 @@ export function Header() {
                   key={loc}
                   href={getPathWithLocale(loc)}
                   className={`${styles.mobileLanguageOption} ${loc === locale ? styles.languageActive : ''}`}
-                  onClick={() => {
-                    if (loc !== locale) {
-                      trackLanguageSwitch(locale, loc);
-                    }
-                    setIsNavOpen(false);
-                  }}
+                  onClick={() => setIsNavOpen(false)}
                 >
                   <span>{localeNames[loc]}</span>
                 </Link>

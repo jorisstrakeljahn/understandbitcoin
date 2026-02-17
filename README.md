@@ -383,39 +383,12 @@ Tests run automatically on every push and pull request via GitHub Actions:
 3. **E2E Tests** - Playwright browser tests
 4. **Build** - Production build verification
 
-## 📈 Next Steps (Not Implemented Yet)
+## 📈 Next Steps
 
-### PostHog Analytics
+### Content Repository
 
-Add to `src/app/layout.tsx`:
-
-```typescript
-import posthog from 'posthog-js';
-
-if (typeof window !== 'undefined') {
-  posthog.init('YOUR_POSTHOG_KEY', {
-    api_host: 'https://app.posthog.com',
-  });
-}
-```
-
-### Supabase Backend
-
-1. Install Supabase client: `pnpm add @supabase/supabase-js`
-2. Create `src/lib/supabase/client.ts`
-3. Add environment variables
-4. Implement auth, user progress tracking, etc.
-
-### Multi-language Support
-
-The content structure already supports multiple languages:
-- Add `content/de/` for German
-- Update content loader to accept language parameter
-- Implement language switcher component
-
-### Mobile App
-
-Consider using Capacitor or React Native to wrap the web app for mobile distribution.
+Content (MDX articles, sources, config) is managed in a separate repository (`thereforbitcoin-content`).
+Set the `CONTENT_DIR` environment variable to point to the content directory.
 
 ## 🤝 Contributing
 

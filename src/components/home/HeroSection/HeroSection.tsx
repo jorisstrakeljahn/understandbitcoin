@@ -9,7 +9,6 @@ import { useTranslations } from 'next-intl';
 import { Search, TrendingUp, Sparkles, ArrowRight } from '@/components/icons';
 import { TopicIcon } from '@/components/icons';
 import { Button } from '@/components/ui';
-import { trackSearch, trackSearchResultClick } from '@/lib/analytics';
 import styles from './HeroSection.module.css';
 
 // Lazy load AnimatedQuestion since it's not immediately visible
@@ -152,7 +151,6 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const lastTrackedQuery = useRef<string>('');
   
   const [isMounted, setIsMounted] = useState(false);
   const [query, setQuery] = useState('');
@@ -183,12 +181,6 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
         const data = await response.json();
         const searchResults = data.results || [];
         setResults(searchResults);
-        
-        // Track search query
-        if (searchQuery.trim() !== lastTrackedQuery.current) {
-          lastTrackedQuery.current = searchQuery.trim();
-          trackSearch(searchQuery.trim(), searchResults.length);
-        }
       }
     } catch {
       setResults([]);
@@ -253,7 +245,6 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
         e.preventDefault();
         if (query.trim() && selectedIndex >= 0 && results[selectedIndex]) {
           const result = results[selectedIndex];
-          trackSearchResultClick(query, result.slug, selectedIndex);
           router.push(`/${locale}/articles/${result.slug}`);
           setIsFocused(false);
         } else if (!query.trim() && selectedIndex >= 0 && TRENDING_SEARCHES[selectedIndex]) {
@@ -389,10 +380,7 @@ export function HeroSection({ questions, locale = 'en', stats }: HeroSectionProp
                                 href={`/${locale}/articles/${result.slug}`}
                                 className={`${styles.dropdownResult} ${index === selectedIndex ? styles.dropdownResultSelected : ''}`}
                                 data-testid={`hero-search-result-${index}`}
-                                onClick={() => {
-                                  trackSearchResultClick(query, result.slug, index);
-                                  setIsFocused(false);
-                                }}
+                                onClick={() => setIsFocused(false)}
                                 onMouseEnter={() => setSelectedIndex(index)}
                               >
                                 <div className={styles.dropdownResultIcon}>

@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { trackFooterLinkClick } from '@/lib/analytics';
 import styles from './Footer.module.css';
 
 export function Footer() {
@@ -38,7 +37,6 @@ export function Footer() {
                   href={link.href}
                   className={styles.link}
                   data-testid={`footer-link-${link.id}`}
-                  onClick={() => trackFooterLinkClick(link.href, 'main')}
                 >
                   {link.label}
                 </Link>
