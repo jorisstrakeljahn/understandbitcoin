@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { FrontmatterSchema, Frontmatter, Topic, ContentType, ContentLevel } from './schema';
 import type { Locale } from '@/i18n/config';
 
-const CONTENT_DIR = path.join(process.cwd(), 'content');
+const CONTENT_DIR = process.env.CONTENT_DIR || path.join(process.cwd(), 'content');
 
 /** Helper to safely access locale-specific content */
 function getLocalizedText<T extends { en: string; de: string }>(obj: T, locale: string): string {

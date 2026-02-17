@@ -3,7 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { BookSource, VideoSource, ArticleSource, Source } from './types';
 
-const SOURCES_DIR = path.join(process.cwd(), 'content/sources');
+const CONTENT_DIR = process.env.CONTENT_DIR || path.join(process.cwd(), 'content');
+const SOURCES_DIR = path.join(CONTENT_DIR, 'sources');
 
 interface BooksJson {
   sources: Omit<BookSource, 'type'>[];
