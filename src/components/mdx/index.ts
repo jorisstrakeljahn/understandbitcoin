@@ -1,3 +1,5 @@
+export { MDXContent } from './MDXContent';
+
 export { Callout } from './Callout';
 export type { CalloutProps } from './Callout';
 

@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for development
   reactStrictMode: true,
 
-  // Configure page extensions to include MDX
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-
   // Optimize images
   images: {
     formats: ['image/avif', 'image/webp'],

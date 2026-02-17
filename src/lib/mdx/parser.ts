@@ -3,6 +3,8 @@
  * Extracts structured data from markdown content.
  */
 
+import GithubSlugger from 'github-slugger';
+
 export interface Heading {
   id: string;
   text: string;
@@ -11,21 +13,18 @@ export interface Heading {
 
 /**
  * Extracts headings from MDX/Markdown content for table of contents.
- * Supports H2 and H3 headings.
+ * Uses github-slugger for ID generation (same as rehype-slug).
  */
 export function extractHeadings(content: string): Heading[] {
   const headingRegex = /^(#{2,3})\s+(.+)$/gm;
   const headings: Heading[] = [];
+  const slugger = new GithubSlugger();
   let match;
 
   while ((match = headingRegex.exec(content)) !== null) {
     const level = match[1].length;
     const text = match[2];
-    // Support German umlauts and other characters
-    const id = text
-      .toLowerCase()
-      .replace(/[^a-z0-9äöüß]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+    const id = slugger.slug(text);
     headings.push({ id, text, level });
   }
 
@@ -34,13 +33,10 @@ export function extractHeadings(content: string): Heading[] {
 
 /**
  * Generates a URL-safe slug from text.
- * Handles German umlauts and special characters.
  */
 export function generateSlug(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9äöüß]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+  const slugger = new GithubSlugger();
+  return slugger.slug(text);
 }
 
 /**
