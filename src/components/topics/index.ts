@@ -1,1 +1,1 @@
-export { CollapsibleSidebar } from './CollapsibleSidebar';
+// Topics components barrel export

@@ -9,7 +9,7 @@ export function Footer() {
   const locale = useLocale();
 
   const FOOTER_LINKS = [
-    { href: `/${locale}/topics`, label: t('allTopics'), id: 'topics' },
+    { href: `/${locale}`, label: t('allTopics'), id: 'topics' },
     { href: `/${locale}/sources`, label: t('sources'), id: 'sources' },
     { href: `/${locale}/topics/criticism`, label: t('criticism'), id: 'criticism' },
     { href: `/${locale}/contribute`, label: t('contribute'), id: 'contribute' },

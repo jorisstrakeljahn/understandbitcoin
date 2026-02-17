@@ -37,7 +37,7 @@ export function ArticleSidebar({ currentTopic, currentSlug, articles, topics, lo
   return (
     <nav className={styles.sidebar} data-testid="article-sidebar">
       <div className={styles.header} data-testid="article-sidebar-header">
-        <Link href={`/${locale}/topics`} className={styles.headerLink} data-testid="article-sidebar-header-link">
+        <Link href={`/${locale}`} className={styles.headerLink} data-testid="article-sidebar-header-link">
           <span className={styles.headerTitle}>{t('documentation')}</span>
         </Link>
       </div>

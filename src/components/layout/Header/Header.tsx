@@ -21,7 +21,7 @@ export function Header() {
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   const NAV_LINKS = [
-    { href: `/${locale}/topics`, label: t('topics'), testId: 'header-nav-topics' },
+    { href: `/${locale}`, label: t('start'), testId: 'header-nav-start' },
     { href: `/${locale}/topics/criticism`, label: t('criticism'), testId: 'header-nav-criticism' },
     { href: `/${locale}/sources`, label: t('sources'), testId: 'header-nav-sources' },
   ];

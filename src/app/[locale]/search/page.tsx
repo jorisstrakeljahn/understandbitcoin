@@ -46,7 +46,7 @@ async function SearchResults({ locale, query, topic, level }: {
         </div>
         <h2 className={styles.noResultsTitle}>{t('noResults')}</h2>
         <p className={styles.noResultsHint}>{t('tryDifferent')}</p>
-        <Link href={`/${locale}/topics`} className={styles.browseLink}>
+        <Link href={`/${locale}`} className={styles.browseLink}>
           {locale === 'de' ? 'Themen durchsuchen' : 'Browse topics'}
           <ArrowRight size={16} />
         </Link>
@@ -185,7 +185,7 @@ export default async function SearchPage({ params, searchParams }: SearchPagePro
             <p className={styles.emptyText}>
               {locale === 'de' ? 'Gib einen Suchbegriff ein, um loszulegen.' : 'Enter a search term to get started.'}
             </p>
-            <Link href={`/${locale}/topics`} className={styles.browseLink}>
+            <Link href={`/${locale}`} className={styles.browseLink}>
               {locale === 'de' ? 'Oder Themen durchsuchen' : 'Or browse topics'}
               <ArrowRight size={16} />
             </Link>

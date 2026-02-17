@@ -4,6 +4,7 @@
     "description": "Eine umfassende, ausgewogene Wissensdatenbank über Bitcoin. Klare Antworten, faire Einwände und Primärquellen."
   },
   "header": {
+    "start": "Start",
     "topics": "Themen",
     "criticism": "Kritik",
     "sources": "Quellen",
@@ -24,27 +25,8 @@
     "disclaimer": "Nur Bildungsinhalte. Keine Finanzberatung."
   },
   "home": {
-    "heroTitle": "Therefor Bitcoin",
-    "heroSubtitle": "Klare Antworten. Faire Einwände. Primärquellen.",
-    "searchPlaceholder": "Nach Antworten suchen...",
-    "startWithBasics": "Mit Grundlagen starten",
-    "browseTopics": "Themen durchsuchen",
-    "readCriticism": "Kritik lesen",
-    "scrollToExplore": "Scrollen zum Entdecken",
-    "chooseYourTopic": "Wähle dein Thema",
-    "topicSubtitle": "Egal ob neugierig, skeptisch oder technisch versiert — wir haben alles abgedeckt.",
-    "popularArticles": "Beliebte Artikel",
-    "viewAllTopics": "Alle Themen anzeigen",
-    "readAnswer": "Antwort lesen",
-    "sourcesPreview": "Quellenbibliothek",
-    "sourcesDescription": "Jede Behauptung mit Primärquellen, wissenschaftlichen Arbeiten und Expertenanalysen belegt.",
-    "browseLibrary": "Bibliothek durchsuchen",
-    "readyTitle": "Bereit Bitcoin zu verstehen?",
-    "readySubtitle": "Entdecke gut recherchierte, ausgewogene Inhalte über stabiles Geld.",
-    "exploreTopics": "Themen erkunden",
-    "articlesLabel": "Artikel",
-    "sourcesLabel": "Quellen",
-    "topicsLabel": "Themen"
+    "title": "Therefor Bitcoin",
+    "intro": "Eine persönliche Wissenssammlung über Bitcoin. Hier findest du klare Antworten auf häufige Fragen — belegt mit Primärquellen, fairer Kritik und gut recherchierten Inhalten. Wähle ein Thema und fang an zu lesen."
   },
   "topics": {
     "documentation": "Dokumentation",
@@ -135,24 +117,6 @@
     "error": "Ein Fehler ist aufgetreten",
     "notFound": "Nicht gefunden",
     "backHome": "Zurück zur Startseite"
-  },
-  "entryPoints": {
-    "basics": {
-      "title": "Bitcoin Grundlagen",
-      "description": "Neu bei Bitcoin? Starte hier mit den Grundlagen."
-    },
-    "economics": {
-      "title": "Geldtheorie",
-      "description": "Bitcoin als stabiles Geld und Wertspeicher."
-    },
-    "criticism": {
-      "title": "Kritik",
-      "description": "Faire Behandlung von Einwänden und Bedenken."
-    },
-    "money": {
-      "title": "Stabiles Geld",
-      "description": "Österreichische Schule und Geldtheorie."
-    }
   },
   "about": {
     "title": "Über uns",

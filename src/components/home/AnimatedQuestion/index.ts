@@ -1,1 +1,0 @@
-export { AnimatedQuestion } from './AnimatedQuestion';

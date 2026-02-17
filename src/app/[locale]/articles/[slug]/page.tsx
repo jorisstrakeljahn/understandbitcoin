@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const articleUrl = `${BASE_URL}/${locale}/articles/${slug}`;
   const breadcrumbItems = [
     { name: locale === 'de' ? 'Startseite' : 'Home', url: `${BASE_URL}/${locale}` },
-    { name: tTopics('documentation'), url: `${BASE_URL}/${locale}/topics` },
+    { name: tTopics('documentation'), url: `${BASE_URL}/${locale}` },
     { name: topic.label, url: `${BASE_URL}/${locale}/topics/${frontmatter.topic}` },
     { name: frontmatter.title, url: articleUrl },
   ];
@@ -150,7 +150,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <article className={styles.article}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
-            <Link href={`/${locale}/topics`}>{tTopics('documentation')}</Link>
+            <Link href={`/${locale}`}>{tTopics('documentation')}</Link>
             <span>&gt;</span>
             <Link href={`/${locale}/topics/${frontmatter.topic}`}>{topic.label}</Link>
             <span>&gt;</span>

@@ -69,7 +69,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
         <aside className={styles.sidebar}>
           <nav className={styles.sidebarNav}>
             <div className={styles.sidebarHeader}>
-              <Link href={`/${locale}/topics`} className={styles.sidebarBack}>
+              <Link href={`/${locale}`} className={styles.sidebarBack}>
                 <span className={styles.sidebarTitle}>{t('documentation')}</span>
               </Link>
             </div>
@@ -121,7 +121,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
         <main className={styles.main} data-testid="topic-detail-page">
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb} data-testid="topic-breadcrumb">
-            <Link href={`/${locale}/topics`}>{t('documentation')}</Link>
+            <Link href={`/${locale}`}>{t('documentation')}</Link>
             <ChevronRight size={12} />
             <span>{topicData.label}</span>
           </nav>

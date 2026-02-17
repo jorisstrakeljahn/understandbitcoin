@@ -4,6 +4,7 @@
     "description": "A comprehensive, balanced knowledge base about Bitcoin. Clear answers, fair objections, and primary sources."
   },
   "header": {
+    "start": "Start",
     "topics": "Topics",
     "criticism": "Criticism",
     "sources": "Sources",
@@ -24,27 +25,8 @@
     "disclaimer": "Educational content only. Not financial advice."
   },
   "home": {
-    "heroTitle": "Therefor Bitcoin",
-    "heroSubtitle": "Clear answers. Fair objections. Primary sources.",
-    "searchPlaceholder": "Search for answers...",
-    "startWithBasics": "Start with Basics",
-    "browseTopics": "Browse Topics",
-    "readCriticism": "Read Criticism",
-    "scrollToExplore": "Scroll to explore",
-    "chooseYourTopic": "Choose Your Topic",
-    "topicSubtitle": "Whether you're curious, skeptical, or technical — we've got you covered.",
-    "popularArticles": "Popular Articles",
-    "viewAllTopics": "View all topics",
-    "readAnswer": "Read answer",
-    "sourcesPreview": "Source Library",
-    "sourcesDescription": "Every claim backed by primary sources, academic papers, and expert analysis.",
-    "browseLibrary": "Browse library",
-    "readyTitle": "Ready to understand Bitcoin?",
-    "readySubtitle": "Explore well-researched, balanced content on sound money.",
-    "exploreTopics": "Explore Topics",
-    "articlesLabel": "Articles",
-    "sourcesLabel": "Sources",
-    "topicsLabel": "Topics"
+    "title": "Therefor Bitcoin",
+    "intro": "A personal knowledge base about Bitcoin. Here you'll find clear answers to common questions — backed by primary sources, fair criticism, and well-researched content. Pick a topic and start reading."
   },
   "topics": {
     "documentation": "Documentation",
@@ -135,24 +117,6 @@
     "error": "An error occurred",
     "notFound": "Not found",
     "backHome": "Back to home"
-  },
-  "entryPoints": {
-    "basics": {
-      "title": "Bitcoin Basics",
-      "description": "New to Bitcoin? Start here with the fundamentals."
-    },
-    "economics": {
-      "title": "Monetary Economics",
-      "description": "Bitcoin as sound money and store of value."
-    },
-    "criticism": {
-      "title": "Criticism",
-      "description": "Fair treatment of objections and concerns."
-    },
-    "money": {
-      "title": "Sound Money",
-      "description": "Austrian economics and monetary theory."
-    }
   },
   "about": {
     "title": "About Us",

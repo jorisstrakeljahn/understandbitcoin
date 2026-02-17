@@ -1,1 +1,0 @@
-export { SourceCarousel } from './SourceCarousel';
