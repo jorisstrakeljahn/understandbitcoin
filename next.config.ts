@@ -102,16 +102,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Long-term caching for images
-      {
-        source: '/sources/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
       // Cache static pages for 1 hour, revalidate in background
       {
         source: '/:locale/articles/:slug*',

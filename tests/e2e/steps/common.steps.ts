@@ -23,7 +23,6 @@ Given('I am on the topics page', async ({ page }) => {
 // === Common URL Assertions (Then) ===
 
 Then('the URL contains {string}', async ({ page }, urlPart: string) => {
-  // Escape special regex characters in the URL part
   const escapedUrlPart = urlPart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   await expect(page).toHaveURL(new RegExp(escapedUrlPart));
 });
@@ -34,14 +33,6 @@ Then('I should be on the homepage', async ({ page }) => {
 
 Then('I should be on the topics page', async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/topics\/?$/);
-});
-
-Then('I should be on the criticism page', async ({ page }) => {
-  await expect(page).toHaveURL(/\/en\/topics\/criticism/);
-});
-
-Then('I should be on the sources page', async ({ page }) => {
-  await expect(page).toHaveURL(/\/en\/sources/);
 });
 
 Then('I should be on an article page', async ({ page }) => {

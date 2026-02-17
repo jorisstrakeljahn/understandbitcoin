@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useSyncExternalStore, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from '@/components/icons';
 import styles from './CollapsibleTOC.module.css';
 
 interface Heading {

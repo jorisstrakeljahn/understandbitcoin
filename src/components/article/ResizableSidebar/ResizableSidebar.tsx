@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, ReactNode, useSyncExternalStore } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from '@/components/icons';
 import styles from './ResizableSidebar.module.css';
 
 interface ResizableSidebarProps {

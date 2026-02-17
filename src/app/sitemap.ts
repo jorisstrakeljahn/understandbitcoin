@@ -20,14 +20,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   // Static pages for each locale
-  const staticPages = ['topics', 'sources', 'search'];
+  const staticPages = ['search', 'about'];
   for (const locale of locales) {
     for (const page of staticPages) {
       entries.push({
         url: `${baseUrl}/${locale}/${page}`,
         lastModified: new Date(),
-        changeFrequency: page === 'sources' ? 'monthly' : 'weekly',
-        priority: page === 'topics' ? 0.9 : page === 'sources' ? 0.7 : 0.5,
+        changeFrequency: 'weekly',
+        priority: 0.5,
       });
     }
   }

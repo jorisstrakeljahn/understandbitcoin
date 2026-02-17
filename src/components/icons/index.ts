@@ -1,4 +1,3 @@
-// Re-export Lucide icons we use in the app
 export {
   // Navigation & UI
   Menu,
@@ -7,14 +6,12 @@ export {
   Sun,
   Moon,
   ChevronRight,
-  ChevronDown,
-  ChevronUp,
+  ChevronLeft,
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   ExternalLink,
   
-  // Topics  
+  // Topics
   Bitcoin,
   Shield,
   Lock,
@@ -25,45 +22,26 @@ export {
   Coins,
   Code,
   
-  // Content & Resources
+  // Content
   BookOpen,
   FileText,
   Video,
   Headphones,
   Library,
-  GraduationCap,
   
-  // Actions & States
-  Clock,
-  Calendar,
-  Copy,
-  Check,
+  // States & Indicators
   Info,
   CircleAlert as AlertCircle,
   TriangleAlert as AlertTriangle,
   CircleCheck as CheckCircle,
   Lightbulb,
   Scale,
-  Quote,
   
   // Misc
   List,
-  Hash,
-  Tag,
   Sparkles,
-  Play,
-  Bookmark,
-  Share2 as Share,
-  MessageCircle,
-  Users,
-  User,
-  Home,
-  Layers,
   Globe,
-  Languages,
-  Filter,
-  ChevronLeft,
-  Send,
+  Layers,
 } from 'lucide-react';
 
 export type { LucideProps as IconProps } from 'lucide-react';

@@ -1,87 +1,74 @@
 # Therefor Bitcoin
 
-> Mobile-first Bitcoin knowledge base frontend (Next.js + MDX) with a premium editorial design.
+> Mobile-first Bitcoin knowledge base (Next.js + MDX).
 
-A comprehensive, balanced knowledge base helping people understand Bitcoin through well-researched, fair content. Clear answers, fair objections, and primary sources.
+A personal knowledge base about Bitcoin. Clear answers, fair criticism, and primary sources.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 
-## 🎯 Project Vision
-
-A premium, modern "linkable in conversations" Q&A wiki where users land on a specific question page and get a clear answer fast. Optimized for "user finds a useful answer in < 30 seconds."
-
-### Design Principles
-
-- **Premium editorial vibe**: Generous whitespace, strong typography, high contrast
-- **Mobile-first**: Big tap targets, sticky navigation, search-first UX
-- **Dark mode built-in**: Not an afterthought
-- **Trust cues**: Sources, last updated dates, balanced perspectives
-- **One accent color**: Bitcoin orange (#F7931A)
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
 - Node.js 18+
-- pnpm (recommended) or npm
+- pnpm
 
 ### Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/jorisstrakeljahn/thereforbitcoin.git
 cd thereforbitcoin
-
-# Install dependencies
 pnpm install
-
-# Start development server
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-## 📁 Project Structure
+### Content Repository
+
+Content (MDX articles and config) lives in a separate repository (`thereforbitcoin-content`).
+Set the `CONTENT_DIR` environment variable to point to the content directory:
+
+```bash
+cp .env.example .env
+# Edit .env and set CONTENT_DIR to your local content repo path
+```
+
+## Project Structure
 
 ```
 thereforbitcoin/
-├── content/                 # MDX content files
-│   └── en/                  # English content
-│       ├── beginner/        # Beginner-level articles
-│       ├── criticism/       # Criticism articles
-│       ├── lightning/       # Lightning Network articles
-│       ├── mining/          # Mining articles
-│       └── money/           # Sound money articles
-├── public/                  # Static assets (clean - no default files)
 ├── src/
 │   ├── app/                 # Next.js App Router pages
-│   │   ├── api/             # API routes
-│   │   ├── articles/        # Article pages
-│   │   ├── glossary/        # Glossary page
-│   │   ├── paths/           # Learning paths page
-│   │   ├── search/          # Search page
-│   │   ├── sources/         # Sources library page
-│   │   └── topics/          # Topic pages
+│   │   ├── [locale]/        # i18n routes (en/de)
+│   │   │   ├── page.tsx     # Homepage (topic grid)
+│   │   │   ├── about/       # About page
+│   │   │   ├── articles/    # Article pages
+│   │   │   ├── search/      # Search page
+│   │   │   └── topics/      # Topic pages
+│   │   └── api/             # API routes
 │   ├── components/
-│   │   ├── article/         # Article-specific components
-│   │   ├── icons/           # Lucide-style SVG icon components
+│   │   ├── article/         # Article components (sidebar, TOC, etc.)
+│   │   ├── icons/           # Icon system (Lucide-based)
 │   │   ├── layout/          # Header, Footer
-│   │   ├── mdx/             # MDX components (TLDRBox, etc.)
-│   │   ├── search/          # Search modal
-│   │   └── ui/              # UI primitives
+│   │   ├── mdx/             # MDX components (TLDRBox, Callout, etc.)
+│   │   ├── search/          # Search modal & input
+│   │   └── ui/              # UI primitives (Badge, Drawer, TopicBadge)
 │   ├── lib/
 │   │   ├── content/         # Content loader & schema
 │   │   ├── hooks/           # React hooks
 │   │   └── search/          # Search functionality
-│   └── styles/              # Global CSS & tokens
-└── ...config files
+│   └── styles/              # Global CSS & design tokens
+└── tests/
+    ├── e2e/                 # Playwright E2E tests (BDD/Gherkin)
+    └── unit/                # Vitest unit tests
 ```
 
-## 📝 Content System
+## Content System
 
-Content is stored as MDX files in the `content/` directory with Zod-validated frontmatter.
+Content is stored as MDX files with Zod-validated frontmatter.
 
 ### Frontmatter Schema
 
@@ -89,315 +76,98 @@ Content is stored as MDX files in the `content/` directory with Zod-validated fr
 ---
 slug: what-is-bitcoin
 title: What is Bitcoin?
-summary: A digital currency without banks... (max 300 chars)
+summary: A digital currency without banks...
 tags: [basics, introduction]
-topic: basics # basics, security, mining, lightning, economics, criticism, money, dev
-level: beginner # beginner, intermediate, advanced
-type: qa # qa, explainer, criticism, glossary, source
+topic: basics
+level: beginner
+type: qa
 language: en
 lastUpdated: "2024-01-15"
-tldr: # Max 5 bullet points
+tldr:
   - Point one
   - Point two
 whyPeopleAsk: Why users search for this
-whatIsTrue: [verified facts]
-whatIsUncertain: [debated points]
 sources:
   - title: Source Name
     url: https://example.com
     author: Author Name
-    type: primary # primary, secondary, video, book, article, podcast
+    type: primary
 ---
 ```
-
-### Adding New Content
-
-1. Create a new `.mdx` file in the appropriate `content/en/[category]/` folder
-2. Add the required frontmatter
-3. Write your content using markdown + MDX components
-4. The article will automatically appear in the relevant topic page
 
 ### MDX Components
 
 - `<TLDRBox items={[...]} />` - Bullet-point summary box
 - `<Callout type="info|warning|success|error|tip">...</Callout>`
 - `<SourcesList sources={[...]} />`
-- `<KeyTakeaways items={[...]} />`
 - `<InlineTerm term="satoshi">satoshis</InlineTerm>` - Glossary popover
 
-## 🎨 Icon System
+## Styling
 
-Uses a custom Lucide-style SVG icon system located in `src/components/icons/`.
-
-### Available Icons
-
-```typescript
-import { 
-  // Navigation
-  Menu, X, Search, Sun, Moon, ChevronRight, ChevronDown, ArrowLeft, ArrowRight,
-  
-  // Topics
-  Bitcoin, Shield, Lock, Pickaxe, Zap, TrendingUp, HelpCircle, Coins, Code,
-  
-  // Content
-  BookOpen, FileText, Video, Headphones, Library, GraduationCap,
-  
-  // Actions
-  Check, Copy, ExternalLink, Share, Info, AlertCircle, AlertTriangle,
-  
-  // Misc
-  Clock, Calendar, List, Hash, Tag, Sparkles, Scale, Quote
-} from '@/components/icons';
-```
-
-### Usage
-
-```tsx
-import { Bitcoin, Search } from '@/components/icons';
-
-// Basic usage
-<Bitcoin size={24} />
-
-// Custom props
-<Search size={18} strokeWidth={2.5} className={styles.icon} />
-```
-
-### TopicIcon Component
-
-For topic-specific icons:
-
-```tsx
-import { TopicIcon } from '@/components/icons';
-
-<TopicIcon topic="lightning" size={20} />
-```
-
-## 🎨 Styling System
-
-Uses plain CSS with CSS Modules and CSS custom properties (no Tailwind).
+Uses plain CSS with CSS Modules and CSS custom properties.
 
 ### Design Tokens
 
-Located in `src/styles/tokens.css`:
-
-- Colors (with dark mode variants)
-- Typography scale
-- Spacing scale
-- Border radii
-- Shadows
-- Transitions
-- Z-index scale
+Located in `src/styles/tokens.css`: colors (with dark mode), typography, spacing, borders, shadows.
 
 ### Dark Mode
 
-Supports:
 - System preference detection (`prefers-color-scheme`)
 - Manual toggle (persisted to localStorage)
 - `[data-theme="dark"]` attribute on `<html>`
 
-### Reduced Motion
+## Search
 
-Respects `prefers-reduced-motion` media query.
-
-## 🔍 Search
-
-Local search implementation using frontmatter + content indexing.
+Local search using frontmatter + content indexing.
 
 - Searches titles, summaries, and tags
-- Supports filtering by topic, type, and level
-- Keyboard navigation (⌘K to open, arrows to navigate)
+- Keyboard shortcut (Cmd+K) to open modal
 - Highlighting of matched terms
 
-## 📱 Responsive Design
+## i18n
 
-- Mobile-first CSS
-- Breakpoints: 640px, 768px, 1024px, 1280px
-- Collapsible navigation on mobile
-- Sticky mobile navigation button for article TOC
+Supports English and German via `next-intl`.
 
-## 🔐 SEO
-
-- Per-page metadata & Open Graph tags
-- Dynamic sitemap (`/sitemap.xml`)
-- Robots.txt (`/robots.txt`)
-- Semantic HTML structure
-- Clean, human-readable URLs
-
-## 🧪 Development
+## Development
 
 ```bash
-# Development server
-pnpm dev
-
-# Type checking
-pnpm type-check
-
-# Linting
-pnpm lint
-
-# Build for production
-pnpm build
-
-# Start production server
-pnpm start
+pnpm dev          # Development server
+pnpm build        # Production build
+pnpm type-check   # TypeScript checking
+pnpm lint         # ESLint
 ```
 
-## 🧪 Testing
-
-The project uses a comprehensive test suite with BDD-style E2E tests and unit tests.
+## Testing
 
 ### Test Stack
 
-- **E2E Tests**: [Playwright](https://playwright.dev/) with [Cucumber/Gherkin](https://cucumber.io/) via `playwright-bdd`
-- **Unit Tests**: [Vitest](https://vitest.dev/) with `@testing-library/react`
+- **E2E**: Playwright with Cucumber/Gherkin via `playwright-bdd`
+- **Unit**: Vitest
 
 ### Running Tests
 
 ```bash
-# Run all tests (unit + E2E)
-pnpm test
-
-# Run unit tests only
-pnpm test:unit
-
-# Run unit tests in watch mode
-pnpm test:unit:watch
-
-# Run E2E tests (headless) - Desktop + Mobile
-pnpm test:e2e
-
-# Run only Desktop tests
-pnpm exec playwright test --project=chromium
-
-# Run only Mobile tests
-pnpm exec playwright test --project=mobile
-
-# Run E2E tests with browser UI
-pnpm test:e2e:headed
-
-# Run E2E tests with Playwright UI
-pnpm test:e2e:ui
+pnpm test              # All tests
+pnpm test:unit         # Unit tests only
+pnpm test:e2e          # E2E tests (headless)
+pnpm test:e2e:headed   # E2E tests with browser UI
 ```
-
-### Test Projects
-
-| Project | Device | Viewport | Tests |
-|---------|--------|----------|-------|
-| `chromium` | Desktop Chrome | 1280×720 | All tests (46) |
-| `mobile` | Pixel 5 | 393×851 | Excluding `@desktop-only` (41) |
-
-Tests tagged with `@desktop-only` are skipped on mobile because they test features not visible on mobile (e.g., header navigation links).
-
-### Test Structure
-
-```
-tests/
-├── e2e/
-│   ├── features/           # Gherkin feature files
-│   │   ├── homepage.feature
-│   │   ├── navigation.feature
-│   │   ├── search.feature
-│   │   ├── search-results.feature
-│   │   ├── article.feature
-│   │   ├── topics.feature
-│   │   ├── sources.feature
-│   │   ├── language-switching.feature
-│   │   └── theme-toggle.feature
-│   ├── steps/              # Step definitions
-│   │   ├── common.steps.ts
-│   │   ├── homepage.steps.ts
-│   │   ├── navigation.steps.ts
-│   │   ├── search.steps.ts
-│   │   ├── search-results.steps.ts
-│   │   ├── article.steps.ts
-│   │   ├── topics.steps.ts
-│   │   ├── sources.steps.ts
-│   │   ├── language.steps.ts
-│   │   └── theme.steps.ts
-│   └── fixtures/           # Page objects
-│       └── pages.ts
-├── unit/
-│   ├── lib/
-│   │   ├── content.test.ts
-│   │   └── search.test.ts
-│   └── setup.ts
-├── playwright.config.ts
-└── vitest.config.ts
-```
-
-### Writing E2E Tests
-
-E2E tests use Gherkin syntax for human-readable scenarios:
-
-```gherkin
-Feature: Search
-  As a user I want to search for Bitcoin articles
-
-  Scenario: Hero search shows results
-    Given I am on the homepage
-    When I type "bitcoin" in the hero search field
-    Then I see search results in the dropdown
-    And the first result contains "Bitcoin"
-```
-
-### Test Tags
-
-Use tags to control which tests run on which devices:
-
-```gherkin
-# This test only runs on Desktop (chromium)
-@desktop-only
-Scenario: Header navigation is visible
-  Then I see the navigation links
-
-# This test runs on both Desktop and Mobile
-Scenario: Logo leads to homepage
-  When I click on the logo
-  Then I should be on the homepage
-```
-
-| Tag | Description |
-|-----|-------------|
-| `@desktop-only` | Skipped on mobile - tests desktop-specific features |
 
 ### Data-TestIDs
 
-All interactive components have `data-testid` attributes for reliable test selectors:
-
 | Component | Test IDs |
 |-----------|----------|
-| Hero Section | `hero-title`, `hero-search-input`, `hero-search-dropdown`, `hero-search-result-{index}` |
+| Homepage | `topics-grid`, `topic-card-{id}` |
 | Search Modal | `search-modal`, `search-modal-input`, `search-modal-close`, `search-result-{index}` |
-| Header | `header`, `header-logo`, `header-search-button`, `header-nav-topics`, `theme-toggle`, `language-toggle` |
+| Header | `header`, `header-logo`, `header-search-button`, `theme-toggle`, `language-toggle` |
 | Article | `article-title`, `article-content`, `article-toc`, `article-back-button` |
 | Topics | `topics-grid`, `topic-card-{id}`, `topic-title`, `topic-articles` |
-| Sources | `sources-page`, `sources-grid`, `sources-filters`, `sources-filter-{type}` |
 | Search Page | `search-page`, `search-page-input`, `search-results`, `search-page-result-{index}` |
 
-### CI/CD
+## License
 
-Tests run automatically on every push and pull request via GitHub Actions:
-
-1. **Lint & Type Check** - ESLint and TypeScript validation
-2. **Unit Tests** - Vitest unit test suite
-3. **E2E Tests** - Playwright browser tests
-4. **Build** - Production build verification
-
-## 📈 Next Steps
-
-### Content Repository
-
-Content (MDX articles, sources, config) is managed in a separate repository (`thereforbitcoin-content`).
-Set the `CONTENT_DIR` environment variable to point to the content directory.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read the contributing guidelines first.
-
-## 📄 License
-
-MIT License - see LICENSE file for details.
+MIT License
 
 ---
 
-Built with ❤️ for the Bitcoin community.
+Built with care for the Bitcoin community.
